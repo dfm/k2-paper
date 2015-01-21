@@ -11,8 +11,6 @@
 
 \pdfoutput=1
 
-\include{vc}
-
 \usepackage{color,hyperref}
 \definecolor{linkcolor}{rgb}{0,0,0.5}
 \hypersetup{colorlinks=true,linkcolor=linkcolor,citecolor=linkcolor,
@@ -26,6 +24,7 @@
 \newcommand{\KT}{\project{K2}}
 \newcommand{\terra}{\project{TERRA}}
 \newcommand{\license}{MIT License}
+\newcommand{\projectname}{\project{KETU}}
 
 \newcommand{\paper}{\textsl{Article}}
 
@@ -69,15 +68,19 @@
 \begin{document}
 
 \title{%
-    Transiting exoplanet search in the \KT\ light curves
+    \projectname:
+    A systematic search for transits in \KT\ data
 }
 
 \newcommand{\nyu}{2}
-\newcommand{\mpia}{3}
-\newcommand{\cds}{4}
-\newcommand{\mpis}{5}
+\newcommand{\caltech}{3}
+\newcommand{\cfa}{4}
+\newcommand{\mpia}{5}
+\newcommand{\cds}{6}
+\newcommand{\mpis}{7}
 \author{%
     Daniel~Foreman-Mackey\altaffilmark{1,\nyu},
+    Benjamin~T.~Montet\altaffilmark{\caltech,\cfa},
     David~W.~Hogg\altaffilmark{\nyu,\mpia,\cds},
     Bernhard~Sch\"olkopf\altaffilmark{\mpis},
     Dun~Wang\altaffilmark{\nyu},
@@ -88,6 +91,10 @@
 \altaffiltext{\nyu}      {Center for Cosmology and Particle Physics,
                           Department of Physics, New York University,
                           4 Washington Place, New York, NY, 10003, USA}
+\altaffiltext{\caltech}  {California Institute of Technology, Pasadena, CA,
+                          91125, USA}
+\altaffiltext{\cfa}      {Harvard-Smithsonian Center for Astrophysics,
+                          Cambridge, MA 02138, USA}
 \altaffiltext{\mpia}     {Max-Planck-Institut f\"ur Astronomie,
                           K\"onigstuhl 17, D-69117 Heidelberg, Germany}
 \altaffiltext{\cds}      {Center for Data Science,
