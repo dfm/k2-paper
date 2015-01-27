@@ -105,16 +105,21 @@
 
 \begin{abstract}
 
-The photometry from the \KT\ extension of NASA's \kepler\ mission is wrought
-with systematic effects due to the relative imprecision of the telescope
-pointing.
-We present a method for searching these light curves by simultaneously
-fitting for these systematics and the transit signals of interest.
+The photometry from the \KT\ extension of NASA's \kepler\ mission is
+afflicted by systematic effects caused by the relative imprecision of the
+telescope pointing, and possibly other spacecraft effects.
+We present a method for searching these light curves for evidence of
+exoplanets by simultaneously fitting for these systematics and the
+transit signals of interest.
 This method is more computationally expensive than standard search algorithms
 but we demonstrate that it can be efficiently implemented and used to
 discover transit signals in the existing dataset.
 We apply this method to the full Campaign 1 dataset and report a list of XXX
 planet candidates transiting YYY stars.
+We also present a list of probably astrophysical false positives, and
+the results of some follow-up spectroscopic data on a few of the
+planet candidates
+The most interesting systems are JJJ and HHH.
 
 \end{abstract}
 
@@ -162,7 +167,7 @@ because, as we describe in the next section, we simultaneously fit for the
 trends and the transit signals that we are searching for.
 
 One key realization that is also exploited by the official \kepler\ pipeline
-is that the systematic trends due to pointing shifts and other instrumental
+is that the systematic trends caused by pointing shifts and other instrumental
 effects are shared---with different signs and weights---by all the stars on
 the detector.
 To exploit this fact, the \project{PDC} component of the \kepler\ pipeline
@@ -197,7 +202,7 @@ of PCA components to contribute to the fit.
 
 Physically, the motivation for our model---and the PDC model---is that every
 star on the detector should be affected by same set of systematic effects.
-These are due to things like pointing jitter, temperature variations, and
+These are caused by things like pointing jitter, temperature variations, and
 other sources of PSF modulation and each one will be imprinted in the light
 curves of many stars with varying amplitudes and signs.
 Therefore, while it is hard to write down a physical generative model for the
