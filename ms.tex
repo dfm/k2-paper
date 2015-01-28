@@ -4,6 +4,7 @@
 %  * 80 characters
 %  * line breaks at the ends of sentences
 %  * eqnarrys ONLY
+%  * ``light curve'' not ``light-curve'' or ``lightcurve''
 %  * that is all.
 %
 
@@ -19,9 +20,10 @@
 \usepackage{amssymb,amsmath}
 \usepackage{subfigure}
 
-\newcommand{\project}[1]{\emph{#1}}
+\newcommand{\project}[1]{\textsl{#1}} % hogg say
 \newcommand{\kepler}{\project{Kepler}}
 \newcommand{\KT}{\project{K2}}
+\newcommand{\tess}{\project{TESS}}
 \newcommand{\terra}{\project{TERRA}}
 \newcommand{\license}{MIT License}
 \newcommand{\projectname}{\project{KETU}}
@@ -99,7 +101,7 @@
                           K\"onigstuhl 17, D-69117 Heidelberg, Germany}
 \altaffiltext{\cds}      {Center for Data Science,
                           New York University,
-                          4 Washington Place, New York, NY, 10003, USA}
+                          726 Broadway, 7th Floor, New York, NY, 10003, USA}
 \altaffiltext{\mpis}     {Max Planck Institute for Intelligent Systems
                           Spemannstrasse 38, 72076 T\"ubingen, Germany}
 
@@ -136,6 +138,78 @@ stars: statistics
 }
 
 \section{Introduction}
+
+The \kepler\ Mission (cite something) has been incredibly succesful at
+finding periodic transits (eclipses) in the light curves (time-series
+photometry) of stars.
+Many of its most important discoveries are long-period planets that
+make transits with tiny amplitudes and short durations.
+The Mission has demonstrated that it is possible to routinely measure
+signals in stellar light curves at the part-in-$10^5$ level, at least
+for quiet and apparently bright stars.
+
+At this level of precision, many effects come in to play in a stellar
+light curve.
+Even in a space observatory like the \kepler\ Satellite, there are
+hardware and optics variations that affect simple photometric
+measurements at a level greater than part-in-$10^5$.
+One of the most serious of these is spacecraft pointing:
+If the detector flat-field is not known \emph{exquisitely}, then the
+tiny changes to the relative illumination of pixels caused by a star's
+motion in the focal plane (or caused by motion of the focal-plane
+boresight or orientation relative to the celestial sphere) will lead
+to changes in the measured or inferred brightness of the star.
+That is, good photometry relies on either a near-perfect flat-field
+and pointing model, or else data-analysis techniques that are
+insensitive to such variations.
+In this \paper\ we present an example of the latter---a
+data-analysis technique for exoplanet search and characterization that
+is insensitive to spacecraft-induced (or, in general,
+hardware-induced) trends in the light curves.
+
+The \KT\ Mission (cite something) is a follow-on to the primary
+\kepler\ Mission.
+The primary mission came to an end with the failure of a critical
+reaction wheel, rendering the spacecraft less able to maintain precise
+pointing.
+Because of the degraded spacecraft orientation systems, the new
+\KT\ data will in general exhibit far greater pointing
+variations---and far greater pointing-induced variations in
+photometry---than the original \kepler\ data.
+This makes good data-analysis techniques all the more valuable.
+
+...simultaneous fitting of systematics and transit signals is a way of
+searching for (and measuring) exoplanet signals independent of the
+systematics, provided that the systematics lie in the domain of the
+model.
+
+...put in a warning here about \foreign{a priori} ``fit and subtract''
+or ``correction'' of light curves.  These methods are very sensitive
+to over-fitting in general, so either the investigator must
+artificially restrict the model freedom or else do clever
+data-censoring methods to avoid it (cite Dun AAS and in prep here).
+
+...DFM: DOES THIS METHOD MARGINALIZE OUT THE SYSTEMATICS?  (It could,
+right, because the mean and variance of the Gaussian likelihood are
+analytic (though maybe expensive).)  If we \emph{do} marginalize (or
+maybe either way), we need to emphasize here the difference between
+simultaneously \emph{estimating} the signal and the noise as opposed
+to simultaneously \emph{fitting} the signal and the noise and
+marginalization out of the latter.  Key idea: Don't come to a
+conclusion about (estimate) anything you don't care about, if you can
+possibly avoid it!
+
+...we are not the first to search the \KT\ data (cite Crossfield, etc),
+and we build on ideas from \kepler\ searches (cite Petigura and
+\kepler).
+
+...our goals are to find new exoplanets, to generate targets for
+ground-based and space-based (JWST, even) follow-up, and to understand
+the full population of exoplanets.  We (as a community) have made
+progress on all these fronts, but there is much more to do.
+
+...The future is \tess\ (cite something); everything we do here is
+highly relevant to that important mission!
 
 \section{Photometry}
 
