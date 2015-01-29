@@ -26,7 +26,7 @@
 \newcommand{\tess}{\project{TESS}}
 \newcommand{\terra}{\project{TERRA}}
 \newcommand{\license}{MIT License}
-\newcommand{\projectname}{\project{KETU}}
+\newcommand{\projectname}{\project{ketu}}
 
 \newcommand{\paper}{\textsl{Article}}
 
@@ -67,11 +67,23 @@
 \newcommand{\dfmtodo}[1]{\todo{DFM}{red}{#1}}
 \newcommand{\hoggtodo}[1]{\todo{HOGG}{blue}{#1}}
 
+% Notation for this paper.
+\newcommand{\flux}{{\ensuremath{f}}}
+\newcommand{\ferr}{{\ensuremath{\sigma_\flux}}}
+\newcommand{\attime}{{\ensuremath{t}}}
+\newcommand{\basis}{{\bvec{A}}}
+\newcommand{\weights}{{\bvec{w}}}
+
+\newcommand{\period}{{\ensuremath{P}}}
+\newcommand{\phase}{{\ensuremath{T^0}}}
+\newcommand{\duration}{{\ensuremath{D}}}
+\newcommand{\depth}{{\ensuremath{Z}}}
+\newcommand{\transittime}{{\ensuremath{T}}}
+
 \begin{document}
 
 \title{%
-    \projectname:
-    A systematic search for transits in \KT\ data
+    A systematic search for transiting planets using \KT
 }
 
 \newcommand{\nyu}{2}
@@ -299,18 +311,54 @@ given period and phase.
 \section{Search pipeline}
 
 In theory, search could proceed by evaluating the model described above on a
-fine grid three-dimensional grid in period, phase, and duration.
+fine three-dimensional grid in period, phase, and duration.
 In practice, this is computationally intractable for any grids of the
 required size.
 Instead, we can compute the values on this grid approximately, but at very
 high precision, using a two-step procedure that is much more computationally
 efficient.
-The first step, called the {\bf linear search}, involves hypothesizing a
-single transit on a two-dimensional grid in duration and transit time.
-The second step, the {\bf periodic search} uses a lookup table built on the
-results of the linear search to compute the likelihood for the periodic model.
-Finally, the peaks in the likelihood space are passed along for machine and
-hand vetting.
+
+The specific quantity that we will be searching is the likelihood for the
+light curve of star $n$ given a set of transit parameters:
+\begin{eqnarray}
+p(\{\flux\}_n\,|\,\period,\,\phase,\,\duration,\,\depth) \quad.
+\end{eqnarray}
+We will make the simplifying assumption that each transit is independent
+because it will be approximately satisfied for all but the shortest periods
+and it leads to a huge computational advantage.
+Under this assumption, this likelihood function can be rewritten as
+\begin{eqnarray}\eqlabel{indtran}
+p(\{\flux\}_n\,|\,\period,\,\phase,\,\duration,\,\depth) &\approx&
+\prod_{m=1}^{M(\period,\,\phase)}
+    p(\{\flux\}_n\,|\,\transittime_m(\period,\,\phase),\,\duration,\,
+                    \depth)
+\end{eqnarray}
+where $\transittime_m(\period,\,\phase)$ is the time of the $m$-th
+transit given the period $\period$ and reference time $\phase$.
+\Eq{indtran} can be efficiently computed for many periods and phases if we
+first compute a set of likelihood functions for single transits on a fine grid
+in $\transittime_l$
+\begin{eqnarray}\eqlabel{singletransit}
+\left \{ p(\{\flux\}_n\,|\,\transittime_l,\,\duration_k,\,\depth)
+\right\}_{l=1,\,k=1}^{L,\,K}
+\end{eqnarray}
+then use these results as a lookup table.
+
+In the remainder of this section, we give more details about each step of the
+search procedure but in summary, it breaks into three main steps: linear
+search, periodic search, and vetting.
+In the {\bf linear search} step, we evaluate the likelihood function in
+\eq{singletransit} on a two-dimensional grid, coarse in transit duration
+$\duration_k$ and fine in transit time $\transittime_m$.
+Then in the {\bf periodic search} step, we use this two-dimensional grid to
+approximately evaluate the likelihood (\eqalt{indtran}) for a
+three-dimensional grid of periodic signals.
+Then, we run a peak detection algorithm on this grid that discards peaks that
+share transits with a shorter period candidate and signals with substantially
+varying transit depths.
+These transit candidates are then passed along for machine and human {\bf
+vetting}.
+
 
 \paragraph{Linear search}
 
@@ -319,12 +367,53 @@ two-dimensional grid in transit time and duration.
 For each point in the grid, we use the model described in the previous
 section to evaluate \emph{the likelihood function} of the transit depth.
 Because the model is linear, the likelihood function for the depth
-(marginalized over the model of the systematics) is a Gaussian:
-\begin{eqnarray}
-\ln \mathcal{L} (d) &\propto& \mathcal{N} ()
-\end{eqnarray}
+(marginalized over the model of the systematics) is a Gaussian with
+analytic amplitude $L$, mean $\bar{\depth}$, and variance
+$\delta\bar{\depth}^2$ derived in \app{math}.
+Therefore in the linear search, we save these three numbers for a
+two-dimensional grid in transit time \transittime\ and duration \duration.
+The transit time grid spans the duration of Campaign 1 with half hour spacing
+and we choose to only test three durations: 1.2, 2.4, and 4.8 hours.
+\Fig{linear} shows the mean transit depth $\bar{\depth}$ as a function of
+transit time \transittime\ for a light curve with an injected transit signal
+with transits at the times indicated by the vertical green bars.
+The computational complexity of this step is $\mathcal{O}(M\,K^3)$ where $M$
+is the number of points in the grid and $K$ is the number of data points.
+
 
 \paragraph{Periodic search}
+
+In the period search step, we use the lookup table generated by the linear
+search to compute the likelihood from \eq{indtran} on a three dimensional
+grid in period \period, reference time \phase, and duration \duration.
+At each point, we compute the likelihood of a model where the transit depth
+varies between transits and the ``correct'' simpler model where the transit
+depth is constant.
+The variable depth likelihood is simply the product of amplitudes from the
+initial search
+\begin{eqnarray}
+p_\mathrm{var}(\{\flux\}_n\,|\,\period,\,\phase,\,\duration) &=&
+\prod_{m=1}^{M(\period,\,\phase)} L_m \quad,
+\end{eqnarray}
+and the constant depth model is
+\begin{eqnarray}
+p_\mathrm{const}(\{\flux\}_n\,|\,\period,\,\phase,\,\duration) &=&
+\prod_{m=1}^{M(\period,\,\phase)}
+    \frac{L_m}{\sqrt{2\,\pi\,{\delta\bar{\depth}_m}^2}}\,\exp \left(
+        -\frac{[\depth - \bar{\depth}_m]^2}{2\,{\delta\bar{\depth}_m}^2}
+    \right)
+\end{eqnarray}
+where the maximum likelihood depth is
+\begin{eqnarray}
+\depth &=& {\sigma_\depth}^2\,\sum_{m=1}^{M(\period,\,\phase)}
+    \frac{\bar{\depth}_m}{{\delta\bar{\depth}_m}^2}
+\end{eqnarray}
+and
+\begin{eqnarray}
+\frac{1}{{\sigma_\depth}^2} &=& \sum_{m=1}^{M(\period,\,\phase)}
+    \frac{1}{{\delta\bar{\depth}_m}^2} \quad.
+\end{eqnarray}
+
 
 \paragraph{Machine vetting}
 
@@ -451,7 +540,8 @@ $\mathcal{L}_k$ using \eq{depth-likelihood} at each point in the grid.
 \includegraphics{figures/pca.pdf}
 \end{center}
 \caption{%
-A CAPTION.
+The top 10 eigen light curves (ELCs) generated by running principal component
+analysis on all the aperture photometry from Campaign 1.
 \figlabel{pca}}
 \end{figure}
 
@@ -460,7 +550,13 @@ A CAPTION.
 \includegraphics{figures/corr.pdf}
 \end{center}
 \caption{%
-A CAPTION.
+A demonstration of the ELC fit to the aperture photometry for EPIC 201374602.
+\emph{Top:} The black points show the aperture photometry and the green line
+is the maximum likelihood linear combination of ELCs.
+The estimated 6-hour precision of the raw photometry is 264 ppm.
+\emph{Bottom:} The points show the residuals of the data away from the ELC
+prediction.
+The 6-hour precision of this light curve is 31 ppm.
 \figlabel{corr}}
 \end{figure}
 
@@ -469,7 +565,10 @@ A CAPTION.
 \includegraphics{figures/linear.pdf}
 \end{center}
 \caption{%
-A CAPTION.
+The estimated transit depth as a function of transit time as computed in a
+linear search.
+This light curve has an injected signal with transits at the times indicated
+with green vertical lines.
 \figlabel{linear}}
 \end{figure}
 
@@ -478,7 +577,9 @@ A CAPTION.
 \includegraphics{figures/periodic.pdf}
 \end{center}
 \caption{%
-A CAPTION.
+The periodogram for the same signal as in \fig{linear}.
+This plot was generated by the periodic search procedure.
+The true period is indicated by the vertical green line.
 \figlabel{periodic}}
 \end{figure}
 
@@ -487,7 +588,9 @@ A CAPTION.
 \includegraphics{figures/depth_s2n.pdf}
 \end{center}
 \caption{%
-A CAPTION.
+The signal-to-noise of the transit depth as a function of period for the same
+signal as in \fig{periodic}.
+The correct injected period is indicated by the vertical green line.
 \figlabel{depth-s2n}}
 \end{figure}
 
