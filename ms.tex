@@ -54,6 +54,8 @@
 \newcommand{\app}[1]{\App{#1}}
 \newcommand{\sectlabel}[1]{\label{sect:#1}}
 
+\newcommand{\BIC}{{\ensuremath{\mathrm{BIC}}}}
+\newcommand{\TIC}{{\ensuremath{\mathrm{TIC}}}}
 \newcommand{\T}{\ensuremath{\mathrm{T}}}
 \newcommand{\dd}{\ensuremath{\,\mathrm{d}}}
 \newcommand{\bvec}[1]{{\ensuremath{\boldsymbol{#1}}}}
@@ -408,14 +410,43 @@ where the maximum likelihood depth is
 \depth &=& {\sigma_\depth}^2\,\sum_{m=1}^{M(\period,\,\phase)}
     \frac{\bar{\depth}_m}{{\delta\bar{\depth}_m}^2}
 \end{eqnarray}
-and
+and the uncertainty on this depth is given by
 \begin{eqnarray}
 \frac{1}{{\sigma_\depth}^2} &=& \sum_{m=1}^{M(\period,\,\phase)}
     \frac{1}{{\delta\bar{\depth}_m}^2} \quad.
 \end{eqnarray}
 
+In general, the variable depth model will \emph{always} get a higher
+likelihood because it is more flexible.
+Therefore, to compare these two models, we use the Bayesian Information
+Criterion (BIC).
+The traditional definition of the BIC is
+\begin{eqnarray}
+-\frac{1}{2}\,\BIC_\cdot &=&
+    \ln p_\cdot(\{\flux\}_n\,|\,\period,\,\phase,\,\duration)
+    - \frac{J}{2} \ln N
+\end{eqnarray}
+where the likelihood function is maximized, $J$ is an estimate of the model
+complexity and $N$ is the effective sample size.
+To emphasize that $J$ and $N$ are tuning parameters of the method, we
+redefine the BIC as the TIC
+\begin{eqnarray}
+\TIC_\cdot &=&
+    \ln p_\cdot(\{\flux\}_n\,|\,\period,\,\phase,\,\duration) - \alpha
+\end{eqnarray}
+and we choose $\alpha$ heuristically.
+For the K2 Campaign 1 dataset, we find that $\alpha \sim 1250$ leads to robust
+recovery of injected signals while still being fairly insensitive to false
+signals.
+
+To limit memory consumption, in the periodic search, we actually profile (or
+maximize) over \phase\ subject to the constraint that $\TIC_\mathrm{const} >
+\TIC_\mathrm{var}$.
+
 
 \paragraph{Machine vetting}
+
+To generate an initial candidate list, we start by .
 
 \paragraph{Hand vetting}
 
