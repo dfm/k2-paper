@@ -471,11 +471,49 @@ that a more sophisticated method, or the human eye, can easily separate
 from true astrophysical signals.
 
 To this end, we (euphamism for look at by eye) each system to identify the
-most promising candidates.
+most promising, likely astrophysical signals.
 
-\paragraph{False positives}
+\paragraph{Astrophysical false positives}
 
+A major problem with any transit search is the potential confusion between
+transiting planets and eclipsing binaries.
+Ground-based surveys before \kepler\ often had a false-positive rate 
+of 30-40\%. (because of shit?)
+In the primary \kepler\ mission, this number was significantly lower:
+the false positive rate was only 5-10\% \citep{morton11}.
+Such improvement was enabled by the relatively small pixels, stable 
+pointing, and high precision of \kepler.
+In \kepler\ data, false positives can be reliably separated from 
+planet candidates by looking for differences in the position of the 
+centroid of light during transit events with respect to the 
+out-of-transit data (e.g. citation), variations in the depth of
+alternating transits (e.g. citation), and evidence for ellipsoidal
+variations between transits (e.g. citation).
 
+In \KT, we will not be able to rely on any of these techniques to
+characterize systems \textit{en masse}. 
+There are typically only a handful of transits, meaning differences
+between ``odd'' and ``even'' transits must be large to create
+a significant difference.
+Searching for ellipsoidal varaitions is hindered by the short time
+baseline and the increased photometric uncertainty in \KT\ data.
+Searching for centroid variations is also more difficult in \KT:
+to measure a centroid offset, one must know where the centroid is
+supposed to be.
+Predicting a centroid position is trivial with \kepler\ data due to the 
+remarkably stable pointing of the instrument. 
+With \KT\ this is only possible if one understands the pointing of the 
+spacecraft at a specific time.
+In theory, this is possible: the spacecraft is a rigid body, and by measuring
+the mean motion of stars across the detector over time, the 
+Euler angles can be inferred at all times.
+However, properly measuring positions of stars is a difficult problem:
+the centroid depends sensitively on the (unknown) flat field, which must
+be simultaneously inferred.
+Therefore, false positives caused by background eclipsing binaries which could
+be identified as such by \kepler\ data alone will be much more difficult to 
+distinguish in \KT\ data, making high-contrast adaptive optics images of 
+planet candidates an essential follow-up tool.
 
 
 
