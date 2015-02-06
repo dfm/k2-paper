@@ -586,12 +586,22 @@ be simultaneously inferred.
 While the traditional method to measure centroids is significantly more 
 challenging with \KT\ data, we have developed an alternative method
 to identify centroid offsets during transits in our data.
+In our data analysis, we model the systematics in the light curve
+caused by spacecraft motion, constrained by the ensemble of all stars in 
+the field of view.
+The same can be done with the positions of each star, instead of the flux, 
+as a function of time.
+In this case, for each candidate, we model the time series of centroid
+positions in each dimension as a linear combination of our PCA basis vectors
+plus a shift of unknown amplitude during transit events.
+Such a technique enables us to measure the centroid shift during transit and
+quantify an uncertainty of the size of this shift.
 
 
-Therefore, false positives caused by background eclipsing binaries which could
-be identified as such by \kepler\ data alone will be much more difficult to
-distinguish in \KT\ data, making high-contrast adaptive optics images of
-planet candidates an essential follow-up tool.
+%Therefore, false positives caused by background eclipsing binaries which could
+%be identified as such by \kepler\ data alone will be much more difficult to
+%distinguish in \KT\ data, making high-contrast adaptive optics images of
+%planet candidates an essential follow-up tool.
 
 
 \section{Performance}
