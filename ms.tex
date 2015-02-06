@@ -19,6 +19,7 @@
 \usepackage{url}
 \usepackage{amssymb,amsmath}
 \usepackage{subfigure}
+\usepackage{booktabs}
 
 \newcommand{\project}[1]{\textsl{#1}} % hogg say
 \newcommand{\kepler}{\project{Kepler}}
@@ -494,21 +495,21 @@ To generate an initial candidate list, we start by .
 There are many instrumental or astrophysical effects that can mimic a transit
 signal in time series photometry.
 For the primary \kepler\ mission, the noise induced by instrumental artifacts
-on transit timescales was significantly smaller than transit depths for 
+on transit timescales was significantly smaller than transit depths for
 all but the smallest planets.
 With \KT\ this is no longer the case.
 The motion of the instrument causes a drift in the pointing of approximately
-$1''$ per hour, causing variations in the flat field to dominate the 
+$1''$ per hour, causing variations in the flat field to dominate the
 photometric signal.
 
 As a result, artifacts in the data induced by pointing jitter can ...
 
-If the properties of the noise in the data can be fully understood and 
+If the properties of the noise in the data can be fully understood and
 modeled, such artifacts can be separated from true astrophysical events.
 Our model, however, makes no assumptions about the properties of the noise
 other than that it is correlated across many stars on the detector.
 Therefore, our model can occassionally be fooled by instrumental artifacts
-that a more sophisticated method, or the human eye, can easily separate 
+that a more sophisticated method, or the human eye, can easily separate
 from true astrophysical signals.
 
 To this end, we (euphamism for look at by eye) each system to identify the
@@ -518,21 +519,21 @@ most promising, likely astrophysical signals.
 
 A major problem with any transit search is the potential confusion between
 transiting planets and eclipsing binaries.
-Ground-based surveys before \kepler\ often had a false-positive rate 
+Ground-based surveys before \kepler\ often had a false-positive rate
 of 30-40\%. (because of shit?)
 In the primary \kepler\ mission, this number was significantly lower:
 the false positive rate was only 5-10\% \citep{morton11}.
-Such improvement was enabled by the relatively small pixels, stable 
+Such improvement was enabled by the relatively small pixels, stable
 pointing, and high precision of \kepler.
-In \kepler\ data, false positives can be reliably separated from 
-planet candidates by looking for differences in the position of the 
-centroid of light during transit events with respect to the 
+In \kepler\ data, false positives can be reliably separated from
+planet candidates by looking for differences in the position of the
+centroid of light during transit events with respect to the
 out-of-transit data (e.g. citation), variations in the depth of
 alternating transits (e.g. citation), and evidence for ellipsoidal
 variations between transits (e.g. citation).
 
 In \KT, we will not be able to rely on any of these techniques to
-characterize systems \textit{en masse}. 
+characterize systems \textit{en masse}.
 There are typically only a handful of transits, meaning differences
 between ``odd'' and ``even'' transits must be large to create
 a significant difference.
@@ -541,25 +542,54 @@ baseline and the increased photometric uncertainty in \KT\ data.
 Searching for centroid variations is also more difficult in \KT:
 to measure a centroid offset, one must know where the centroid is
 supposed to be.
-Predicting a centroid position is trivial with \kepler\ data due to the 
-remarkably stable pointing of the instrument. 
-With \KT\ this is only possible if one understands the pointing of the 
+Predicting a centroid position is trivial with \kepler\ data due to the
+remarkably stable pointing of the instrument.
+With \KT\ this is only possible if one understands the pointing of the
 spacecraft at a specific time.
 In theory, this is possible: the spacecraft is a rigid body, and by measuring
-the mean motion of stars across the detector over time, the 
+the mean motion of stars across the detector over time, the
 Euler angles can be inferred at all times.
 However, properly measuring positions of stars is a difficult problem:
 the centroid depends sensitively on the (unknown) flat field, which must
 be simultaneously inferred.
 Therefore, false positives caused by background eclipsing binaries which could
-be identified as such by \kepler\ data alone will be much more difficult to 
-distinguish in \KT\ data, making high-contrast adaptive optics images of 
+be identified as such by \kepler\ data alone will be much more difficult to
+distinguish in \KT\ data, making high-contrast adaptive optics images of
 planet candidates an essential follow-up tool.
 
+
+\section{Performance}
+
+To test the performance of our method, we conducted a suite of XXXX injection
+and recovery tests.
+For each test, we inject the signal from a realistic planetary system into the
+raw aperture photometry and passed it through the full pipeline.
+These synthetic systems have periods and radius ratios drawn uniformly in
+\dfmtodo{some range} and uniformly distributed impact parameters and phases.
+The eccentricities are drawn from a beta distribution with \dfmtodo{some
+parameters; cite Kipping} and the multiplicity is set to match the observed
+multiplicity distribution in the KOI catalog \dfmtodo{cite}.
+MA limb darkening, exposure time integration, etc.
+
+After running these light curves with injections through the full pipeline, if
+the resulting period and phase of the recovered signal were within YYYY of the
+true injected values, we deemed the injection a success.
+Figure ZZZZ shows the fraction of recovered signals as a function of the
+physical parameters of the injection and the magnitude of the star.
+As expected, the shallower transits at longer periods are recovered less
+robustly.
 
 
 
 \section{Results}
+
+
+
+\subsection{Planet candidates}
+
+
+
+\subsection{Probable binaries}
 
 
 
@@ -569,20 +599,20 @@ planet candidates an essential follow-up tool.
 \paragraph{Maybe this goes in results}
 
 We include posterior distributions of planet candidate properties, available at
-\dfmtodo{thisurl}. 
-These distributions are specifically \emph{NOT} marginalized over stellar 
+\dfmtodo{thisurl}.
+These distributions are specifically \emph{NOT} marginalized over stellar
 properties.
 In this work, we are agnostic about fundamental properties of the host star.
-In fact, the only assumptions we make are that the star targeted by the \KT\ 
+In fact, the only assumptions we make are that the star targeted by the \KT\
 team is truly the planet host, and that there is no dilution by other stars in
-any aperture. 
-As a result, these posterior distributions reflect the maximum possible 
-uncertainty in parameters such as the planet radius which depend sensitively 
+any aperture.
+As a result, these posterior distributions reflect the maximum possible
+uncertainty in parameters such as the planet radius which depend sensitively
 on properties of the host star.
 
 To use these distributions to characterize the properties of specific systems,
-one should weight our samples by inferred stellar properties. 
- 
+one should weight our samples by inferred stellar properties.
+
 
 
 
@@ -592,7 +622,7 @@ It is a pleasure to thank
 for helpful contributions to the ideas and code presented here.
 This project was partially supported by the NSF (grant AST-0908357), NASA
 (grant NNX08AJ48G), and the Moore--Sloan Data Science Environment at NYU.
-B.T.M. is supported by the National Science Foundation Graduate Research 
+B.T.M. is supported by the National Science Foundation Graduate Research
 Fellowship under Grant No. DGE‐1144469.
 This research made use of the NASA \project{Astrophysics Data System}.
 
@@ -757,5 +787,32 @@ signal as in \fig{periodic}.
 The correct injected period is indicated by the vertical green line.
 \figlabel{depth-s2n}}
 \end{figure}
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics[width=\textwidth]{figures/completeness.pdf}
+\end{center}
+\caption{%
+\figlabel{completeness}}
+\end{figure}
+
+\begin{table}[p]
+\begin{center}
+\small
+\include{tab-cand}
+\end{center}
+\caption{%
+Candidates
+\tablabel{cand}}
+\end{table}
+
+\begin{table}[p]
+\begin{center}
+\include{tab-eb}
+\end{center}
+\caption{%
+Probable binaries.
+\tablabel{eb}}
+\end{table}
 
 \end{document}
