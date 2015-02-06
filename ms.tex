@@ -154,45 +154,59 @@ stars: statistics
 
 \section{Introduction}
 
+
+
 The \kepler\ Mission (cite something) has been incredibly succesful at
 finding periodic transits (eclipses) in the light curves (time-series
-photometry) of stars.
-Many of its most important discoveries are long-period planets that
-make transits with tiny amplitudes and short durations relative to the
-planet's orbital period.
+photometry) of stars (cite something).
 The Mission has demonstrated that it is possible to routinely measure
-signals in stellar light curves at the part-in-$10^5$ level, at least
-for quiet and apparently bright stars.
+signals in stellar light curves at the part-in-$10^5$ level.
+Results from the primary mission include the detection of planet
+transits with depths as small as (XX) parts per million (cite Barclay).
 
-At this level of precision, many effects come in to play in a stellar
-light curve.
-Even in a space observatory like the \kepler\ Satellite, there are
-hardware and optics variations that affect simple photometric
-measurements at a level greater than part-in-$10^5$.
+The noise floor for \kepler\ data is often quoted as 15 parts per million per
+six hours of observations (cite someone- Gilliland 11?). 
+Although they generally do not influence the ability to search for transiting
+planets, larger systematic (noise shits) exist on different timescales. 
 One of the most serious of these is spacecraft pointing:
-If the detector flat-field is not known \emph{exquisitely}, then the
+If the detector flat-field is not known \emph{exquisitely}, then
 tiny changes to the relative illumination of pixels caused by a star's
 motion in the focal plane (or caused by motion of the focal-plane
 boresight or orientation relative to the celestial sphere) will lead
 to changes in the measured or inferred brightness of the star.
-That is, good photometry relies on either a near-perfect flat-field
-and pointing model, or else data-analysis techniques that are
+
+The pointing of \kepler\ was stable at the (LEVEL) level (citation) throughout
+the primary mission. 
+This primary mission came to an end with the failure of a critical
+reaction wheel, rendering the spacecraft less able to maintain precise
+pointing.
+The \KT\ Mission (cite something-Howell 14) is a follow-on to the primary
+\kepler\ Mission, observing approximately a dozen fields near the ecliptic
+plane, each for 75 days at a time.
+Because of the degraded spacecraft orientation systems, the new
+\KT\ data will in general exhibit far greater pointing
+variations---and far greater pointing-induced variations in
+photometry---than the original \kepler\ data.
+This makes good data-analysis techniques extremely valuable.
+
+Good photometry relies on either a near-perfect flat-field
+and pointing model or data-analysis techniques that are
 insensitive to such variations.
+The flat-field for \kepler\ was measured on the ground before the launch of 
+the spacecraft, but (blah blah it sucks for describing the FF now).
+Inference of the flat field is challenging because of the nature of the
+spacecraft's observations: point sources are observed with relatively limited
+spacecraft motion, and only a few percent of the data are actually stored and
+downloaded to Earth.
+Therefore, much of the effort in \KT\ 
+
 In this \paper\ we present an example of the latter---a
 data-analysis technique for exoplanet search and characterization that
 is insensitive to spacecraft-induced (or, in general,
 hardware-induced) trends in the light curves.
 
-The \KT\ Mission (cite something-Howell 14) is a follow-on to the primary
-\kepler\ Mission.
-The primary mission came to an end with the failure of a critical
-reaction wheel, rendering the spacecraft less able to maintain precise
-pointing.
-Because of the degraded spacecraft orientation systems, the new
-\KT\ data will in general exhibit far greater pointing
-variations---and far greater pointing-induced variations in
-photometry---than the original \kepler\ data.
-This makes good data-analysis techniques all the more valuable.
+
+
 
 ...simultaneous fitting of systematics and transit signals is a way of
 searching for (and measuring) exoplanet signals independent of the
