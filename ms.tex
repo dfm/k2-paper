@@ -565,11 +565,15 @@ between ``odd'' and ``even'' transits must be large to create
 a significant difference.
 Searching for ellipsoidal varaitions is hindered by the short time
 baseline and the increased photometric uncertainty in \KT\ data.
-Searching for centroid variations is also more difficult in \KT:
+Centroid variations are feasible in \KT\ but must be treated differently
+than in the original \kepler\ mission.
+In that data, centroid positions are measured for the data during and out of
+transit by coadding all the relevant frames in each quarter. 
+Such a technique is feasible due to the remarkably stable pointing of the
+instrument.
+Searching for centroid variations with this method is more difficult in \KT:
 to measure a centroid offset, one must know where the centroid is
 supposed to be.
-Predicting a centroid position is trivial with \kepler\ data due to the
-remarkably stable pointing of the instrument.
 With \KT\ this is only possible if one understands the pointing of the
 spacecraft at a specific time.
 In theory, this is possible: the spacecraft is a rigid body, and by measuring
@@ -578,6 +582,12 @@ Euler angles can be inferred at all times.
 However, properly measuring positions of stars is a difficult problem:
 the centroid depends sensitively on the (unknown) flat field, which must
 be simultaneously inferred.
+
+While the traditional method to measure centroids is significantly more 
+challenging with \KT\ data, we have developed an alternative method
+to identify centroid offsets during transits in our data.
+
+
 Therefore, false positives caused by background eclipsing binaries which could
 be identified as such by \kepler\ data alone will be much more difficult to
 distinguish in \KT\ data, making high-contrast adaptive optics images of
