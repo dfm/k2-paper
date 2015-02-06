@@ -583,14 +583,30 @@ robustly.
 
 \section{Results}
 
+After running the 21XXX light curves through our full pipeline, we end up
+with XXXX TCEs \dfmtodo{change this name} and after hand vetting, we are left
+with YYYY convincing transiting candidates.
+Of these candidates, ZZZ are probable binaries with obviously visible
+secondary eclipses and we list these candidates in Table \dfmtodo{SOMETABLE}.
+This leaves WWW planet candidates that are listed in Table
+\dfmtodo{SOMETABLE}.
 
+\paragraph{Posterior constraints on physical parameters}
 
-\subsection{Planet candidates}
-
-
-
-\subsection{Probable binaries}
-
+To fit for the observable parameters of the transit signals in detail, we use
+the same linear model for the systematics but then we combine this with a
+physical transit model (M\&A, etc.).
+Since this transit model is no longer linear, we use Markov Chain Monte Carlo
+(MCMC; cite emcee) to draw posterior samples from this model.
+At each step in the chain, we \emph{marginalize over the model of the
+systematics}.
+This means that we don't de-trend the data or make any hard decision about
+the actual value of the systematics.
+We sample the stellar density, limb-darkening coefficients, period, phase,
+radius ratio, impact parameter, eccentricity, and argument of periapsis.
+\dfmtodo{List priors.}
+The quantiles of these posterior samplings are given in table \dfmtodo{some
+table} and the full chains are available electronically \dfmtodo{some URL}.
 
 
 \section{Discussion}
