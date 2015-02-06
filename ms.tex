@@ -165,9 +165,9 @@ Results from the primary mission include the detection of planet
 transits with depths as small as (XX) parts per million (cite Barclay).
 
 The noise floor for \kepler\ data is often quoted as 15 parts per million per
-six hours of observations (cite someone- Gilliland 11?). 
+six hours of observations (cite someone- Gilliland 11?).
 Although they generally do not influence the ability to search for transiting
-planets, larger systematic (noise shits) exist on different timescales. 
+planets, larger systematic (noise shits) exist on different timescales.
 One of the most serious of these is spacecraft pointing:
 If the detector flat-field is not known \emph{exquisitely}, then
 tiny changes to the relative illumination of pixels caused by a star's
@@ -176,7 +176,7 @@ boresight or orientation relative to the celestial sphere) will lead
 to changes in the measured or inferred brightness of the star.
 
 The pointing of \kepler\ was stable at the (LEVEL) level (citation) throughout
-the primary mission. 
+the primary mission.
 This primary mission came to an end with the failure of a critical
 reaction wheel, rendering the spacecraft less able to maintain precise
 pointing.
@@ -192,7 +192,7 @@ This makes good data-analysis techniques extremely valuable.
 Good photometry relies on either a near-perfect flat-field
 and pointing model or data-analysis techniques that are
 insensitive to such variations.
-The flat-field for \kepler\ was measured on the ground before the launch of 
+The flat-field for \kepler\ was measured on the ground before the launch of
 the spacecraft, but (blah blah it sucks for describing the FF now).
 Inference of the flat field is challenging because of the nature of the
 spacecraft's observations: point sources are observed with relatively limited
@@ -200,34 +200,34 @@ spacecraft motion, and only a few percent of the data are actually stored and
 downloaded to Earth.
 Therefore, much of the effort in \KT\ is focused on the potential of the latter.
 
-Previous studies have developed methods to work with \KT\ data. 
+Previous studies have developed methods to work with \KT\ data.
 \citet{vanderburg-a} extract aperture photometry from the pixel data
 and decorrelate with image centroid position, producing light curves for each
-star that are ``corrected'' for the spacecraft motion. 
-These data have produced the first confirmed planet found with 
-\KT\ \citep{vanderburg-b}. 
+star that are ``corrected'' for the spacecraft motion.
+These data have produced the first confirmed planet found with
+\KT\ \citep{vanderburg-b}.
 \citet{crossfield} iteratively construct a robust Gaussian Process
 model for the photometry as a function of the measured centroids and de-trend
 using the mean prediction from that model.
 
-In both of these cases, the authors follow a standard procedure when working 
+In both of these cases, the authors follow a standard procedure when working
 with \kepler\ data: ``correcting'' the light curve as a step before the search
 for transiting planets.
 Light curves from the primary \kepler\ mission are typically de-trended to
-remove the effects of stellar variability before searching for transiting 
-planets. 
+remove the effects of stellar variability before searching for transiting
+planets.
 With \KT, the authors of each of these papers fit and subtract their measured
 effects from the spacecraft pointing variations and stellar variability.
 Such a technique can be extremely dangerous.
-Small signals, such as planet transits, can be partially absorbed into the 
-assumed-stellar signals, making each individual transit event appear 
+Small signals, such as planet transits, can be partially absorbed into the
+assumed-stellar signals, making each individual transit event appear
 shallower.
 Small planets that should appear just above a specific signal-to-noise
 threshold could then be missed because of the de-trending.
 
 The alternative to this approach is to simultaneously fit both the systematics
-and the transit signals. 
-This method enables us to search for and measure exoplanet signals 
+and the transit signals.
+This method enables us to search for and measure exoplanet signals
 independently of an estimate of the systematics, provided that the systematics
 lie in the domain of the model.
 The likelihood of the simultaneous fit of the systematics and transit signals
@@ -601,7 +601,7 @@ MA limb darkening, exposure time integration, etc.
 After running these light curves with injections through the full pipeline, if
 the resulting period and phase of the recovered signal were within YYYY of the
 true injected values, we deemed the injection a success.
-Figure ZZZZ shows the fraction of recovered signals as a function of the
+\Fig{completeness} shows the fraction of recovered signals as a function of the
 physical parameters of the injection and the magnitude of the star.
 As expected, the shallower transits at longer periods are recovered less
 robustly.
@@ -610,14 +610,30 @@ robustly.
 
 \section{Results}
 
+After running the 21XXX light curves through our full pipeline, we end up
+with XXXX TCEs \dfmtodo{change this name} and after hand vetting, we are left
+with YYYY convincing transiting candidates.
+Of these candidates, ZZZ are probable binaries with obviously visible
+secondary eclipses and we list these candidates in Table \dfmtodo{SOMETABLE}.
+This leaves WWW planet candidates that are listed in Table
+\dfmtodo{SOMETABLE}.
 
+\paragraph{Posterior constraints on physical parameters}
 
-\subsection{Planet candidates}
-
-
-
-\subsection{Probable binaries}
-
+To fit for the observable parameters of the transit signals in detail, we use
+the same linear model for the systematics but then we combine this with a
+physical transit model (M\&A, etc.).
+Since this transit model is no longer linear, we use Markov Chain Monte Carlo
+(MCMC; cite emcee) to draw posterior samples from this model.
+At each step in the chain, we \emph{marginalize over the model of the
+systematics}.
+This means that we don't de-trend the data or make any hard decision about
+the actual value of the systematics.
+We sample the stellar density, limb-darkening coefficients, period, phase,
+radius ratio, impact parameter, eccentricity, and argument of periapsis.
+\dfmtodo{List priors.}
+The quantiles of these posterior samplings are given in table \dfmtodo{some
+table} and the full chains are available electronically \dfmtodo{some URL}.
 
 
 \section{Discussion}
