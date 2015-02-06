@@ -197,9 +197,43 @@ Inference of the flat field is challenging because of the nature of the
 spacecraft's observations: point sources are observed with relatively limited
 spacecraft motion, and only a few percent of the data are actually stored and
 downloaded to Earth.
-Therefore, much of the effort in \KT\ 
+Therefore, much of the effort in \KT\ is focused on the potential of the latter.
 
-In this \paper\ we present an example of the latter---a
+Previous studies have developed methods to work with \KT\ data. 
+\citet{vanderburg-a} extract aperture photometry from the pixel data
+and decorrelate with image centroid position, producing light curves for each
+star that are ``corrected'' for the spacecraft motion. 
+These data have produced the first confirmed planet found with 
+\KT\ \citep{vanderburg-b}. 
+\citet{crossfield} iteratively construct a robust Gaussian Process
+model for the photometry as a function of the measured centroids and de-trend
+using the mean prediction from that model.
+
+In both of these cases, the authors follow a standard procedure when working 
+with \kepler\ data: ``correcting'' the light curve as a step before the search
+for transiting planets.
+Light curves from the primary \kepler\ mission are typically de-trended to
+remove the effects of stellar variability before searching for transiting 
+planets. 
+With \KT, the authors of each of these papers fit and subtract their measured
+effects from the spacecraft pointing variations and stellar variability.
+Such a technique can be extremely dangerous.
+Small signals, such as planet transits, can be partially absorbed into the 
+assumed-stellar signals, making each individual transit event appear 
+shallower.
+Small planets that should appear just above a specific signal-to-noise
+threshold could then be missed because of the de-trending.
+
+The alternative to this approach is to simultaneously fit both the systematics
+and the transit signals. 
+This method enables us to search for and measure exoplanet signals 
+independently of an estimate of the systematics, provided that the systematics
+lie in the domain of the model.
+The likelihood of the simultaneous fit of the systematics and transit signals
+to the data can then be compared to the likelihood of the fit of the systematics
+alone, reducing exoplanet ``search'' to a simple model comparison problem.
+
+In this \paper\ we present a
 data-analysis technique for exoplanet search and characterization that
 is insensitive to spacecraft-induced (or, in general,
 hardware-induced) trends in the light curves.
@@ -207,16 +241,7 @@ hardware-induced) trends in the light curves.
 
 
 
-...simultaneous fitting of systematics and transit signals is a way of
-searching for (and measuring) exoplanet signals independent of the
-systematics, provided that the systematics lie in the domain of the
-model.
-
-...put in a warning here about \foreign{a priori} ``fit and subtract''
-or ``correction'' of light curves.  These methods are very sensitive
-to over-fitting in general, so either the investigator must
-artificially restrict the model freedom or else do clever
-data-censoring methods to avoid it (cite Dun AAS and in prep here).
+(cite Dun AAS and in prep here).
 
 ...DFM: DOES THIS METHOD MARGINALIZE OUT THE SYSTEMATICS?  (It could,
 right, because the mean and variance of the Gaussian likelihood are
