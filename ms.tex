@@ -133,7 +133,7 @@ but we demonstrate that it can be efficiently implemented and used to
 discover transit signals in the existing dataset.
 We apply this method to the full Campaign 1 dataset and report a list of XXX
 planet candidates transiting YYY stars.
-For all planet candidates, we present posterior distributions on the 
+For all planet candidates, we present posterior distributions on the
 properties of each system based strictly on the transit observables.
 We also present a list of ZZZ candidate eclipsing binary systems.
 
@@ -238,38 +238,38 @@ In this \paper\ we present a
 data-analysis technique for exoplanet search and characterization that
 is insensitive to spacecraft-induced (or, in general,
 hardware-induced) trends in the light curves.
-We assume the trends in the observed light curves in each star due to 
+We assume the trends in the observed light curves in each star due to
 spacecraft motion are shared by each star, and run PCA to measure the dominant
 modes.
 We then search for planets by modeling the data as a linear combination of
 these basis vectors and a transit model.
-Such a technique builds on the ideas of previous PCA-based \kepler\ planet 
+Such a technique builds on the ideas of previous PCA-based \kepler\ planet
 searches, such as those of (cite-Petigura).
 
-The methods developed within this paper are highly relevant to the upcoming 
-\tess\ mission (Cite-Ricker 14). 
-\tess will feature pointing precision of \sim 3 arcseconds (cite), 
+The methods developed within this paper are highly relevant to the upcoming
+\tess\ mission (Cite-Ricker 14).
+\tess will feature pointing precision of $\sim 3$ arcseconds (cite),
 similar to the level of pointing drift with \KT.
 Moreover, the typical star will be only observed for one month at a time, and
 the typical transit detection will be at a similar signal-to-noise ratio as
 with \KT.
 
-Catalogs of transiting planets found by \KT\ will be important to better 
-understand the formation and evolution of planetary systems. 
+Catalogs of transiting planets found by \KT\ will be important to better
+understand the formation and evolution of planetary systems.
 These planets, especially when they orbit especially bright or late-type stars,
-will be useful targets for ground-based and space-based follow-up, both for 
+will be useful targets for ground-based and space-based follow-up, both for
 current facilities and those planned in the near-future such as JWST.
 
-The \paper\ is organized as follows. 
-In \textsection\ref{sec:phot}, we describe our analysis of the photometric 
+The \paper\ is organized as follows.
+In \textsection\ref{sec:phot}, we describe our analysis of the photometric
 data collected by \KT.
-In \textsection\ref{sec:model}, we expain our simultaneous fit of the 
+In \textsection\ref{sec:model}, we expain our simultaneous fit of the
 systematics and transit model.
-In \textsection\ref{sec:search}, we describe our search pipeline for 
+In \textsection\ref{sec:search}, we describe our search pipeline for
 planet candidates.
-In \textsection\ref{sec:perform}, we quantify the performace of our pipeline 
+In \textsection\ref{sec:perform}, we quantify the performace of our pipeline
 through the analysis of injected planetary signals.
-In \textsection\ref{sec:K2OIs}, we present the results of our search: 
+In \textsection\ref{sec:K2OIs}, we present the results of our search:
 catalogs of \KT\ planet candidates and eclipsing binaries.
 In \textsection\ref{sec:discuss}, we discuss our results and outline our
 future work.
@@ -296,20 +296,17 @@ The starting point for analysis is the raw pixel data.
 We download the full set of XXX target pixel files for \KT's Campaign 1 from
 MAST\footnote{\url{https://archive.stsci.edu/k2/}}.
 Then, we extract photometry using fixed circular apertures of varying sizes
-centered on the mean position of the brightest star (on average) in each
-frame.
-The centroids and initial flux estimates were measured using
-\project{simplexy}, a component of the \project{Astrometry.net} pipeline
-\citep{astrometry}.
-For each time series, we used 20 circular apertures ranging in radius from 0.5
-to 10 pixels and---following \citet{vanderberg-a}---chose the aperture size
-that resulted in the smallest CDPP \dfmtodo{CITE CDPP-Jessie Christiansen,
-Jon Jenkins, et al 2012} with a 6 hour
-window.\footnote{Note that although we chose a specific aperture, photometry
-for every aperture size is available online at \dfmtodo{some URL}.}
+centered on the predicted location of the target star based on the world
+coordinate system.
+For each time series, we used circular apertures ranging in radius from 0.5 to
+5 pixels (in steps of 0.5 pixels) and---following \citet{vanderberg-a}---chose
+the aperture size that resulted in the smallest CDPP \dfmtodo{CITE CDPP-Jessie
+Christiansen, Jon Jenkins, et al 2012} with a 6 hour window.\footnote{Note
+that although we chose a specific aperture, photometry for every aperture size
+is available online at \dfmtodo{some URL}.}
 
 Most methods for analyzing \KT\ data---and \kepler\ data, for that
-matter---involves some sort of pre-processing or ``de-trending'' step.
+matter---involve some sort of pre-processing or ``de-trending'' step.
 For example, \citet{vanderberg-a} measure the centroid motion for each star
 and regress out any signal in their aperture photometry that can be fit by
 this motion.
@@ -324,14 +321,13 @@ One key realization that is also exploited by the official \kepler\ pipeline
 is that the systematic trends caused by pointing shifts and other instrumental
 effects are shared---with different signs and weights---by all the stars on
 the detector.
-To exploit this fact, the \project{PDC} component of the \kepler\ pipeline
+To make use of this, the \project{PDC} component of the \kepler\ pipeline
 removes any trends from the light curves that can be fit using a linear
 combination of a small number of ``eigen-light curves'' (ELCs) found by
 running Principal Component Analysis (PCA) on a set of light curves
 \citep{map-pdc1, map-pdc2}.
-Similarly, we ran PCA (as implemented by the \project{scikit-learn} project
-\citealt{sklearn}) on the full set of Campaign 1 light curves to determine a
-basis of representative ELCs.
+Similarly, we ran PCA on the full set of Campaign 1 light curves to determine
+a basis of representative ELCs.
 We chose to use the top 150 components---many more than are normally
 used---for our model described in the following section.
 \Fig{pca} shows the top few ELCs.
