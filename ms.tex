@@ -5,6 +5,7 @@
 %  * line breaks at the ends of sentences
 %  * eqnarrys ONLY
 %  * ``light curve'' not ``light-curve'' or ``lightcurve''
+%  * Do not put in any comments that might get tweeted by @OverheardOnAph
 %  * that is all.
 %
 
@@ -156,8 +157,6 @@ stars: statistics
 
 \section{Introduction}
 
-
-
 The \kepler\ Mission (cite something) has been incredibly succesful at
 finding periodic transits (eclipses) in the light curves (time-series
 photometry) of stars (cite something).
@@ -189,20 +188,23 @@ Because of the degraded spacecraft orientation systems, the new
 \KT\ data will in general exhibit far greater pointing
 variations---and far greater pointing-induced variations in
 photometry---than the original \kepler\ data.
-This makes good data-analysis techniques extremely valuable.
+This makes good data-analysis techniques even more valuable.
 
 Good photometry relies on either a near-perfect flat-field
-and pointing model or data-analysis techniques that are
+and pointing model or else data-analysis techniques that are
 insensitive to such variations.
 The flat-field for \kepler\ was measured on the ground before the launch of
-the spacecraft, but (blah blah it sucks for describing the FF now).
-Inference of the flat field is challenging because of the nature of the
-spacecraft's observations: point sources are observed with relatively limited
+the spacecraft, but is not nearly as accurate as required to make
+pointing-insensitive photometric measurements at the relevant level of precision.
+In principle direct inference of the flat-field might be possible;
+however, because point sources are observed with relatively limited
 spacecraft motion, and only a few percent of the data are actually stored and
-downloaded to Earth.
-Therefore, much of the effort in \KT\ is focused on the potential of the latter.
+downloaded to Earth, there isn't enough information in the data to derive or
+infer a highly accurate flat-field map.
+Therefore, work on \KT\ is sensibly focused on building data-analysis
+techniques that are pointing-insensitive.
 
-Previous studies have developed methods to work with \KT\ data.
+Previous projects have developed methods to work with \KT\ data.
 \citet{Vanderburg:2014} extract aperture photometry from the pixel data
 and decorrelate with image centroid position, producing light curves for each
 star that are ``corrected'' for the spacecraft motion.
@@ -211,31 +213,45 @@ These data have produced the first confirmed planet found with
 \citet{Crossfield:2015} iteratively construct a robust Gaussian Process
 model for the photometry as a function of the measured centroids and de-trend
 using the mean prediction from that model.
+DFM HERE IS WHERE WE (cite Dun AAS and in prep).
 
-In both of these cases, the authors follow a standard procedure when working
-with \kepler\ data: ``correcting'' the light curve as a step before the search
-for transiting planets.
+In these light-curve processing methodologies,
+the authors follow a traditional procedure of ``correcting'' the light curve
+as a step that happens \emph{before} the search for transiting planets.
 Light curves from the primary \kepler\ mission are typically de-trended to
 remove the effects of stellar variability before searching for transiting
 planets.
-With \KT, the authors of each of these papers fit and subtract their measured
+With \KT, application of the traditional methods involves fitting and subtracting measured
 effects from the spacecraft pointing variations and stellar variability.
-Such a technique can be extremely dangerous.
+Fit-and-subtract is dangerous:
 Small signals, such as planet transits, can be partially absorbed into the
-assumed-stellar signals, making each individual transit event appear
-shallower.
-Small planets that should appear just above a specific signal-to-noise
-threshold could then be missed because of the de-trending.
+best-fit stellar variability or systematics models, making each individual transit event appear
+shallower; that is, the traditional methods are prone to over-fitting.
+Because over-fitting will in general reduce the amplitude of true exoplanet signals,
+small planets that ought to appear just above any specific signal-to-noise
+or depth
+threshold could be missed because of the de-trending.
 
 The alternative to this approach is to simultaneously fit both the systematics
 and the transit signals.
-This method enables us to search for and measure exoplanet signals
-independently of an estimate of the systematics, provided that the systematics
-lie in the domain of the model.
+Simultaneous fitting enables a search for---and measurement of---exoplanet signals
+to deliver results that are 
+independent of any implied estimate of the systematics, provided that the true
+systematics lie in the domain of the systematics model.
+DFM I WOULD SAY HERE \emph{WHY} SIMULTANEOUS FITTING LEADS TO INDEPENDENCE, AND WHAT DO YOU MEAN BY THAT?
 The likelihood of the simultaneous fit of the systematics and transit signals
 to the data can then be compared to the likelihood of the fit of the systematics
 alone, reducing exoplanet ``search'' to a simple model comparison problem.
 
+DFM:  HERE IS WHERE I WOULD TALK ABOUT MARGINALIZATION...DFM: DOES THIS METHOD MARGINALIZE OUT THE SYSTEMATICS?  (It could,
+right, because the mean and variance of the Gaussian likelihood are
+analytic (though maybe expensive).)  If we \emph{do} marginalize (or
+maybe either way), we need to emphasize here the difference between
+simultaneously \emph{estimating} the signal and the noise as opposed
+to simultaneously \emph{fitting} the signal and the noise and
+marginalization out of the latter.  Key idea: Don't come to a
+conclusion about (estimate) anything you don't care about, if you can
+possibly avoid it!
 
 In this \paper\ we present a
 data-analysis technique for exoplanet search and characterization that
@@ -257,11 +273,13 @@ Moreover, the typical star will be only observed for one month at a time, and
 the typical transit detection will be at a similar signal-to-noise ratio as
 with \KT.
 
-Catalogs of transiting planets found by \KT\ will be important to better
-understand the formation and evolution of planetary systems.
+Catalogs of transiting planets found in the \KT\ data will be important to better
+understand the physical properties, formation, and evolution of planetary systems.
 These planets, especially when they orbit especially bright or late-type stars,
 will be useful targets for ground-based and space-based follow-up, both for
 current facilities and those planned in the near-future such as JWST.
+They will also deliver input data for next-generation population inferences (cite DFM),
+which in turn constrain population synthesis models.
 
 The \paper\ is organized as follows.
 In \textsection\ref{sec:phot}, we describe our analysis of the photometric
@@ -276,20 +294,6 @@ In \textsection\ref{sec:K2OIs}, we present the results of our search:
 catalogs of \KT\ planet candidates and eclipsing binaries.
 In \textsection\ref{sec:discuss}, we discuss our results and outline our
 future work.
-
-
-(cite Dun AAS and in prep here).
-
-...DFM: DOES THIS METHOD MARGINALIZE OUT THE SYSTEMATICS?  (It could,
-right, because the mean and variance of the Gaussian likelihood are
-analytic (though maybe expensive).)  If we \emph{do} marginalize (or
-maybe either way), we need to emphasize here the difference between
-simultaneously \emph{estimating} the signal and the noise as opposed
-to simultaneously \emph{fitting} the signal and the noise and
-marginalization out of the latter.  Key idea: Don't come to a
-conclusion about (estimate) anything you don't care about, if you can
-possibly avoid it!
-
 
 
 \section{Photometry}
