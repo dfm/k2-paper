@@ -248,7 +248,7 @@ searches, such as those of (cite-Petigura).
 
 The methods developed within this paper are highly relevant to the upcoming
 \tess\ mission (Cite-Ricker 14).
-\tess will feature pointing precision of $\sim 3$ arcseconds (cite),
+\tess\ will feature pointing precision of \sim 3 arcseconds (cite),
 similar to the level of pointing drift with \KT.
 Moreover, the typical star will be only observed for one month at a time, and
 the typical transit detection will be at a similar signal-to-noise ratio as
@@ -561,11 +561,15 @@ between ``odd'' and ``even'' transits must be large to create
 a significant difference.
 Searching for ellipsoidal varaitions is hindered by the short time
 baseline and the increased photometric uncertainty in \KT\ data.
-Searching for centroid variations is also more difficult in \KT:
+Centroid variations are feasible in \KT\ but must be treated differently
+than in the original \kepler\ mission.
+In that data, centroid positions are measured for the data during and out of
+transit by coadding all the relevant frames in each quarter.
+Such a technique is feasible due to the remarkably stable pointing of the
+instrument.
+Searching for centroid variations with this method is more difficult in \KT:
 to measure a centroid offset, one must know where the centroid is
 supposed to be.
-Predicting a centroid position is trivial with \kepler\ data due to the
-remarkably stable pointing of the instrument.
 With \KT\ this is only possible if one understands the pointing of the
 spacecraft at a specific time.
 In theory, this is possible: the spacecraft is a rigid body, and by measuring
@@ -574,10 +578,26 @@ Euler angles can be inferred at all times.
 However, properly measuring positions of stars is a difficult problem:
 the centroid depends sensitively on the (unknown) flat field, which must
 be simultaneously inferred.
-Therefore, false positives caused by background eclipsing binaries which could
-be identified as such by \kepler\ data alone will be much more difficult to
-distinguish in \KT\ data, making high-contrast adaptive optics images of
-planet candidates an essential follow-up tool.
+
+While the traditional method to measure centroids is significantly more
+challenging with \KT\ data, we have developed an alternative method
+to identify centroid offsets during transits in our data.
+In our data analysis, we model the systematics in the light curve
+caused by spacecraft motion, constrained by the ensemble of all stars in
+the field of view.
+The same can be done with the positions of each star, instead of the flux,
+as a function of time.
+In this case, for each candidate, we model the time series of centroid
+positions in each dimension as a linear combination of our PCA basis vectors
+plus a shift of unknown amplitude during transit events.
+Such a technique enables us to measure the centroid shift during transit and
+quantify an uncertainty of the size of this shift.
+
+
+%Therefore, false positives caused by background eclipsing binaries which could
+%be identified as such by \kepler\ data alone will be much more difficult to
+%distinguish in \KT\ data, making high-contrast adaptive optics images of
+%planet candidates an essential follow-up tool.
 
 
 \section{Performance}
@@ -663,6 +683,9 @@ This project was partially supported by the NSF (grant AST-0908357), NASA
 B.T.M. is supported by the National Science Foundation Graduate Research
 Fellowship under Grant No. DGE‐1144469.
 This research made use of the NASA \project{Astrophysics Data System}.
+
+{\it Facilities:} \facility{Kepler}
+
 
 \newcommand{\arxiv}[1]{\href{http://arxiv.org/abs/#1}{arXiv:#1}}
 \begin{thebibliography}{}\raggedright
