@@ -21,6 +21,9 @@
 \usepackage{subfigure}
 \usepackage{booktabs}
 
+\usepackage{natbib}
+\bibliographystyle{apj}
+
 \newcommand{\project}[1]{\textsl{#1}} % hogg say
 \newcommand{\kepler}{\project{Kepler}}
 \newcommand{\KT}{\project{K2}}
@@ -200,12 +203,12 @@ downloaded to Earth.
 Therefore, much of the effort in \KT\ is focused on the potential of the latter.
 
 Previous studies have developed methods to work with \KT\ data.
-\citet{vanderburg-a} extract aperture photometry from the pixel data
+\citet{Vanderburg:2014} extract aperture photometry from the pixel data
 and decorrelate with image centroid position, producing light curves for each
 star that are ``corrected'' for the spacecraft motion.
 These data have produced the first confirmed planet found with
-\KT\ \citep{vanderburg-b}.
-\citet{crossfield} iteratively construct a robust Gaussian Process
+\KT\ \citep{Vanderburg:2015}.
+\citet{Crossfield:2015} iteratively construct a robust Gaussian Process
 model for the photometry as a function of the measured centroids and de-trend
 using the mean prediction from that model.
 
@@ -299,20 +302,21 @@ Then, we extract photometry using fixed circular apertures of varying sizes
 centered on the predicted location of the target star based on the world
 coordinate system.
 For each time series, we used circular apertures ranging in radius from 0.5 to
-5 pixels (in steps of 0.5 pixels) and---following \citet{vanderberg-a}---chose
-the aperture size that resulted in the smallest CDPP \dfmtodo{CITE CDPP-Jessie
-Christiansen, Jon Jenkins, et al 2012} with a 6 hour window.\footnote{Note
-that although we chose a specific aperture, photometry for every aperture size
-is available online at \dfmtodo{some URL}.}
+5 pixels (in steps of 0.5 pixels) and---following
+\citet{Vanderburg:2014}---chose the aperture size that resulted in the
+smallest CDPP \citep{cdpp}
+with a 6 hour window.\footnote{Note that although we chose a specific
+aperture, photometry for every aperture size is available online at
+\dfmtodo{some URL}.}
 
 Most methods for analyzing \KT\ data---and \kepler\ data, for that
 matter---involve some sort of pre-processing or ``de-trending'' step.
-For example, \citet{vanderberg-a} measure the centroid motion for each star
+For example, \citet{Vanderburg:2014} measure the centroid motion for each star
 and regress out any signal in their aperture photometry that can be fit by
 this motion.
-Similarly, \citet{crossfield} iteratively construct a robust Gaussian Process
-model for the photometry as a function of the measured centroids and de-trend
-using the mean prediction from that model.
+Similarly, \citet{Crossfield:2015} iteratively construct a robust Gaussian
+Process model for the photometry as a function of the measured centroids and
+de-trend using the mean prediction from that model.
 In our analysis, we don't do any further preprocessing of the light curves
 because, as we describe in the next section, we simultaneously fit for the
 trends and the transit signals that we are searching for.
@@ -325,7 +329,7 @@ To make use of this, the \project{PDC} component of the \kepler\ pipeline
 removes any trends from the light curves that can be fit using a linear
 combination of a small number of ``eigen-light curves'' (ELCs) found by
 running Principal Component Analysis (PCA) on a set of light curves
-\citep{map-pdc1, map-pdc2}.
+\citep{pdc1, pdc2}.
 Similarly, we ran PCA on the full set of Campaign 1 light curves to determine
 a basis of representative ELCs.
 We chose to use the top 150 components---many more than are normally
@@ -359,9 +363,9 @@ curves of many stars with varying amplitudes and signs.
 Therefore, while it is hard to write down a physical generative model for the
 systematics, building a data-driven model might be possible.
 This intuition is also exploited by other methods that model the systematics
-using only empirical centroids \citep{vanderberg-a, crossfield} but out more
-flexible model should capture the systematic effects more robustly but there
-is a risk of over-fitting.
+using only empirical centroids \citep{Vanderburg:2014, Crossfield:2015} but
+out more flexible model should capture the systematic effects more robustly
+but there is a risk of over-fitting.
 \Fig{corr} shows the application of this model to a light curve with no known
 transit signals.
 
@@ -544,7 +548,7 @@ transiting planets and eclipsing binaries.
 Ground-based surveys before \kepler\ often had a false-positive rate
 of 30-40\%. (because of shit?)
 In the primary \kepler\ mission, this number was significantly lower:
-the false positive rate was only 5-10\% \citep{morton11}.
+the false positive rate was only 5-10\% \citep{Morton:2011}.
 Such improvement was enabled by the relatively small pixels, stable
 pointing, and high precision of \kepler.
 In \kepler\ data, false positives can be reliably separated from
@@ -686,36 +690,7 @@ This research made use of the NASA \project{Astrophysics Data System}.
 
 {\it Facilities:} \facility{Kepler}
 
-
-\newcommand{\arxiv}[1]{\href{http://arxiv.org/abs/#1}{arXiv:#1}}
-\begin{thebibliography}{}\raggedright
-
-\bibitem[Crossfield \etal(2015)]{crossfield}
-Crossfield, I.~J.~M., Petigura, E., Schlieder, J., \etal\ 2015,
-\arxiv{1501.03798}
-
-\bibitem[Lang \etal(2010)]{astrometry}
-Lang, D., Hogg, D.~W., Mierle, K., Blanton, M., \& Roweis, S.\ 2010, \aj, 139,
-1782
-
-\bibitem[Pedregosa \etal(2011)]{sklearn}
-Pedregosa, F., Varoquaux, G., Gramfort, A., \etal\ 2011, JMLR, 12, 2825
-
-\bibitem[Smith \etal(2012)]{map-pdc2}
-Smith,~J.~C., Stumpe,~M.~C., Van Cleve,~J.~E., \etal\ 2012,
-\pasp, 124, 1000
-
-\bibitem[Stumpe \etal(2012)]{map-pdc1}
-Stumpe,~M.~C., Smith,~J.~C., Van Cleve,~J.~E., \etal\ 2012,
-\pasp, 124, 985
-
-\bibitem[Vanderburg \& Johnson(2014a)]{vanderberg-a}
-Vanderburg, A., \& Johnson, J.~A.\ 2014, \pasp, 126, 948
-
-\bibitem[Vanderburg \etal(2014b)]{vanderburg-b}
-Vanderburg, A., Montet, B.~T., Johnson, J.~A., \etal\ 2014, \arxiv{1412.5674}
-
-\end{thebibliography}
+\bibliography{k2}
 
 \clearpage
 \appendix

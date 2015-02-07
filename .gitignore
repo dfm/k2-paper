@@ -5,3 +5,5 @@ ms.pdf
 figures/.ipynb_checkpoints
 figures/cache
 candidates
+*.bbl
+*.blg
