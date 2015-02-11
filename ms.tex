@@ -602,43 +602,28 @@ of ELCs and a simple box transit model at a given period, phase, and duration.
 Under this model, the maximum likelihood depth can be computed analytically.
 If we apply \emph{exactly the same model} to the centroid trace, the ``depth''
 that we compute becomes the centroid motion in transit in units of pixels.
+Since the motions won't necessarily point in a consistent direction across
+transits, we treat each transit independently and report the average offset
+amplitude weighted by the precision of each measurement.
+To compute the significance of a centroid offset, we bootstrap the offset
+amplitude for models at the same period and duration but randomly oriented
+phases.
+If the centroid measured for the candidate transit is substantially larger
+(by SOMEAMOUNT) than the random realizations, then the candidate is labeled
+as a false positive.
+Figure SOMEFIGURE shows the distribution of centroid offsets across our
+catalog and YYYY---or ZZZZ\%---of our candidates fail this test.
 
+We also test the consistency \emph{between even and odd transit depths} for
+each of our candidates.
+As described in SOMESECTION, our method for transit search automatically
+rejects signals with wildly varying depths but.
 
-In that data, centroid positions are measured for the data during and out of
-transit by coadding all the relevant frames in each quarter.
-Such a technique is feasible due to the remarkably stable pointing of the
-instrument.
-Searching for centroid variations with this method is more difficult in \KT:
-to measure a centroid offset, one must know where the centroid is
-supposed to be.
-With \KT\ this is only possible if one understands the pointing of the
-spacecraft at a specific time.
-In theory, this is possible: the spacecraft is a rigid body, and by measuring
-the mean motion of stars across the detector over time, the
-Euler angles can be inferred at all times.
-However, properly measuring positions of stars is a difficult problem:
-the centroid depends sensitively on the (unknown) flat field, which must
-be simultaneously inferred.
-
-While the traditional method to measure centroids is significantly more
-challenging with \KT\ data, we have developed an alternative method
-to identify centroid offsets during transits in our data.
-In our data analysis, we model the systematics in the light curve
-caused by spacecraft motion, constrained by the ensemble of all stars in
-the field of view.
-The same can be done with the positions of each star, instead of the flux,
-as a function of time.
-In this case, for each candidate, we model the time series of centroid
-positions in each dimension as a linear combination of our PCA basis vectors
-plus a shift of unknown amplitude during transit events.
-Such a technique enables us to measure the centroid shift during transit and
-quantify an uncertainty of the size of this shift.
-
-
-%Therefore, false positives caused by background eclipsing binaries which could
-%be identified as such by \kepler\ data alone will be much more difficult to
-%distinguish in \KT\ data, making high-contrast adaptive optics images of
-%planet candidates an essential follow-up tool.
+Blah blah blah.
+Therefore, false positives caused by background eclipsing binaries which could
+be identified as such by \kepler\ data alone will be much more difficult to
+distinguish in \KT\ data, making high-contrast adaptive optics images of
+planet candidates an essential follow-up tool.
 
 
 \section{Performance}
