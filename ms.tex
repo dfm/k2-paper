@@ -525,6 +525,7 @@ maximize) over \phase\ subject to the constraint that $\TIC_\mathrm{const} >
 
 To generate an initial candidate list, we start by .
 
+
 \paragraph{Hand vetting}
 
 There are many instrumental or astrophysical effects that can mimic a transit
@@ -550,6 +551,7 @@ from true astrophysical signals.
 To this end, we (euphamism for look at by eye) each system to identify the
 most promising, likely astrophysical signals.
 
+
 \paragraph{Astrophysical false positives}
 
 A major problem with any transit search is the potential confusion between
@@ -567,15 +569,41 @@ out-of-transit data (e.g. citation), variations in the depth of
 alternating transits (e.g. citation), and evidence for ellipsoidal
 variations between transits (e.g. citation).
 
-In \KT, we will not be able to rely on any of these techniques to
-characterize systems \textit{en masse}.
-There are typically only a handful of transits, meaning differences
-between ``odd'' and ``even'' transits must be large to create
-a significant difference.
-Searching for ellipsoidal varaitions is hindered by the short time
-baseline and the increased photometric uncertainty in \KT\ data.
-Centroid variations are feasible in \KT\ but must be treated differently
-than in the original \kepler\ mission.
+In \KT, the precision of these tests is lower and they must be applied with
+care.
+There are typically only a handful of transits, meaning differences between
+``odd'' and ``even'' transits must be large to create a significant
+difference.
+Searching for ellipsoidal varaitions is hindered by the short time baseline
+and the increased photometric uncertainty in \KT\ data.
+Centroid variations are feasible in \KT\ but must be treated differently than
+in the original \kepler\ mission where this effect was generally measured
+using difference imaging (cite Howell).
+
+To obtain an initial assessment of the astrophysical false positive rate in
+our catalog of planet candidates, we test for centroid offsets and variable
+depth transits using the machinery that we have already established for
+modeling the systematic trends in the data.
+This is only the first word and a more complete characterization of our
+catalog's reliability is forthcoming (Montet, Foreman-Mackey, \etal\ in prep).
+
+To measure \emph{centroid offsets}, we start by empirically measuring the
+pixel centroid time series for each candidate by modeling the pixels near the
+peak as a two-dimensional quadratic and finding the maximum at each time.
+This method has been shown to produce higher precision centroid measurements
+than center-of-light estimates (@HOGG: is this true? Is there a citation? MJ
+in prep?).
+Figure SOMEFIGURE shows the measure $x$ and $y$ pixel coordinate traces for
+SOMECANDIDATE.
+Much like the photometry, this signal is dominated by the rigid body motion
+of the spacecraft and we can, in fact, model it identically.
+Previously (SOMEEQUATION), we modeled the light curve as a linear combination
+of ELCs and a simple box transit model at a given period, phase, and duration.
+Under this model, the maximum likelihood depth can be computed analytically.
+If we apply \emph{exactly the same model} to the centroid trace, the ``depth''
+that we compute becomes the centroid motion in transit in units of pixels.
+
+
 In that data, centroid positions are measured for the data during and out of
 transit by coadding all the relevant frames in each quarter.
 Such a technique is feasible due to the remarkably stable pointing of the
