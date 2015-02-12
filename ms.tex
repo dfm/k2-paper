@@ -483,12 +483,12 @@ p_\mathrm{const}(\{\flux\}_n\,|\,\period,\,\phase,\,\duration) &=&
     \right)
 \end{eqnarray}
 where the maximum likelihood depth is
-\begin{eqnarray}
+\begin{eqnarray}\eqlabel{periodic-depth}
 \depth &=& {\sigma_\depth}^2\,\sum_{m=1}^{M(\period,\,\phase)}
     \frac{\bar{\depth}_m}{{\delta\bar{\depth}_m}^2}
 \end{eqnarray}
 and the uncertainty on this depth is given by
-\begin{eqnarray}
+\begin{eqnarray}\eqlabel{periodic-depth-uncert}
 \frac{1}{{\sigma_\depth}^2} &=& \sum_{m=1}^{M(\period,\,\phase)}
     \frac{1}{{\delta\bar{\depth}_m}^2} \quad.
 \end{eqnarray}
@@ -517,19 +517,42 @@ recovery of injected signals while still being fairly insensitive to false
 signals.
 
 To limit memory consumption, in the periodic search, we actually profile (or
-maximize) over \phase\ subject to the constraint that $\TIC_\mathrm{const} >
-\TIC_\mathrm{var}$.
+maximize) over \phase\ and \duration\ subject to the constraint that
+$\TIC_\mathrm{const} > \TIC_\mathrm{var}$.
+This results in a one-dimensional ``periodogram'' measuring the quality of
+the fit as a function of period.
+To choose the ``best'' candidate signal, we found that the best quantity to
+select on was the signal-to-noise with which the depth was measured at a
+given period, $\depth/\sigma_\depth$, computed using
+Equations~(\ref{eq:periodic-depth}) and (\ref{eq:periodic-depth-uncert}).
+Figure SOMEFIGURE shows the signal-to-noise of the depth measurement as a
+function of period for SOMECANDIDATE.
 
-\dfmtodo{Iterative search.}
+After selecting the best candidate based on the signal-to-noise of the depth,
+we mask out the sections of the linear search corresponding to these transits
+and iterate the periodic search.
+Under our assumption of independent transits, this is equivalent to removing
+the sections of data that have a transit caused by the highest peak.
+For the purposes of this \paper, we iterate the periodic search until we find
+three peaks for each light curve.
+This will necessarily miss the smallest and longest period planets in systems
+with more than three transiting planets but given the precision---or lack
+thereof---of the current method, we deemed this number sufficient.
 
 
 \paragraph{Initial candidate list}
 
-To generate an initial candidate list, we estimate the signal-to-noise of
-each candidate in the \TIC\ periodogram by comparing the peak height to a
-robust estimate of variance in \TIC\ values across period.
-A cut in this quantity can reject most variable stars and low
-signal-to-noise candidates that can't be reliably recovered from the data.
+The periodic search procedure returned three signals per target so this gave
+an initial list of ZZZZ candidates.
+The vast majority of these signals are, of course, not induced by a
+transiting planet.
+Therefore to reduce the search space, we estimate the signal-to-noise of each
+candidate by comparing the peak height to a robust estimate of variance in
+\TIC\ values across period.
+This is not the same criterion used to select the initial three peaks but we
+found that at this stage, it produced a more complete and pure sample.
+A cut in this quantity can reject most variable stars and low signal-to-noise
+candidates that can't be reliably recovered from the data.
 Figure SOMEFIGURE shows the distribution of signal-to-noise for a set of
 injections and compares it to the distribution of false candidates that are
 proposed by the pipeline.
@@ -537,8 +560,8 @@ To minimize contamination from false alarms but maximize our sensitivity, we
 choose a threshold of 15 \dfmtodo{right number?}.
 We also find that the signals with periods $\lesssim 4$ days are very
 contaminated by false alarms.
-This might be due to the fact that our independence assumption (SOMEEQUATION)
-breaks down at these short periods.
+This might be because of the fact that our independence assumption
+(SOMEEQUATION) breaks down at these short periods.
 Therefore, we discard all signals with periods shorter than 4 days.
 After these cuts, we're left with 700 \dfmtodo{right number?} candidates that
 we then examine by hand.
