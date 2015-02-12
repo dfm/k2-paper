@@ -133,13 +133,13 @@
 
 The photometry from the \KT\ extension of NASA's \kepler\ mission is
 afflicted by systematic effects caused by the relative imprecision of the
-telescope pointing, and possibly other spacecraft effects.
+telescope pointing and other spacecraft effects.
 We present a method for searching these light curves for evidence of
 exoplanets by simultaneously fitting for these systematics and the
 transit signals of interest.
 This method is more computationally expensive than standard search algorithms
-but we demonstrate that it can be efficiently implemented and used to
-discover transit signals in the existing dataset.
+but we demonstrate that it can be efficiently implemented and used to robustly
+discover transit signals.
 We apply this method to the full Campaign 1 dataset and report a list of XXX
 planet candidates transiting YYY stars.
 For all planet candidates, we present posterior distributions on the
@@ -162,37 +162,31 @@ stars: statistics
 
 \section{Introduction}
 
-The \kepler\ Mission (cite something) has been incredibly succesful at
-finding periodic transits (eclipses) in the light curves (time-series
-photometry) of stars (cite something).
-The Mission has demonstrated that it is possible to routinely measure
-signals in stellar light curves at the part-in-$10^5$ level.
-Results from the primary mission include the detection of planet
-transits with depths as small as 12 parts per million \citep{Barclay:2013}.
+The \kepler\ Mission (cite something) has been incredibly successful at
+finding transiting exoplanets in the light curves of stars (cite something).
+The Mission has demonstrated that it is possible to routinely measure signals
+in stellar light curves at the part-in-$10^5$ level.
+Results from the primary mission include the detection of planet transits with
+depths as small as 12 parts per million \citep{Barclay:2013}.
 
 The noise floor for \kepler\ data is often quoted as 15 parts per million per
 six hours of observations \citep{Gilliland:2011}.
 Although they generally do not influence the ability to search for transiting
-planets, larger systematic (noise shits) exist on different timescales.
-One of the most serious of these is spacecraft pointing:
-If the detector flat-field is not known \emph{exquisitely}, then
-tiny changes to the relative illumination of pixels caused by a star's
-motion in the focal plane (or caused by motion of the focal-plane
-boresight or orientation relative to the celestial sphere) will lead
+planets, larger systematic effects exist on different timescales.
+One of the most serious of these is spacecraft pointing: If the detector
+flat-field is not known \emph{exquisitely}, then tiny changes to the relative
+illumination of pixels caused by a star's motion in the focal plane will lead
 to changes in the measured or inferred brightness of the star.
 
 The pointing of \kepler\ was stable at the (LEVEL) level (citation) throughout
 the primary mission.
-This primary mission came to an end with the failure of a critical
-reaction wheel, rendering the spacecraft less able to maintain precise
-pointing.
-The \KT\ Mission \citep{Howell:2014} is a follow-on to the primary
-\kepler\ Mission, observing approximately a dozen fields near the ecliptic
-plane, each for 75 days at a time.
-Because of the degraded spacecraft orientation systems, the new
-\KT\ data will in general exhibit far greater pointing
-variations---and far greater pointing-induced variations in
-photometry---than the original \kepler\ data.
+This stability came to an end with the failure of a critical reaction wheel.
+The \KT\ Mission \citep{Howell:2014} is a follow-on to the primary \kepler\
+Mission, observing about a dozen fields near the ecliptic plane, each for
+$\sim 75$ days at a time.
+Because of the degraded spacecraft orientation systems, the new \KT\ data
+exhibit far greater pointing variations---and substantially more
+pointing-induced variations in photometry---than the original \kepler\ data.
 This makes good data-analysis techniques even more valuable.
 
 Good photometry relies on either a near-perfect flat-field
@@ -215,27 +209,25 @@ and decorrelate with image centroid position, producing light curves for each
 star that are ``corrected'' for the spacecraft motion.
 These data have produced the first confirmed planet found with
 \KT\ \citep{Vanderburg:2015}.
-\citet{Crossfield:2015} iteratively construct a robust Gaussian Process
-model for the photometry as a function of the measured centroids and de-trend
-using the mean prediction from that model.
-DFM HERE IS WHERE WE (cite Dun AAS and in prep).
+Both \citet{Aigrain:2015} and \citet{Crossfield:2015} use a Gaussian Process
+model for the measured flux, with pointing measurements as the inputs, and
+then ``de-trend'' using the mean prediction from that model.
+Other data-driven approaches have been developed and applied to the \Kepler\
+data \citep[for example,][]{pdc1, pdc2, arc, dun} but they have yet to be
+generalized to be applicable to \KT.
 
-In these light-curve processing methodologies,
-the authors follow a traditional procedure of ``correcting'' the light curve
-as a step that happens \emph{before} the search for transiting planets.
-Light curves from the primary \kepler\ mission are typically de-trended to
-remove the effects of stellar variability before searching for transiting
-planets.
-With \KT, application of the traditional methods involves fitting and subtracting measured
-effects from the spacecraft pointing variations and stellar variability.
-Fit-and-subtract is dangerous:
-Small signals, such as planet transits, can be partially absorbed into the
-best-fit stellar variability or systematics models, making each individual transit event appear
-shallower; that is, the traditional methods are prone to over-fitting.
-Because over-fitting will in general reduce the amplitude of true exoplanet signals,
-small planets that ought to appear just above any specific signal-to-noise
-or depth
-threshold could be missed because of the de-trending.
+In all of these light-curve processing methodologies, the authors follow a
+traditional procedure of ``correcting'' or ``de-trending'' the light curve to
+remove systematic and stellar variability as a step that happens \emph{before}
+the search for transiting planets.
+Fit-and-subtract is dangerous: Small signals, such as planet transits, can be
+partially absorbed into the best-fit stellar variability or systematics
+models, making each individual transit event appear shallower.
+In other words, the traditional methods are prone to over-fitting.
+Because over-fitting will in general reduce the amplitude of true exoplanet
+signals, small planets that ought to appear just above any specific
+signal-to-noise or depth threshold could be missed because of the de-trending.
+This becomes especially important as the amplitude of the noise increases.
 
 The alternative to this approach is to simultaneously fit both the systematics
 and the transit signals.
