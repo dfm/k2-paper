@@ -733,6 +733,32 @@ The candidates are listed in \dfmtodo{some table} and
 posterior distributions of planet candidate properties are available at
 \dfmtodo{thisurl}.
 
+The systematics model is a 150-parameter linear combination of PCA components
+derived from the full set of 20,000 stellar lightcurves.
+That is, it presumes that the systematics afflicting each star are shared in
+some way across all other stars.
+It is our belief---although not a strict assumption of our model---that these
+systematics are caused primarily by pointing drifts, or movements of the
+pixels in the focal plane relative to the stars.
+In principle, if the systematics \emph{are} dominated by pointing issues, the
+systematics model could require only three parameters---three Euler
+angles---not 150 amplitudes.
+However, because (as the pointing drifts) each star sees it's own unique
+local patch of flat-field variations, the mapping from pointing drifts to
+brightness variations can be extremely non-linear.
+Furthermore, because when the pointing is moving fast, there is effectively
+a smearing of the point-spread function, there are effects keyed to the
+time derivative of the Euler angles as well.
+The large number (150) of linear coefficients gives the linear model the
+freedom to model complex non-linear behavior; we are trading off parsimony
+in parameters with the enormous computational advantages of maintaining
+linearity (and therefore also convexity).
+The computational advantages of the linear model are three-fold:
+Convexity obviates searching in parameter space for alternative modes;
+linear least-squares optimization can be performed with simple linear algebra;
+given Gaussian uncertainties and uninformative priors, marginalizations over
+the linear parameters also reduces to pure linear algebra.
+
 The posterior distributions we release are given in terms of observational
 quantities (rather than physical quantities) and are specifically \emph{NOT}
 marginalized over stellar properties.
