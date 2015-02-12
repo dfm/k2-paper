@@ -331,7 +331,7 @@ For clarity, we will refer to our basis as a set of ``eigen light curves''
 
 
 \section{Joint transit \& variability model}
-\label{sec:model}
+\sectlabel{model}
 
 The key insight in our transit search method that sets it apart from the
 other standard procedures is that no de-trending is necessary.
@@ -397,25 +397,27 @@ might be required for computational tractability.
 \section{Search pipeline}
 \label{sec:search}
 
-In theory, search could proceed by evaluating the model described above on a
-fine three-dimensional grid in period, phase, and duration.
+In principle, the search for transit signals simply requires evaluating the
+model described above on a fine three-dimensional grid in period, phase, and
+duration, and then detecting high significance peaks in that space.
 In practice, this is computationally intractable for any grids of the
 required size.
 Instead, we can compute the values on this grid approximately, but at very
 high precision, using a two-step procedure that is much more computationally
 efficient.
 
-The specific quantity that we will be searching is the likelihood for the
-light curve of star $n$ given a set of transit parameters:
-\begin{eqnarray}
+Specifically, we must evaluate the likelihood function for the light curve of
+star $n$ given a period \period, reference transit time \phase, and duration
+\duration
+\begin{eqnarray}\eqlabel{full-likelihood}
 p(\{\flux\}_n\,|\,\period,\,\phase,\,\duration,\,\depth) \quad.
 \end{eqnarray}
-We will make the simplifying assumption that each transit is independent
-because it will be approximately satisfied for all but the shortest periods
-and it leads to a huge computational advantage.
+We make the simplifying assumption that each transit enters this quantity
+independently because it is approximately satisfied for all but the shortest
+periods and it leads to a huge computational advantage.
 Under this assumption, this likelihood function can be rewritten as
 \begin{eqnarray}\eqlabel{indtran}
-p(\{\flux\}_n\,|\,\period,\,\phase,\,\duration,\,\depth) &\approx&
+p(\{\flux\}_n\,|\,\period,\,\phase,\,\duration,\,\depth) &=&
 \prod_{m=1}^{M(\period,\,\phase)}
     p(\{\flux\}_n\,|\,\transittime_m(\period,\,\phase),\,\duration,\,
                     \depth)
@@ -423,13 +425,14 @@ p(\{\flux\}_n\,|\,\period,\,\phase,\,\duration,\,\depth) &\approx&
 where $\transittime_m(\period,\,\phase)$ is the time of the $m$-th
 transit given the period $\period$ and reference time $\phase$.
 \Eq{indtran} can be efficiently computed for many periods and phases if we
-first compute a set of likelihood functions for single transits on a fine grid
-in $\transittime_l$
+first compute a set of likelihood functions for single transits on a grid
+in $\transittime_l$ and duration $\duration_k$
 \begin{eqnarray}\eqlabel{singletransit}
 \left \{ p(\{\flux\}_n\,|\,\transittime_l,\,\duration_k,\,\depth)
-\right\}_{l=1,\,k=1}^{L,\,K}
+\right\}_{l=1,\,k=1}^{L,\,K} \quad.
 \end{eqnarray}
-then use these results as a lookup table.
+Then, we can use these results as a look-up table to approximately evaluate
+\eq{full-likelihood}.
 
 In the remainder of this section, we give more details about each step of the
 search procedure but in summary, it breaks into three main steps: linear
@@ -440,32 +443,34 @@ $\duration_k$ and fine in transit time $\transittime_m$.
 Then in the {\bf periodic search} step, we use this two-dimensional grid to
 approximately evaluate the likelihood (\eqalt{indtran}) for a
 three-dimensional grid of periodic signals.
-Then, we run a peak detection algorithm on this grid that discards peaks that
-share transits with a shorter period candidate and signals with substantially
-varying transit depths.
+Then, we run a peak detection algorithm on this grid that discards signals
+with substantially varying transit depths.
 These transit candidates are then passed along for machine and human {\bf
 vetting}.
 
 
 \paragraph{Linear search}
 
-The linear search involves hypothesizing a transit signal on a
+The linear search requires hypothesizing a set of transit signals on a
 two-dimensional grid in transit time and duration.
-For each point in the grid, we use the model described in the previous
-section to evaluate \emph{the likelihood function} of the transit depth.
-Because the model is linear, the likelihood function for the depth
-(marginalized over the model of the systematics) is a Gaussian with
-analytic amplitude $L$, mean $\bar{\depth}$, and variance
-$\delta\bar{\depth}^2$ derived in \app{math}.
+For each point in the grid, we use the model described in \sect{model} to
+evaluate \emph{the likelihood function} for the transit depth at that time
+and duration.
+Since the model is linear, the likelihood function for the depth (marginalized
+over the model of the systematics) is a Gaussian with analytic amplitude $L$,
+mean $\bar{\depth}$, and variance $\delta\bar{\depth}^2$ derived in
+\app{math}.
 Therefore in the linear search, we save these three numbers for a
-two-dimensional grid in transit time \transittime\ and duration \duration.
+two-dimensional grid in transit time $\transittime_l$ and duration
+$\duration_k$.
 The transit time grid spans the duration of Campaign 1 with half hour spacing
 and we choose to only test three durations: 1.2, 2.4, and 4.8 hours.
 \Fig{linear} shows the mean transit depth $\bar{\depth}$ as a function of
 transit time \transittime\ for a light curve with an injected transit signal
 with transits at the times indicated by the vertical green bars.
-The computational complexity of this step is $\mathcal{O}(M\,K^3)$ where $M$
-is the number of points in the grid and $K$ is the number of data points.
+
+% The computational complexity of this step is $\mathcal{O}(M\,K^3)$ where $M$
+% is the number of points in the grid and $K$ is the number of data points.
 
 
 \paragraph{Periodic search}
@@ -814,7 +819,6 @@ This research made use of the NASA \project{Astrophysics Data System}.
 
 {\it Facilities:} \facility{Kepler}
 
-\clearpage
 \appendix
 
 \section{Mathematical model}\sectlabel{math}
