@@ -32,6 +32,7 @@
 \newcommand{\tess}{\project{TESS}}
 \newcommand{\jwst}{\project{JWST}}
 \newcommand{\terra}{\project{TERRA}}
+\newcommand{\pdc}{\project{PDC}}
 \newcommand{\license}{MIT License}
 \newcommand{\projectname}{\project{ketu}}
 
@@ -247,7 +248,7 @@ modes.
 We then search for planets by modeling the data as a linear combination of a
 huge number of these basis vectors and a transit model.
 Our method builds on the ideas of previous data-driven de-trending procedures
-like Pre-search data conditioning \citep[PDC;][]{pdc1, pdc2} but we can use a
+like Pre-search data conditioning \citep[\pdc;][]{pdc1, pdc2} but we can use a
 much more flexible systematics model without worrying about over-fitting.
 
 The methods developed within this paper are highly relevant to both \KT\ and
@@ -300,32 +301,31 @@ with a 6 hour window.\footnote{Note that although we chose a specific
 aperture, photometry for every aperture size is available online at
 \dfmtodo{some URL}.}
 
-Most methods for analyzing \KT\ data---and \kepler\ data, for that
-matter---involve some sort of pre-processing or ``de-trending'' step.
-For example, \citet{Vanderburg:2014} measure the centroid motion for each star
-and regress out any signal in their aperture photometry that can be fit by
-this motion.
-Similarly, \citet{Crossfield:2015} iteratively construct a robust Gaussian
-Process model for the photometry as a function of the measured centroids and
-de-trend using the mean prediction from that model.
+All previous methods for analyzing \KT\ data involve some sort of
+``correction'' or ``de-trending'' step based on measurements of the pointing
+motion of the spacecraft \citep{Vanderburg:2014, Aigrain:2015,
+Crossfield:2015}.
 In our analysis, we don't do any further preprocessing of the light curves
 because, as we describe in the next section, we simultaneously fit for the
-trends and the transit signals that we are searching for.
+trends and the transit signals that we are searching for in the raw
+photometric light curves.
 
 One key realization that is also exploited by the official \kepler\ pipeline
 is that the systematic trends caused by pointing shifts and other instrumental
 effects are shared---with different signs and weights---by all the stars on
 the detector.
-To make use of this, the \project{PDC} component of the \kepler\ pipeline
+To make use of this, the \pdc\ component of the \kepler\ pipeline
 removes any trends from the light curves that can be fit using a linear
-combination of a small number of ``eigen-light curves'' (ELCs) found by
-running Principal Component Analysis (PCA) on a set of light curves
-\citep{pdc1, pdc2}.
+combination of a small number of ``co-trending basis vectors''.
+This basis of trends was found by running Principal Component Analysis (PCA)
+on a large set of light curves and extracting the top few ($\sim 4$)
+components \citep{pdc1, pdc2}.
 Similarly, we ran PCA on the full set of Campaign 1 light curves to determine
-a basis of representative ELCs.
-We chose to use the top 150 components---many more than are normally
-used---for our model described in the following section.
-\Fig{pca} shows the top few ELCs.
+a basis of representative trends but, unlike \pdc, we retain and use
+a large number of these components.
+For clarity, we will refer to our basis as a set of ``eigen light curves''
+(ELCs) and the full set is made available online (SOMEURL).
+\Fig{pca} shows the top ten ELCs for Campaign 1.
 
 
 \section{Joint transit \& variability model}
@@ -342,11 +342,12 @@ distorted and weaker.
 In order to reduce this effect, most procedures use a very rigid model for
 the trends.
 For \KT, this has been implemented by asserting that the centroids contain
-all of the information needed to describe the trends.
+all of the information needed to describe the trends \citep{Vanderburg:2014,
+Aigrain:2015, Crossfield:2015}.
 In the \kepler\ pipeline, this is implemented by only allowing a small number
-of PCA components to contribute to the fit.
+of PCA components to contribute to the fit in the \pdc\ procedure.
 
-Physically, the motivation for our model---and the PDC model---is that every
+Physically, the motivation for our model---and the \pdc\ model---is that every
 star on the detector should be affected by same set of systematic effects.
 These are caused by things like pointing jitter, temperature variations, and
 other sources of PSF modulation and each one will be imprinted in the light
