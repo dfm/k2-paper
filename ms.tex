@@ -735,10 +735,10 @@ The candidates are listed in \dfmtodo{some table} and
 posterior distributions of planet candidate properties are available at
 \dfmtodo{thisurl}.
 
-The systematics model is a 150-parameter linear combination of PCA components
+The flexible systematics model we employ is a 150-parameter linear combination of PCA components
 derived from the full set of 20,000 stellar lightcurves.
 That is, it presumes that the systematics afflicting each star are shared in
-some way across all other stars.
+some way across other stars.
 It is our belief---although not a strict assumption of our model---that these
 systematics are caused primarily by pointing drifts, or movements of the
 pixels in the focal plane relative to the stars.
@@ -748,7 +748,7 @@ angles---not 150 amplitudes.
 However, because (as the pointing drifts) each star sees it's own unique
 local patch of flat-field variations, the mapping from pointing drifts to
 brightness variations can be extremely non-linear.
-Furthermore, because when the pointing is moving fast, there is effectively
+Furthermore, because when the pointing is moving fast there is effectively
 a smearing of the point-spread function, there are effects keyed to the
 time derivative of the Euler angles as well.
 The large number (150) of linear coefficients gives the linear model the
@@ -772,17 +772,35 @@ As a result, these posterior distributions reflect the maximum possible
 uncertainty in parameters such as the planet radius, which depend sensitively
 on properties of the host star.
 
-The goal of this \paper\ was to get exoplanet candidates out of the \KT\ pixel-level data,
-it was not to generate light curves...
-the project does not really produce corrected light curves at all; why not?
+The goal of this \paper\ was to get exoplanet candidates out of the
+\KT\ pixel-level data, it was \emph{not} to generate light curves.
+That is, both the search phase and the characterization phase of the method
+are approximations to computations of a likelihood function for the pixel
+data telemetered down from the satellite.
+We did not generate ``corrected'' or ``pre-search conditioned'' light-curves
+at any stage; we simultaneously fit systematics and the signals of interest
+to the raw data.
+For this reason, there is no sense in which this method ever really
+produces corrected light curves.
+For us, a systematics-corrected light curve is not really a thing.
 
-This is not the last time the \KT\ data will be searched...
-list some deficiencies of this search method
-(these might include approximations in the PHIC,
-the fact that it deals well with spacecraft systematics but not stellar variability,
-and that it isn't sensitive to single transits (which must be common)).
+This is not the last time the \KT\ data will be searched!
+There are many heuristic choices and short-cuts made in this search.
+For example, the choice to work at 150 principal components is a choice
+driven more by computational feasibility than any model selection or
+utility optimization.
+The systematics model is good for spacecraft-induced variability, but not
+intrinsic stellar variability.
+The systematics model has no concept of a physical model of the spacecraft or
+the camera; that is, it makes little use of our prior information about how
+\KT\ images are generated physically.
+The search is performed with a box model and severe approximations are employed
+to make it fast.
+We don't consider planets (which must be abundant) on periods longer
+than those that would leave two transits within the \KT\ Campaign~1
+data set.
 
-The machine and hand vetting leave much to be desired...
+Most importantly, perhaps, the machine and hand vetting leave much to be desired...
 list some deficiencies of the vetting.
 
 Characterization of these candidates can be much improved...
@@ -795,6 +813,8 @@ Perhaps give a specific example here with some detailed discussion or math.
 The completeness and false-positive assessment could be vastly improved...
 completeness estimates are not as extensive as desired;
 there is essentially no estimate of the non-astrophysical false positive rate.
+(There really is no proposal on the table anywhere for getting a false-positive
+rate for the non-astrophysical FPs.)
 
 We have not attempted to do any kind of populations analysis...
 but presumably \KT\ data will rock this.  In what ways?
