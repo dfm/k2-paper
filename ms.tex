@@ -93,7 +93,7 @@
 \begin{document}
 
 \title{%
-    A systematic search for transiting planets using \KT
+    A systematic search for transiting planets in the \KT\ data % hogg changed title!
 }
 
 \newcommand{\nyu}{2}
@@ -135,7 +135,7 @@
 
 The photometry from the \KT\ extension of NASA's \kepler\ mission is
 afflicted by systematic effects caused by the relative imprecision of the
-telescope pointing and other spacecraft effects.
+telescope pointing and other spacecraft issues.
 We present a method for searching these light curves for evidence of
 exoplanets by simultaneously fitting for these systematics and the
 transit signals of interest.
@@ -723,19 +723,25 @@ table} and the full chains are available electronically \dfmtodo{some URL}.
 
 \section{Discussion}
 
-
-\paragraph{Maybe this goes in results} (Hogg say yes!)
-
-We include posterior distributions of planet candidate properties, available at
+We have searched the \KT\ Campaign~1 data set for exoplanet transit signals.
+Our search is novel because it includes a very flexible systematics model,
+which is fit simultaneously with the exoplanet signals of interest, and
+marginalized out.
+By this method, we find XXX new exoplanets, which we have vetted by ZZZ
+method and characterized by probabilistic modeling.
+The candidates are listed in \dfmtodo{some table} and
+posterior distributions of planet candidate properties are available at
 \dfmtodo{thisurl}.
-These distributions are specifically \emph{NOT} marginalized over stellar
-properties.
-In this work, we are agnostic about fundamental properties of the host star.
-In fact, the only assumptions we make are that the star targeted by the \KT\
+
+The posterior distributions we release are given in terms of observational
+quantities (rather than physical quantities) and are specifically \emph{NOT}
+marginalized over stellar properties.
+In this work, we are agnostic about fundamental properties of the host stars.
+The only assumptions we make are that the star targeted by the \KT\
 team is truly the planet host, and that there is no dilution by other stars in
 any aperture.
 As a result, these posterior distributions reflect the maximum possible
-uncertainty in parameters such as the planet radius which depend sensitively
+uncertainty in parameters such as the planet radius, which depend sensitively
 on properties of the host star.
 
 The goal of this \paper\ was to get exoplanet candidates out of the \KT\ pixel-level data,
