@@ -761,17 +761,6 @@ linear least-squares optimization can be performed with simple linear algebra;
 given Gaussian uncertainties and uninformative priors, marginalizations over
 the linear parameters also reduces to pure linear algebra.
 
-The posterior distributions we release are given in terms of observational
-quantities (rather than physical quantities) and are specifically \emph{NOT}
-marginalized over stellar properties.
-In this work, we are agnostic about fundamental properties of the host stars.
-The only assumptions we make are that the star targeted by the \KT\
-team is truly the planet host, and that there is no dilution by other stars in
-any aperture.
-As a result, these posterior distributions reflect the maximum possible
-uncertainty in parameters such as the planet radius, which depend sensitively
-on properties of the host star.
-
 The goal of this \paper\ was to get exoplanet candidates out of the
 \KT\ pixel-level data, it was \emph{not} to generate light curves.
 That is, both the search phase and the characterization phase of the method
@@ -783,6 +772,21 @@ to the raw data.
 For this reason, there is no sense in which this method ever really
 produces corrected light curves.
 For us, a systematics-corrected light curve is not really a thing.
+
+The posterior distributions we release are given in terms of observational
+quantities (rather than physical quantities) and are specifically \emph{NOT}
+marginalized over stellar properties.
+In this work, we are agnostic about fundamental properties of the host stars.
+The only assumptions we make are that the star targeted by the \KT\
+team is truly the planet host, and that there is no dilution by other stars in
+any aperture.
+As a result, these posterior distributions reflect the maximum possible
+uncertainty in parameters such as the planet radius, which depend sensitively
+on properties of the host star.
+
+To use these distributions to characterize the properties of specific systems,
+one should weight our samples by inferred stellar properties...
+Perhaps give a specific example here with some detailed discussion or math.
 
 This is not the last time the \KT\ data will be searched!
 There are many heuristic choices and short-cuts made in this search.
@@ -802,13 +806,6 @@ data set.
 
 Most importantly, perhaps, the machine and hand vetting leave much to be desired...
 list some deficiencies of the vetting.
-
-Characterization of these candidates can be much improved...
-list the things we could know if we had follow-up observations of the stars.
-
-To use these distributions to characterize the properties of specific systems,
-one should weight our samples by inferred stellar properties...
-Perhaps give a specific example here with some detailed discussion or math.
 
 The completeness and false-positive assessment could be vastly improved...
 completeness estimates are not as extensive as desired;
