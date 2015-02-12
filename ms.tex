@@ -30,6 +30,7 @@
 \newcommand{\kepler}{\project{Kepler}}
 \newcommand{\KT}{\project{K2}}
 \newcommand{\tess}{\project{TESS}}
+\newcommand{\jwst}{\project{JWST}}
 \newcommand{\terra}{\project{TERRA}}
 \newcommand{\license}{MIT License}
 \newcommand{\projectname}{\project{ketu}}
@@ -212,7 +213,7 @@ These data have produced the first confirmed planet found with
 Both \citet{Aigrain:2015} and \citet{Crossfield:2015} use a Gaussian Process
 model for the measured flux, with pointing measurements as the inputs, and
 then ``de-trend'' using the mean prediction from that model.
-Other data-driven approaches have been developed and applied to the \Kepler\
+Other data-driven approaches have been developed and applied to the \kepler\
 data \citep[for example,][]{pdc1, pdc2, arc, dun} but they have yet to be
 generalized to be applicable to \KT.
 
@@ -231,52 +232,41 @@ This becomes especially important as the amplitude of the noise increases.
 
 The alternative to this approach is to simultaneously fit both the systematics
 and the transit signals.
-Simultaneous fitting enables a search for---and measurement of---exoplanet signals
-to deliver results that are
-independent of any implied estimate of the systematics, provided that the true
-systematics lie in the domain of the systematics model.
-DFM I WOULD SAY HERE \emph{WHY} SIMULTANEOUS FITTING LEADS TO INDEPENDENCE, AND WHAT DO YOU MEAN BY THAT?
-The likelihood of the simultaneous fit of the systematics and transit signals
-to the data can then be compared to the likelihood of the fit of the systematics
-alone, reducing exoplanet ``search'' to a simple model comparison problem.
+This method can push the detection limits to lower signal-to-noise while
+robustly accounting for uncertainties about the systematic trends.
+In particular, this allows us to \emph{marginalize} over choices in the noise
+model and propagate any uncertainties to our confidence in the detection.
+\dfmtodo{Do we need more about marginalization here?}
 
-DFM:  HERE IS WHERE I WOULD TALK ABOUT MARGINALIZATION...DFM: DOES THIS METHOD MARGINALIZE OUT THE SYSTEMATICS?  (It could,
-right, because the mean and variance of the Gaussian likelihood are
-analytic (though maybe expensive).)  If we \emph{do} marginalize (or
-maybe either way), we need to emphasize here the difference between
-simultaneously \emph{estimating} the signal and the noise as opposed
-to simultaneously \emph{fitting} the signal and the noise and
-marginalization out of the latter.  Key idea: Don't come to a
-conclusion about (estimate) anything you don't care about, if you can
-possibly avoid it!
-
-In this \paper\ we present a
-data-analysis technique for exoplanet search and characterization that
-is insensitive to spacecraft-induced (or, in general,
-hardware-induced) trends in the light curves.
-We assume the trends in the observed light curves in each star due to
+In this \paper\ we present a data-analysis technique for exoplanet search and
+characterization that is insensitive to spacecraft-induced trends in the light
+curves.
+We assume that the trends in the observed light curves in each star due to
 spacecraft motion are shared by each star, and run PCA to measure the dominant
 modes.
-We then search for planets by modeling the data as a linear combination of
-these basis vectors and a transit model.
-Such a technique builds on the ideas of previous PCA-based \kepler\ planet
-searches, such as those of (cite-Petigura).
+We then search for planets by modeling the data as a linear combination of a
+huge number of these basis vectors and a transit model.
+Our method builds on the ideas of previous data-driven de-trending procedures
+like Pre-search data conditioning \citep[PDC;][]{pdc1, pdc2} but we can use a
+much more flexible systematics model without worrying about over-fitting.
 
-The methods developed within this paper are highly relevant to the upcoming
-\tess\ mission \citep{Ricker:2014}.
-\tess\ will feature pointing precision of $\sim 3$ arcseconds (cite),
-similar to the level of pointing drift with \KT.
+The methods developed within this paper are highly relevant to both \KT\ and
+the upcoming \tess\ mission \citep{Ricker:2014}.
+\tess\ will feature pointing precision of $\sim 3$ arcseconds (cite), similar
+to the level of pointing drift with \KT.
 Moreover, the typical star will be only observed for one month at a time, and
 the typical transit detection will be at a similar signal-to-noise ratio as
 with \KT.
 
-Catalogs of transiting planets found in the \KT\ data will be important to better
-understand the physical properties, formation, and evolution of planetary systems.
-These planets, especially when they orbit especially bright or late-type stars,
-will be useful targets for ground-based and space-based follow-up, both for
-current facilities and those planned in the near-future such as JWST.
-They will also deliver input data for next-generation population inferences (cite DFM),
-which in turn constrain population synthesis models.
+Catalogs of transiting planets found in the \KT\ data will be important to
+better understand the physical properties, formation, and evolution of
+planetary systems.
+These planets, especially when they orbit especially bright or late-type
+stars, will be useful targets for ground-based and space-based follow-up, both
+for current facilities and those planned in the near-future such as \jwst.
+They will also deliver input data for next-generation population inferences
+\citep{dfm}, especially for the population of planets around cool stars
+\citep[for example][]{dressing}.
 
 The \paper\ is organized as follows.
 In \textsection\ref{sec:phot}, we describe our analysis of the photometric
@@ -484,6 +474,10 @@ and the uncertainty on this depth is given by
 \frac{1}{{\sigma_\depth}^2} &=& \sum_{m=1}^{M(\period,\,\phase)}
     \frac{1}{{\delta\bar{\depth}_m}^2} \quad.
 \end{eqnarray}
+Note that this result is \emph{marginalized} over the parameters of the
+systematics model.
+Therefore, this estimate of the uncertainty on the depth takes any
+uncertainty that we have about the systematics into account.
 
 In general, the variable depth model will \emph{always} get a higher
 likelihood because it is more flexible.
