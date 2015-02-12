@@ -520,36 +520,49 @@ To limit memory consumption, in the periodic search, we actually profile (or
 maximize) over \phase\ subject to the constraint that $\TIC_\mathrm{const} >
 \TIC_\mathrm{var}$.
 
+\dfmtodo{Iterative search.}
 
-\paragraph{Machine vetting}
 
-To generate an initial candidate list, we start by .
+\paragraph{Initial candidate list}
+
+To generate an initial candidate list, we estimate the signal-to-noise of
+each candidate in the \TIC\ periodogram by comparing the peak height to a
+robust estimate of variance in \TIC\ values across period.
+A cut in this quantity can reject most variable stars and low
+signal-to-noise candidates that can't be reliably recovered from the data.
+Figure SOMEFIGURE shows the distribution of signal-to-noise for a set of
+injections and compares it to the distribution of false candidates that are
+proposed by the pipeline.
+To minimize contamination from false alarms but maximize our sensitivity, we
+choose a threshold of 15 \dfmtodo{right number?}.
+We also find that the signals with periods $\lesssim 4$ days are very
+contaminated by false alarms.
+This might be due to the fact that our independence assumption (SOMEEQUATION)
+breaks down at these short periods.
+Therefore, we discard all signals with periods shorter than 4 days.
+After these cuts, we're left with 700 \dfmtodo{right number?} candidates that
+we then examine by hand.
+The full list of peaks and their relevant meta data is available online at
+\dfmtodo{SOMEURL}.
 
 
 \paragraph{Hand vetting}
 
-There are many instrumental or astrophysical effects that can mimic a transit
-signal in time series photometry.
-For the primary \kepler\ mission, the noise induced by instrumental artifacts
-on transit timescales was significantly smaller than transit depths for
-all but the smallest planets.
-With \KT\ this is no longer the case.
-The motion of the instrument causes a drift in the pointing of approximately
-$1''$ per hour, causing variations in the flat field to dominate the
-photometric signal.
+After our initial cuts on the candidate list, the majority of signals are
+still false alarms mostly due to variable stars or single outlying data
+points.
+It should be possible to construct a more robust machine vetting algorithm
+that discards these samples without missing real transits (CITE SOME THINGS)
+but for the purposes of this \paper, we simply inspect the light curve for
+each of the YYYY candidates \emph{by hand} to discard signals that are not
+convincing transits.
+The results of this vetting can be seen online at SOMEURL.
 
-As a result, artifacts in the data induced by pointing jitter can ...
-
-If the properties of the noise in the data can be fully understood and
-modeled, such artifacts can be separated from true astrophysical events.
-Our model, however, makes no assumptions about the properties of the noise
-other than that it is correlated across many stars on the detector.
-Therefore, our model can occassionally be fooled by instrumental artifacts
-that a more sophisticated method, or the human eye, can easily separate
-from true astrophysical signals.
-
-To this end, we (euphamism for look at by eye) each system to identify the
-most promising, likely astrophysical signals.
+This vetting resulted in a list of ZZZZ transiting candidates.
+Many of these signals are due to astrophysical ``false positives'' like
+eclipsing binaries or blending.
+We address this effect in the following section and separate the list of
+candidates into a list of astrophysical false positives and planet candidates.
 
 
 \paragraph{Astrophysical false positives}
