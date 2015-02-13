@@ -91,6 +91,9 @@
 \newcommand{\duration}{{\ensuremath{D}}}
 \newcommand{\depth}{{\ensuremath{Z}}}
 \newcommand{\transittime}{{\ensuremath{T}}}
+\newcommand{\impact}{{\ensuremath{b}}}
+\newcommand{\ecc}{{\ensuremath{e}}}
+\newcommand{\pomega}{{\ensuremath{\varpi}}}
 
 \begin{document}
 
@@ -688,6 +691,19 @@ HOWMANY days of the injected signal, we count that injection as recovered.
 The detection efficiency of the search is approximately given by the fraction
 of recovered injections as a function of the relevant parameters.
 
+To generate the synthetic signals, we follow the following procedure:
+\begin{enumerate}
+
+{\item draw the number of transiting planets based on the observed
+multiplicity distribution of KOIs (CITE),}
+
+{\item for each planet, choose limb darkening parameters, orbital periods,
+phases, radius ratios, impact parameters, eccentricity, and argument of
+periapsis, from the distributions listed in \tab{dist}}
+
+\end{enumerate}
+
+
 These synthetic systems have periods and radius ratios drawn uniformly in
 \dfmtodo{some range} and uniformly distributed impact parameters and phases.
 The eccentricities are drawn from a beta distribution with \dfmtodo{some
@@ -982,6 +998,33 @@ The correct injected period is indicated by the vertical green line.
 \caption{%
 \figlabel{completeness}}
 \end{figure}
+
+\clearpage
+
+\begin{table}[p]
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Parameter & Units & Distribution \\
+\midrule
+
+limb darkening parameters $q_1$ and $q_2$ & --- & $q \sim U(0,\,1)$ \\
+orbital period \period & days & $\ln \period \sim U(\ln 0.5,\,\ln 70)$ \\
+reference transit time \phase & days & $\phase \sim U(0,\,\period)$ \\
+radius ratio $R_P/R_\star$ & --- & $\ln R_P/R_\star \sim U(\ln 0.02,\,\ln 0.2)$ \\
+impact parameter \impact & --- & $\impact \sim U(0,\,1)$ \\
+eccentricity \ecc & --- & $\ecc \sim \mathrm{Beta}(0.867,\,3.03)$ \\
+argument of periapsis \pomega & --- & $\pomega \sim U(-\pi,\,\pi)$ \\
+
+\bottomrule
+\end{tabular}
+\end{center}
+\caption{%
+The distribution of physical parameters for the injected signals.
+The eccentricity distribution is based on \citet{kipping-ecc} and the
+limb darkening parameterization is given by \citet{kipping-ld}.
+\tablabel{dist}}
+\end{table}
 
 \begin{table}[p]
 \begin{center}
