@@ -176,29 +176,28 @@ in stellar light curves at the part-in-$10^5$ level.
 Results from the primary mission include the detection of planet transits with
 depths as small as 12 parts per million \citep{Barclay:2013}.
 
-The noise floor for \kepler\ data is often quoted as 15 parts per million per
+The noise floor for \kepler\ data is often quoted as 15 parts per million (ppm) per
 six hours of observations \citep{Gilliland:2011}.
-Although they generally do not influence the ability to search for transiting
+Although they generally do not interfere with searches for transiting
 planets, larger systematic effects exist on different timescales.
 One of the most serious of these is spacecraft pointing: If the detector
-flat-field is not known \emph{exquisitely}, then tiny changes to the relative
+flat-field is not known with very high accuracy, then tiny changes to the relative
 illumination of pixels caused by a star's motion in the focal plane will lead
 to changes in the measured or inferred brightness of the star.
 
-The pointing of \kepler\ was stable at the (LEVEL) level (citation) throughout
-the primary mission.
-This stability came to an end with the failure of a critical reaction wheel.
-The \KT\ Mission \citep{Howell:2014} is a follow-on to the primary \kepler\
-Mission, observing about a dozen fields near the ecliptic plane, each for
+The great stability of the original \kepler\ Mission
+came to an end with the failure of a critical reaction wheel.
+The \KT\ Mission \citep{Howell:2014} is a follow-on to the primary Mission,
+observing about a dozen fields near the ecliptic plane, each for
 $\sim 75$ days at a time.
 Because of the degraded spacecraft orientation systems, the new \KT\ data
 exhibit far greater pointing variations---and substantially more
-pointing-induced variations in photometry---than the original \kepler\ data.
+pointing-induced variations in photometry---than the original \kepler\ Mission data.
 This makes good data-analysis techniques even more valuable.
 
 Good photometry relies on either a near-perfect flat-field
 and pointing model or else data-analysis techniques that are
-insensitive to such variations.
+insensitive to these instrument properties.
 The flat-field for \kepler\ was measured on the ground before the launch of
 the spacecraft, but is not nearly as accurate as required to make
 pointing-insensitive photometric measurements at the relevant level of precision.
@@ -206,7 +205,7 @@ In principle direct inference of the flat-field might be possible;
 however, because point sources are observed with relatively limited
 spacecraft motion, and only a few percent of the data are actually stored and
 downloaded to Earth, there isn't enough information in the data to derive or
-infer a highly accurate flat-field map.
+infer a complete or accurate flat-field map.
 Therefore, work on \KT\ is sensibly focused on building data-analysis
 techniques that are pointing-insensitive.
 
@@ -227,7 +226,8 @@ In all of these light-curve processing methodologies, the authors follow a
 traditional procedure of ``correcting'' or ``de-trending'' the light curve to
 remove systematic and stellar variability as a step that happens \emph{before}
 the search for transiting planets.
-Fit-and-subtract is dangerous: Small signals, such as planet transits, can be
+Fit-and-subtract is dangerous:
+Small signals, such as planet transits, can be
 partially absorbed into the best-fit stellar variability or systematics
 models, making each individual transit event appear shallower.
 In other words, the traditional methods are prone to over-fitting.
@@ -236,12 +236,13 @@ signals, small planets that ought to appear just above any specific
 signal-to-noise or depth threshold could be missed because of the de-trending.
 This becomes especially important as the amplitude of the noise increases.
 
-The alternative to this approach is to simultaneously fit both the systematics
+The alternative to this approach is to \emph{simultaneously fit} both the systematics
 and the transit signals.
-This method can push the detection limits to lower signal-to-noise while
+Simultaneous fitting can push the detection limits to lower signal-to-noise while
 robustly accounting for uncertainties about the systematic trends.
-In particular, this allows us to \emph{marginalize} over choices in the noise
-model and propagate any uncertainties to our confidence in the detection.
+In particular, it permits us to \emph{marginalize} over choices in the noise
+model and propagate any uncertainties about the systematic effects
+to our confidence in the detection.
 \dfmtodo{Do we need more about marginalization here?}
 
 In this \paper\ we present a data-analysis technique for exoplanet search and
