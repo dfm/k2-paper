@@ -93,12 +93,12 @@
 \newcommand{\transittime}{{\ensuremath{T}}}
 \newcommand{\impact}{{\ensuremath{b}}}
 \newcommand{\ecc}{{\ensuremath{e}}}
-\newcommand{\pomega}{{\ensuremath{\varpi}}}
+\newcommand{\pomega}{{\ensuremath{\omega}}}
 
 \begin{document}
 
 \title{%
-    A systematic search for transiting planets in the \KT\ data % hogg changed title!
+    A systematic search for transiting planets in the \KT\ data
 }
 
 \newcommand{\nyu}{2}
@@ -691,31 +691,36 @@ HOWMANY days of the injected signal, we count that injection as recovered.
 The detection efficiency of the search is approximately given by the fraction
 of recovered injections as a function of the relevant parameters.
 
-To generate the synthetic signals, we follow the following procedure:
+To generate the synthetic signals, we use the following procedure:
 \begin{enumerate}
 
-{\item draw the number of transiting planets based on the observed
-multiplicity distribution of KOIs (CITE),}
+{\item Draw the number of transiting planets based on the observed
+multiplicity distribution of KOIs (CITE).}
 
-{\item for each planet, choose limb darkening parameters, orbital periods,
-phases, radius ratios, impact parameters, eccentricity, and argument of
-periapsis, from the distributions listed in \tab{dist}}
+{\item Sample---from the distributions listed in
+\tab{dist}---limb darkening parameters and, for each planet, an orbital
+period, phase, radius ratio, impact parameter, eccentricity, and argument of
+periapsis.}
+
+{\item Based on the chosen physical parameters, simulate the light curve,
+taking limb darkening and integration time into account \citep{ma,
+kipping-int}, and multiply it into the raw aperture photometry.}
 
 \end{enumerate}
+We then process these light curves using exactly the pipeline that we use for
+the light curves without injections.
+Finally, we test for recovery after applying the cuts in signal-to-noise and
+period.
+We should, of course, also process the results of the injection tests by hand
+to ensure that our measurements of detection efficiency aren't biased by this
+step but, since we chose to limit our sample to very high signal-to-noise
+candidates, it seems unlikely that our hand vetting removed any true transit
+signals.
+Any estimates of the false alarm rate will, however, be affected by this
+negligence but we leave a treatment of this for future discussion.
 
-
-These synthetic systems have periods and radius ratios drawn uniformly in
-\dfmtodo{some range} and uniformly distributed impact parameters and phases.
-The eccentricities are drawn from a beta distribution with \dfmtodo{some
-parameters; cite Kipping} and the multiplicity is set to match the observed
-multiplicity distribution in the KOI catalog \dfmtodo{cite}.
-MA limb darkening, exposure time integration, etc.
-
-After running these light curves with injections through the full pipeline, if
-the resulting period and phase of the recovered signal were within YYYY of the
-true injected values, we deemed the injection a success.
-\Fig{completeness} shows the fraction of recovered signals as a function of the
-physical parameters of the injection and the magnitude of the star.
+\Fig{completeness} shows the fraction of recovered signals as a function of
+the physical parameters of the injection and the magnitude of the star.
 As expected, the shallower transits at longer periods are recovered less
 robustly.
 
