@@ -272,22 +272,24 @@ They will also deliver input data for next-generation population inferences
 \citep[for example][]{dressing}.
 
 The \paper\ is organized as follows.
-In \textsection\ref{sec:phot}, we describe our analysis of the photometric
-data collected by \KT.
-In \textsection\ref{sec:model}, we expain our simultaneous fit of the
-systematics and transit model.
-In \textsection\ref{sec:search}, we describe our search pipeline for
-planet candidates.
-In \textsection\ref{sec:perform}, we quantify the performace of our pipeline
-through the analysis of injected planetary signals.
-In \textsection\ref{sec:K2OIs}, we present the results of our search:
-catalogs of \KT\ planet candidates and eclipsing binaries.
-In \textsection\ref{sec:discuss}, we discuss our results and outline our
-future work.
+In \sect{phot}, we describe our method of extracting aperture photometry from
+the calibrated \KT\ postage stamp time series.
+In \sect{model} (with details in \app{math}), we describe our data-driven
+model for the systematic trends in the photometric light curves and our method
+for fitting this model simultaneously with a transit signal.
+In \sect{search}, we give the detailed procedure that we use for discovering
+and vetting planet candidates.
+To quantify the performance and detection efficiency of our pipeline, we test
+(in \sect{perform}) the recovery and false alarm rate of synthetic transit
+signals, spanning a large range of physical parameters, injected into real
+\KT\ light curves.
+Finally, in \sect{results}, we present a catalog of XXXX planet candidates
+orbiting WWWW stars---and a supplementary list of YYYY eclipsing binary
+candidates---in the publicly available \KT\ Campaign 1 dataset.
 
 
 \section{Photometry}
-\label{sec:phot}
+\sectlabel{phot}
 
 The starting point for analysis is the raw pixel data.
 We download the full set of XXX target pixel files for \KT's Campaign 1 from
@@ -395,7 +397,7 @@ might be required for computational tractability.
 
 
 \section{Search pipeline}
-\label{sec:search}
+\sectlabel{search}
 
 In principle, the search for transit signals simply requires evaluating the
 model described above on a fine three-dimensional grid in period, phase, and
@@ -626,16 +628,16 @@ care.
 There are typically only a handful of transits, meaning differences between
 ``odd'' and ``even'' transits must be large to create a significant
 difference.
-Searching for ellipsoidal varaitions is hindered by the short time baseline
+Searching for ellipsoidal variations is hindered by the short time baseline
 and the increased photometric uncertainty in \KT\ data.
 Centroid variations are feasible in \KT\ but must be treated differently than
 in the original \kepler\ mission where this effect was generally measured
 using difference imaging (cite Howell).
 
 To obtain an initial assessment of the astrophysical false positive rate in
-our catalog of planet candidates, we test for centroid offsets and variable
-depth transits using the machinery that we have already established for
-modeling the systematic trends in the data.
+our catalog of planet candidates, we test for significant centroid offsets
+using the machinery that we have already established for modeling the
+systematic trends in the data.
 This is only the first word and a more complete characterization of our
 catalog's reliability is forthcoming (Montet, Foreman-Mackey, \etal\ in prep).
 
@@ -649,8 +651,9 @@ Figure SOMEFIGURE shows the measure $x$ and $y$ pixel coordinate traces for
 SOMECANDIDATE.
 Much like the photometry, this signal is dominated by the rigid body motion
 of the spacecraft and we can, in fact, model it identically.
-Previously (SOMEEQUATION), we modeled the light curve as a linear combination
-of ELCs and a simple box transit model at a given period, phase, and duration.
+Previously (\eqalt{linear-model}), we modeled the light curve as a linear
+combination of ELCs and a simple box transit model at a given period, phase,
+and duration.
 Under this model, the maximum likelihood depth can be computed analytically.
 If we apply \emph{exactly the same model} to the centroid trace, the ``depth''
 that we compute becomes the centroid motion in transit in units of pixels.
@@ -661,29 +664,30 @@ To compute the significance of a centroid offset, we bootstrap the offset
 amplitude for models at the same period and duration but randomly oriented
 phases.
 If the centroid measured for the candidate transit is substantially larger
-(by SOMEAMOUNT) than the random realizations, then the candidate is labeled
-as a false positive.
-Figure SOMEFIGURE shows the distribution of centroid offsets across our
-catalog and YYYY---or ZZZZ\%---of our candidates fail this test.
-
-We also test the consistency \emph{between even and odd transit depths} for
-each of our candidates.
-As described in SOMESECTION, our method for transit search automatically
-rejects signals with wildly varying depths but.
-
-Blah blah blah.
-Therefore, false positives caused by background eclipsing binaries which could
-be identified as such by \kepler\ data alone will be much more difficult to
-distinguish in \KT\ data, making high-contrast adaptive optics images of
-planet candidates an essential follow-up tool.
+than the random realizations, we label the candidate as a false positive.
+In practice, the precision of the centroid measurements isn't sufficient to
+robustly reject many candidates but of the list of 100 (RIGHT NUMBER), two
+candidates---EPIC AAA and BBB---have offsets large enough that we remove them
+from our final catalog.
+Figure SOMEFIGURE shows the distribution of centroid offsets across the full
+catalog.
 
 
 \section{Performance}
+\sectlabel{perform}
 
-To test the performance of our method, we conducted a suite of XXXX injection
-and recovery tests.
+To test the performance and detection efficiency of our method, we conducted a
+suite of XXXX injection and recovery tests, this is the result of 5 tests per
+star.
 For each test, we inject the signal from a realistic planetary system into the
-raw aperture photometry and passed it through the full pipeline.
+raw aperture photometry of a random target and run the resulting light curve
+through the full pipeline.
+If the search returns a planet candidate---passing all of the same cuts as we
+apply in the main search---with period and reference transit time within
+HOWMANY days of the injected signal, we count that injection as recovered.
+The detection efficiency of the search is approximately given by the fraction
+of recovered injections as a function of the relevant parameters.
+
 These synthetic systems have periods and radius ratios drawn uniformly in
 \dfmtodo{some range} and uniformly distributed impact parameters and phases.
 The eccentricities are drawn from a beta distribution with \dfmtodo{some
@@ -702,6 +706,7 @@ robustly.
 
 
 \section{Results}
+\sectlabel{results}
 
 After running the 21XXX light curves through our full pipeline, we end up
 with XXXX TCEs \dfmtodo{change this name} and after hand vetting, we are left
@@ -837,7 +842,8 @@ This research made use of the NASA \project{Astrophysics Data System}.
 
 \appendix
 
-\section{Mathematical model}\sectlabel{math}
+\section{Mathematical model}
+\sectlabel{math}
 
 Formally, this can be written for the light curve of the $k$-th star as
 \begin{eqnarray}\eqlabel{linear-model}
