@@ -243,18 +243,22 @@ robustly accounting for uncertainties about the systematic trends.
 In particular, it permits us to \emph{marginalize} over choices in the noise
 model and propagate any uncertainties about the systematic effects
 to our confidence in the detection.
-\dfmtodo{Do we need more about marginalization here?}
+This marginalization ensures that any conclusions we come to about the exoplanet
+properties are conservative, given the freedom of the systematics model.
 
 In this \paper\ we present a data-analysis technique for exoplanet search and
 characterization that is insensitive to spacecraft-induced trends in the light
 curves.
 We assume that the trends in the observed light curves in each star due to
-spacecraft motion are shared by each star, and run PCA to measure the dominant
-modes.
-We then search for planets by modeling the data as a linear combination of a
-huge number of these basis vectors and a transit model.
-Our method builds on the ideas of previous data-driven de-trending procedures
-like Pre-search data conditioning \citep[\pdc;][]{pdc1, pdc2} but we can use a
+spacecraft motion are shared by other stars; the systematic effects are
+modeled as sums of stars.
+We reduce the dimensionality by running PCA on stellar light curves
+to obtain the dominant modes.
+The search for planets proceeds by modeling the data as a linear combination of
+150 of these basis vectors and a transit model.
+Our method builds on the ideas behind previous data-driven de-trending procedures
+such as the \kepler\ pipeline pre-search data conditioning \citep[\pdc;][]{pdc1, pdc2},
+but (because of our simultaneous fitting approach) we can use a
 much more flexible systematics model without worrying about over-fitting.
 
 The methods developed within this paper are highly relevant to both \KT\ and
@@ -268,12 +272,12 @@ with \KT.
 Catalogs of transiting planets found in the \KT\ data will be important to
 better understand the physical properties, formation, and evolution of
 planetary systems.
-These planets, especially when they orbit especially bright or late-type
+These planets, especially when they orbit bright or late-type
 stars, will be useful targets for ground-based and space-based follow-up, both
-for current facilities and those planned in the near-future such as \jwst.
+for current facilities and those planned in the near future such as \jwst.
 They will also deliver input data for next-generation population inferences
 \citep{dfm}, especially for the population of planets around cool stars
-\citep[for example][]{dressing}.
+\citep[for example,][]{dressing}.
 
 The \paper\ is organized as follows.
 In \sect{phot}, we describe our method of extracting aperture photometry from
