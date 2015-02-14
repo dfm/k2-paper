@@ -9,6 +9,7 @@
 %  * ``light curve'' not ``light-curve'' or ``lightcurve''
 %  * Do not put in any comments that might get tweeted by @OverheardOnAph
 %    (or maybe do put in a few....)
+%  * ``percent'' (not \%) is a unit, as is ppm, so 5~percent.
 %  * that is all.
 %
 
@@ -58,7 +59,8 @@
 \newcommand{\eq}[1]{\Eq{#1}}
 \newcommand{\eqalt}[1]{Equation~\ref{eq:#1}}
 \newcommand{\eqlabel}[1]{\label{eq:#1}}
-\newcommand{\Sect}[1]{Section~\ref{sect:#1}}
+\newcommand{\sectionname}{Section}
+\newcommand{\Sect}[1]{\sectionname~\ref{sect:#1}}
 \newcommand{\sect}[1]{\Sect{#1}}
 \newcommand{\sectalt}[1]{\ref{sect:#1}}
 \newcommand{\App}[1]{Appendix~\ref{sect:#1}}
@@ -323,7 +325,7 @@ All previous methods for analyzing \KT\ data involve some sort of
 of the spacecraft \citep{Vanderburg:2014, Aigrain:2015,
 Crossfield:2015}.
 In our analysis, we don't do any further preprocessing of the light curves
-because, as we describe in the next section, we are going to simultaneously fit for the
+because, as we describe in the next \sectionname, we are going to simultaneously fit for the
 trends and the transit signals that we are searching for in the raw
 photometric light curves.
 
@@ -401,7 +403,7 @@ function---conditioned on a specific period, phase, and duration---for the
 depth \emph{marginalizing out the systematics model}.
 The signal-to-noise of this depth measurement can then be used as a quality
 of fit metric or candidate selection scalar.
-This computation is expensive but, as described in the following sections, it
+This computation is expensive but, as described in the following \sectionname s, it
 is possible to scale the method to a \KT-size dataset.
 
 It is worth noting that this model can be equivalently thought of as a
@@ -416,11 +418,11 @@ might be required for computational tractability.
 \section{Search pipeline}
 \sectlabel{search}
 
-In principle, the search for transit signals simply requires evaluating the
+In principle, the search for transit signals simply requires evaluation of the
 model described above on a fine three-dimensional grid in period, phase, and
-duration, and then detecting high significance peaks in that space.
+duration, and then detection of high significance peaks in that space.
 In practice, this is computationally intractable for any grids of the
-required size.
+required size and resolution.
 Instead, we can compute the values on this grid approximately, but at very
 high precision, using a two-step procedure that is much more computationally
 efficient.
@@ -432,8 +434,12 @@ star $n$ given a period \period, reference transit time \phase, and duration
 p(\{\flux\}_n\,|\,\period,\,\phase,\,\duration,\,\depth) \quad.
 \end{eqnarray}
 We make the simplifying assumption that each transit enters this quantity
-independently because it is approximately satisfied for all but the shortest
-periods and it leads to a huge computational advantage.
+independently.
+This is not true; as we change beliefs about each transit, we change beliefs
+about the systematics model, which in turn affects the other transits.
+However, this simplifying assumption
+is approximately satisfied for all but the shortest
+periods and leads to a huge computational advantage.
 Under this assumption, this likelihood function can be rewritten as
 \begin{eqnarray}\eqlabel{indtran}
 p(\{\flux\}_n\,|\,\period,\,\phase,\,\duration,\,\depth) &=&
@@ -451,10 +457,12 @@ in $\transittime_l$ and duration $\duration_k$
 \right\}_{l=1,\,k=1}^{L,\,K} \quad.
 \end{eqnarray}
 Then, we can use these results as a look-up table to approximately evaluate
+the full likelihood in
 \eq{full-likelihood}.
 
-In the remainder of this section, we give more details about each step of the
-search procedure but in summary, it breaks into three main steps: linear
+In the remainder of this \sectionname, we give more details about each step of the
+search procedure.
+In summary, it breaks into three main steps: linear
 search, periodic search, and vetting.
 In the {\bf linear search} step, we evaluate the likelihood function in
 \eq{singletransit} on a two-dimensional grid, coarse in transit duration
@@ -477,12 +485,12 @@ evaluate \emph{the likelihood function} for the transit depth at that time
 and duration.
 Since the model is linear, the likelihood function for the depth (marginalized
 over the model of the systematics) is a Gaussian with analytic amplitude $L$,
-mean $\bar{\depth}$, and variance $\delta\bar{\depth}^2$ derived in
+mean $\bar{\depth}$, and variance $\delta\bar{\depth}^2$, all derived and given in
 \app{math}.
-Therefore in the linear search, we save these three numbers for a
-two-dimensional grid in transit time $\transittime_l$ and duration
+In the linear search, we save these three numbers on a
+two-dimensional grid of transit times $\transittime_l$ and durations
 $\duration_k$.
-The transit time grid spans the duration of Campaign 1 with half hour spacing
+The transit time grid spans the full length of Campaign 1 with half hour spacing
 and we choose to only test three durations: 1.2, 2.4, and 4.8 hours.
 \Fig{linear} shows the mean transit depth $\bar{\depth}$ as a function of
 transit time \transittime\ for a light curve with an injected transit signal
@@ -548,7 +556,7 @@ redefine the BIC as the TIC
     \ln p_\cdot(\{\flux\}_n\,|\,\period,\,\phase,\,\duration) - \alpha
 \end{eqnarray}
 and we choose $\alpha$ heuristically.
-For the K2 Campaign 1 dataset, we find that $\alpha \sim 1250$ leads to robust
+For the K2 Campaign 1 dataset, we find that $\alpha \sim 1250$ leads to reliable
 recovery of injected signals while still being fairly insensitive to false
 signals.
 
@@ -562,14 +570,16 @@ To choose the ``best'' candidate signal, we found that the best quantity to
 select on was the signal-to-noise with which the depth was measured at a
 given period, $\depth/\sigma_\depth$, computed using
 Equations~(\ref{eq:periodic-depth}) and (\ref{eq:periodic-depth-uncert}).
-Figure SOMEFIGURE shows the signal-to-noise of the depth measurement as a
-function of period for SOMECANDIDATE.
+Figure \dfmtodo{SOMEFIGURE} shows the signal-to-noise of the depth measurement as a
+function of period for \dfmtodo{SOMECANDIDATE}.
 
 After selecting the best candidate based on the signal-to-noise of the depth,
 we mask out the sections of the linear search corresponding to these transits
 and iterate the periodic search.
-Under our assumption of independent transits, this is equivalent to removing
-the sections of data that have a transit caused by the highest peak.
+This permits us to find second transiting planets in light curves in which
+we have already found a more prominent signal.
+Under our assumption of independent transits, this masking procedure is equivalent to removing
+the sections of data that have a transit caused by the exoplanet that produces the highest peak.
 For the purposes of this \paper, we iterate the periodic search until we find
 three peaks for each light curve.
 This will necessarily miss the smallest and longest period planets in systems
@@ -581,24 +591,24 @@ thereof---of the current method, we deemed this number sufficient.
 
 The periodic search procedure returned three signals per target so this gave
 an initial list of 65,109 candidates.
-The vast majority of these signals are, of course, not induced by a
-transiting planet.
+The vast majority of these signals are not induced by a transiting planet;
+there are many false positives.
 Therefore to reduce the search space, we estimate the signal-to-noise of each
 candidate by comparing the peak height to a robust estimate of variance in
 \TIC\ values across period.
 This is not the same criterion used to select the initial three peaks but we
-found that at this stage, it produced a more complete and pure sample.
+find that it produces a more complete and pure sample.
 A cut in this quantity can reject most variable stars and low signal-to-noise
 candidates that can't be reliably recovered from the data.
-Figure SOMEFIGURE shows the distribution of signal-to-noise for a set of
+Figure~\dfmtodo{SOMEFIGURE} shows the distribution of signal-to-noise for a set of
 injections and compares it to the distribution of false candidates that are
 proposed by the pipeline.
 To minimize contamination from false alarms but maximize our sensitivity, we
 choose a threshold of 15.
-We also find that the signals with periods $\lesssim 4$ days are very
+We also find that the signals with periods $\lesssim 4$ days are strongly
 contaminated by false alarms.
 This might be because of the fact that our independence assumption
-(SOMEEQUATION) breaks down at these short periods.
+\dfmtodo{(SOMEEQUATION)} breaks down at these short periods.
 Therefore, we discard all signals with periods shorter than 4 days.
 After these cuts, we're left with 741 candidates that we then examine by hand.
 The full list of peaks and their relevant meta data is available online at
@@ -611,16 +621,16 @@ After our initial cuts on the candidate list, the majority of signals are
 still false alarms mostly due to variable stars or single outlying data
 points.
 It should be possible to construct a more robust machine vetting algorithm
-that discards these samples without missing real transits (CITE SOME THINGS)
+that discards these samples without missing real transits \dfmtodo{(CITE SOME THINGS)}
 but for the purposes of this \paper, we simply inspect the light curve for
 each of the 741 candidates \emph{by hand} to discard signals that are not
 convincing transits.
-The results of this vetting can be seen online at SOMEURL.
+The results of this vetting can be seen online at \dfmtodo{SOMEURL}.
 
 This vetting resulted in a list of 101 candidate transit signals.
 Many of these signals are due to astrophysical ``false positives'' like
 eclipsing binaries or blending.
-We address this effect in the following section and separate the list of
+We address this effect in the following \sectionname, where we separate the list of
 candidates into a list of astrophysical false positives and planet candidates.
 
 
@@ -628,18 +638,18 @@ candidates into a list of astrophysical false positives and planet candidates.
 
 A major problem with any transit search is the potential confusion between
 transiting planets and eclipsing binaries.
-Ground-based surveys before \kepler\ often had a false-positive rate
-of 30-40\%. (because of shit?)
-In the primary \kepler\ mission, this number was significantly lower:
-the false positive rate was only 5-10\% \citep{Morton:2011}.
+Ground-based surveys prior to \kepler\ often had a false-positive rate
+of 30 to 40~percent. \dfmtodo{(because of shit?)}
+In the primary \kepler\ Mission, this number was significantly lower:
+the false positive rate was only 5 to 10~percent \citep{Morton:2011}.
 Such improvement was enabled by the relatively small pixels, stable
-pointing, and high precision of \kepler.
+pointing, and high precision of the \kepler\ spacecraft.
 In \kepler\ data, false positives can be reliably separated from
 planet candidates by looking for differences in the position of the
 centroid of light during transit events with respect to the
-out-of-transit data (e.g. citation), variations in the depth of
-alternating transits (e.g. citation), and evidence for ellipsoidal
-variations between transits (e.g. citation).
+out-of-transit data \dfmtodo{(e.g. citation)}, variations in the depth of
+alternating transits \dfmtodo{(e.g. citation)}, and evidence for ellipsoidal
+variations between transits \dfmtodo{(e.g. citation)}.
 
 In \KT, the precision of these tests is lower and they must be applied with
 care.
@@ -663,10 +673,9 @@ To measure \emph{centroid offsets}, we start by empirically measuring the
 pixel centroid time series for each candidate by modeling the pixels near the
 peak as a two-dimensional quadratic and finding the maximum at each time.
 This method has been shown to produce higher precision centroid measurements
-than center-of-light estimates (@HOGG: is this true? Is there a citation? MJ
-in prep?).
-Figure SOMEFIGURE shows the measure $x$ and $y$ pixel coordinate traces for
-SOMECANDIDATE.
+than center-of-light estimates (Vakili \etal, in preparation).
+\dfmtodo{Figure SOMEFIGURE shows the measure $x$ and $y$ pixel coordinate traces for
+SOMECANDIDATE.}
 Much like the photometry, this signal is dominated by the rigid body motion
 of the spacecraft and we can, in fact, model it identically.
 Previously (\eqalt{linear-model}), we modeled the light curve as a linear
