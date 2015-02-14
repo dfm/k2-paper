@@ -39,6 +39,7 @@
 \newcommand{\projectname}{\project{ketu}}
 
 \newcommand{\paper}{\textsl{Article}}
+\newcommand{\papertwo}{\textsl{Paper II}}
 
 \newcommand{\foreign}[1]{\emph{#1}}
 \newcommand{\etal}{\foreign{et\,al.}}
@@ -545,7 +546,8 @@ signals.
 
 To limit memory consumption, in the periodic search, we actually profile (or
 maximize) over \phase\ and \duration\ subject to the constraint that
-$\TIC_\mathrm{const} > \TIC_\mathrm{var}$.
+$\TIC_\mathrm{const} > \TIC_\mathrm{var}$ and requiring that the signal have
+at least two observed transits.
 This results in a one-dimensional ``periodogram'' measuring the quality of
 the fit as a function of period.
 To choose the ``best'' candidate signal, we found that the best quantity to
@@ -782,8 +784,20 @@ be applied by re-weighting the published samples.
 In \tab{cand} we list the sample quantiles for the observable quantities and
 the full chains are available electronically at \dfmtodo{some URL}.
 
-SOMEFIGURE shows the distribution of radius ratios and periods of candidates
-from our sample.
+SOMEFIGURE shows the observed distribution of planet candidates in our
+catalog.
+Using this and the detection efficiency function computed in the previous
+section, we compute the occurrence rate as a function of period by ignoring
+the measurement uncertainties and following the method described in the
+Appendix of \citet{dfm}.
+This function is shown in SOMEFIGURE and IS THIS CONSISTENT INTERESTING ETC?
+
+In \papertwo, we will characterize the stars for each of our candidates in
+detail but for now it's worth noting that about half (IS THIS TRUE) of our
+planet candidates are orbiting M-type stars.
+If this rate remains robust after stellar characterization and if these
+numbers are representative of the \KT\ yields in upcoming Campaigns, this
+will substantially increase the number of planets known to transit cool stars!
 
 
 \section{Discussion}
