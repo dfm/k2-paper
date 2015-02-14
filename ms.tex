@@ -728,36 +728,62 @@ negligence but we leave a treatment of this for future discussion.
 the physical parameters of the injection and the magnitude of the star.
 As expected, the shallower transits at longer periods are recovered less
 robustly.
+It is worth noting that this figure is a two-dimensional projection (or
+marginalization) of a higher dimensional measurement.
+For example, this completeness map is conditioned on our assumptions about
+the eccentricity distribution of planets and it is marginalized over the
+distribution of stellar parameters.
+It is possible to relax this assumption and apply different distributions by
+re-weighting the simulations used to generate this figure.
+Therefore, alongside this \paper, we publish the full list of injection
+simulations\footnote{SOMEURL} to be used for population inference (occurrence
+rate measurements).
+In \fig{completeness}, we also show the detection efficiency---marginalized
+over the same range of periods---as a function of stellar magnitude in the
+\kepler\ bandpass as reported in the EPIC.
 
 
 
 \section{Results}
 \sectlabel{results}
 
-After running the 21XXX light curves through our full pipeline, we end up
-with XXXX TCEs \dfmtodo{change this name} and after hand vetting, we are left
-with YYYY convincing transiting candidates.
-Of these candidates, ZZZ are probable binaries with obviously visible
-secondary eclipses and we list these candidates in Table \dfmtodo{SOMETABLE}.
-This leaves WWW planet candidates that are listed in Table
-\dfmtodo{SOMETABLE}.
+After running the 21XXX light curves through our full pipeline, we end up with
+XXXX TCEs \dfmtodo{change this name} and after hand vetting by the two first
+authors of this \paper, we are left with YYYY convincing transiting
+candidates.
+We choose to separate this list into two tables: planet candidates
+(\tab{cand}) and eclipsing binary candidates (\tab{eb}).
+For our purposes, we define an binary candidate as any system where we can
+find a secondary eclipse by visual inspection but in most cases, the
+secondary eclipse is also detected as a smaller transit signal at the same
+period as the primary.
+In this dataset, we discover ZZZ planet candidates around WWW stars.
+Two of these were previously published \citep{Crossfield:2015} but, to our
+knowledge, the remaining list is currently unpublished.
+The third planet published by \citet{Crossfield:2015} is found as the third
+signal for that target by our pipeline but it falls just below our
+signal-to-noise cut so we left it out of the catalog for consistency.
+This suggests that a less conservative cut in signal-to-noise and more
+aggressive machine vetting could yield a much more complete catalog at smaller
+radii and longer periods even with the existing dataset.
 
-\paragraph{Posterior constraints on physical parameters}
+For the binaries, we simply list the period, phase, and depth determined by
+the search algorithm but for the planet candidates, we perform a full physical
+transit fit to the light curve.
+To do this fit, we use Markov Chain Monte Carlo \citep[MCMC;][]{emcee} to
+sample from the posterior probability for the stellar and planetary
+parameters taking limb darkening and integration time into account.
+In this fit, we continue to model the trends in the data as a linear
+combination of 150 ELCs but, at this point, we combine this with a realistic
+light curve model \citet{ma, kipping-ld}.
+Even though we have no constraints on the stellar parameters, we also sample
+over a large range in stellar mass and radius so that future measurements can
+be applied by re-weighting the published samples.
+In \tab{cand} we list the sample quantiles for the observable quantities and
+the full chains are available electronically at \dfmtodo{some URL}.
 
-To fit for the observable parameters of the transit signals in detail, we use
-the same linear model for the systematics but then we combine this with a
-physical transit model (M\&A, etc.).
-Since this transit model is no longer linear, we use Markov Chain Monte Carlo
-(MCMC; cite emcee) to draw posterior samples from this model.
-At each step in the chain, we \emph{marginalize over the model of the
-systematics}.
-This means that we don't de-trend the data or make any hard decision about
-the actual value of the systematics.
-We sample the stellar density, limb-darkening coefficients, period, phase,
-radius ratio, impact parameter, eccentricity, and argument of periapsis.
-\dfmtodo{List priors.}
-The quantiles of these posterior samplings are given in table \dfmtodo{some
-table} and the full chains are available electronically \dfmtodo{some URL}.
+SOMEFIGURE shows the distribution of radius ratios and periods of candidates
+from our sample.
 
 
 \section{Discussion}
@@ -855,6 +881,7 @@ but presumably \KT\ data will rock this.  In what ways?
 
 \acknowledgments
 It is a pleasure to thank
+Andrew Vanderburg (Harvard),
 Ruth Angus (Oxford), Tom Barclay (Ames), \etal
 for helpful contributions to the ideas and code presented here.
 DFM, DWH, and DW were partially supported by the National Science Foundation
@@ -864,7 +891,10 @@ the National Aeronautics and Space Administration
 BTM was supported by a National Science Foundation Graduate Research
 Fellowship (grant DGE‐1144469).
 
-This research made use of the NASA \project{Astrophysics Data System}.
+This research made use of the NASA \project{Astrophysics Data System} and the
+NASA Exoplanet Archive.
+The Archive is operated by the California Institute of Technology, under
+contract with NASA under the Exoplanet Exploration Program.
 This \paper\ includes data collected by the \kepler\ mission. Funding for the
 \kepler\ mission is provided by the NASA Science Mission directorate.
 These data were obtained from the Mikulski Archive for Space Telescopes
