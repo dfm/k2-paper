@@ -148,8 +148,8 @@ transit signals of interest.
 This method is more computationally expensive than standard search algorithms
 but we demonstrate that it can be efficiently implemented and used to robustly
 discover transit signals.
-We apply this method to the full Campaign 1 dataset and report a list of XXX
-planet candidates transiting YYY stars.
+We apply this method to the full Campaign 1 dataset and report a list of 38
+planet candidates transiting 33 stars.
 For all planet candidates, we present posterior distributions on the
 properties of each system based strictly on the transit observables.
 We also present a list of ZZZ candidate eclipsing binary systems.
@@ -292,8 +292,8 @@ To quantify the performance and detection efficiency of our pipeline, we test
 (in \sect{perform}) the recovery and false alarm rate of synthetic transit
 signals, spanning a large range of physical parameters, injected into real
 \KT\ light curves.
-Finally, in \sect{results}, we present a catalog of XXXX planet candidates
-orbiting WWWW stars---and a supplementary list of YYYY eclipsing binary
+Finally, in \sect{results}, we present a catalog of 38 planet candidates
+orbiting 33 stars---and a supplementary list of YYYY eclipsing binary
 candidates---in the publicly available \KT\ Campaign 1 dataset.
 
 
@@ -301,8 +301,8 @@ candidates---in the publicly available \KT\ Campaign 1 dataset.
 \sectlabel{phot}
 
 The starting point for analysis is the raw pixel data.
-We download the full set of \dfmtodo{XXX} target pixel files for \KT's Campaign 1 from
-MAST\footnote{\url{https://archive.stsci.edu/k2/}}.
+We download the full set of 21,703 target pixel files for \KT's Campaign 1
+from MAST\footnote{\url{https://archive.stsci.edu/k2/}}.
 We extract photometry using fixed circular apertures of varying sizes
 centered on the predicted location of the target star based on the world
 coordinate system.
@@ -337,9 +337,9 @@ combination of a small number of ``co-trending basis vectors''.
 This basis of trends was found by running Principal Component Analysis (PCA)
 on a large set of (filtered) light curves and extracting the top few ($\sim 4$)
 components \citep{pdc1, pdc2}.
-Similarly, we ran PCA on the full set of our own generated \KT\ Campaign~1 light curves to determine
-a basis of representative trends but, unlike \pdc, we retain and use
-a large number of these components ($150$).
+Similarly, we ran PCA on the full set of our own generated \KT\ Campaign~1
+light curves to determine a basis of representative trends but, unlike \pdc,
+we retain and use a large number of these components ($150$).
 For clarity, we will refer to our basis as a set of ``eigen light curves''
 (ELCs) and the full set is made available online (\dfmtodo{SOMEURL}).
 The top ten ELCs for Campaign~1 are shown in \Fig{pca}.
@@ -580,7 +580,7 @@ thereof---of the current method, we deemed this number sufficient.
 \paragraph{Initial candidate list}
 
 The periodic search procedure returned three signals per target so this gave
-an initial list of ZZZZ candidates.
+an initial list of 65,109 candidates.
 The vast majority of these signals are, of course, not induced by a
 transiting planet.
 Therefore to reduce the search space, we estimate the signal-to-noise of each
@@ -613,11 +613,11 @@ points.
 It should be possible to construct a more robust machine vetting algorithm
 that discards these samples without missing real transits (CITE SOME THINGS)
 but for the purposes of this \paper, we simply inspect the light curve for
-each of the YYYY candidates \emph{by hand} to discard signals that are not
+each of the 741 candidates \emph{by hand} to discard signals that are not
 convincing transits.
 The results of this vetting can be seen online at SOMEURL.
 
-This vetting resulted in a list of ZZZZ transiting candidates.
+This vetting resulted in a list of 101 candidate transit signals.
 Many of these signals are due to astrophysical ``false positives'' like
 eclipsing binaries or blending.
 We address this effect in the following section and separate the list of
@@ -650,7 +650,7 @@ Searching for ellipsoidal variations is hindered by the short time baseline
 and the increased photometric uncertainty in \KT\ data.
 Centroid variations are feasible in \KT\ but must be treated differently than
 in the original \kepler\ mission where this effect was generally measured
-using difference imaging (cite Howell).
+using difference imaging (cite).
 
 To obtain an initial assessment of the astrophysical false positive rate in
 our catalog of planet candidates, we test for significant centroid offsets
@@ -684,9 +684,9 @@ phases.
 If the centroid measured for the candidate transit is substantially larger
 than the random realizations, we label the candidate as a false positive.
 In practice, the precision of the centroid measurements isn't sufficient to
-robustly reject many candidates but of the list of 100 (RIGHT NUMBER), two
-candidates---EPIC AAA and BBB---have offsets large enough that we remove them
-from our final catalog.
+robustly reject many candidates but two candidates---EPIC 201202105 and EPIC
+201632708---have offsets large enough that we remove them from our final
+catalog.
 Figure SOMEFIGURE shows the distribution of centroid offsets across the full
 catalog.
 
@@ -757,19 +757,14 @@ over the same range of periods---as a function of stellar magnitude in the
 \section{Results}
 \sectlabel{results}
 
-After running the 21XXX light curves through our full pipeline, we end up with
-XXXX TCEs \dfmtodo{change this name} and after hand vetting by the two first
-authors of this \paper, we are left with YYYY convincing transiting
-candidates.
-We choose to separate this list into two tables: planet candidates
-(\tab{cand}) and eclipsing binary candidates (\tab{eb}).
-For our purposes, we define an binary candidate as any system where we can
-find a secondary eclipse by visual inspection but in most cases, the
-secondary eclipse is also detected as a smaller transit signal at the same
-period as the primary.
-In this dataset, we discover ZZZ planet candidates around WWW stars.
-Two of these were previously published \citep{Crossfield:2015} but, to our
-knowledge, the remaining list is currently unpublished.
+Out of the 21,703 Campaign 1 light curves, our pipeline returns 741 signals
+that pass the signal-to-noise and period cuts.
+After hand vetting by the two first authors, this list is reduced to 101
+convincing astrophysical transit candidates.
+Of these, 38 signals---in 33 light curves---have no visible secondary
+eclipse and these planet candidates are listed in \tab{cand}.
+Two were previously published \citep{Crossfield:2015} but, to our knowledge,
+the remaining list is currently unpublished.
 The third planet published by \citet{Crossfield:2015} is found as the third
 signal for that target by our pipeline but it falls just below our
 signal-to-noise cut so we left it out of the catalog for consistency.
@@ -777,9 +772,19 @@ This suggests that a less conservative cut in signal-to-noise and more
 aggressive machine vetting could yield a much more complete catalog at smaller
 radii and longer periods even with the existing dataset.
 
-For the binaries, we simply list the period, phase, and depth determined by
-the search algorithm but for the planet candidates, we perform a full physical
-transit fit to the light curve.
+The remaining signals are caused by eclipsing binaries.
+In most cases, the search reports the secondary eclipse as a candidate and in
+a few very high signal-to-noise cases, the period reported by the pipeline is
+incorrect and multiple candidates correspond to the same transit.
+After accounting for these by hand, we find 18 eclipsing binary candidates
+and list them in \tab{eb} along with the period, phase, and depth reported by
+the pipeline.
+It is important to note that the choices made in the search were
+heuristically tuned to find planets, not binaries, so this list should not be
+considered complete or exhaustive, especially at short orbital periods.
+
+For the planet candidates, we perform a full physical transit fit to the light
+curve.
 To do this fit, we use Markov Chain Monte Carlo \citep[MCMC;][]{emcee} to
 sample from the posterior probability for the stellar and planetary
 parameters taking limb darkening and integration time into account.
@@ -1113,7 +1118,9 @@ Candidates
 \include{tab-eb}
 \end{center}
 \caption{%
-Probable binaries.
+Probable binaries. \
+$^\mathrm{a}$ The period for EPIC 201161715 was estimated using the secondary
+eclipses since there is only a single primary transit.
 \tablabel{eb}}
 \end{table}
 
