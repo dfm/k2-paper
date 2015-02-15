@@ -289,8 +289,9 @@ population inference because, thanks to their relative simplicity, the
 efficiency and behavior of these pipelines can be quantified empirically.
 The work described in this \paper\ is built on many of the same principles as
 the previous projects built for studying \kepler\ data but our main
-contribution is a framework for including a model of the systematic trends
-into the search. \dfmtodo{blah}
+intellectual contribution is a computationally tractable framework for
+simultaneously fitting for the trends and the transit signal even when
+searching for planets.
 
 The \paper\ is organized as follows.
 In \sect{phot}, we describe our method of extracting aperture photometry from
@@ -817,8 +818,8 @@ To do this fit, we use Markov Chain Monte Carlo \citep[MCMC;][]{emcee} to
 sample from the posterior probability for the stellar and planetary
 parameters taking limb darkening and integration time into account.
 In this fit, we continue to model the trends in the data as a linear
-combination of the 150 ELCs but, at this point, we combine this with a realistic
-light curve model \citet{ma, kipping-ld}.
+combination of the 150 ELCs but, at this point, we combine this with a
+realistic light curve model \citet{ma, kipping-ld}.
 Even though we have no constraints on the stellar parameters, we also sample
 over a large range in stellar mass and radius so that future measurements can
 be applied by re-weighting the published samples.
