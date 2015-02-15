@@ -704,44 +704,41 @@ catalog.
 \sectlabel{perform}
 
 To test the performance and detection efficiency of our method, we conducted a
-suite of \dfmtodo{XXXX} injection and recovery tests, five tests per
-target star.
+suite of injection and recovery tests, five per
+star for all 21,703 target stars.
 For each test, we inject the signal from a realistic planetary system into the
 raw aperture photometry of a random target and run the resulting injected light curve
 through the full pipeline (except the manual vetting).
 If the search returns a planet candidate---passing all of the same cuts as we
-apply in the main search---with period and reference transit time within
+apply in the main search (except the manual vetting)---with period and reference transit time within
 \dfmtodo{HOWMANY~days} of the injected signal, we count that injection as recovered.
 The detection efficiency of the search is given approximately by the fraction
 of recovered injections as a function of the relevant parameters.
 
 To generate the synthetic signals, we use the following procedure:
 \begin{enumerate}
-
 {\item Draw the number of transiting planets based on the observed
 multiplicity distribution of KOIs (\dfmtodo{CITE}).}
-
 {\item Sample---from the distributions listed in
 \tab{dist}---limb darkening parameters and, for each planet, an orbital
 period, phase, radius ratio, impact parameter, eccentricity, and argument of
 periapsis.}
-
 {\item Based on the chosen physical parameters, simulate the light curve,
 taking limb darkening and integration time into account \citep{ma,
 kipping-int}, and multiply it into the raw aperture photometry.}
-
 \end{enumerate}
 We then process these light curves using exactly the pipeline that we use for
 the light curves without injections.
 Finally, we test for recovery after applying the cuts in signal-to-noise and
 period.
-We should, of course, also process the results of the injection tests by hand
-to ensure that our measurements of detection efficiency aren't biased by this
+We should, of course, also vet the results of the injection tests by hand
+to ensure that our measurements of detection efficiency aren't biased by the
+hand-vetting
 step but, since we chose to limit our sample to very high signal-to-noise
 candidates, it seems unlikely that our hand vetting removed any true transit
 signals.
 Any estimates of the false alarm rate will, however, be affected by this
-negligence but we leave a treatment of this for future discussion.
+negligence but we leave a treatment of this for future work.
 
 \Fig{completeness} shows the fraction of recovered signals as a function of
 the physical parameters of the injection and the magnitude of the star.
@@ -751,7 +748,7 @@ It is worth noting that this figure is a two-dimensional projection (or
 marginalization) of a higher dimensional measurement.
 For example, this completeness map is conditioned on our assumptions about
 the eccentricity distribution of planets and it is marginalized over the
-distribution of stellar parameters.
+empirical distribution of stellar parameters.
 It is possible to relax this assumption and apply different distributions by
 re-weighting the simulations used to generate this figure.
 Therefore, alongside this \paper, we publish the full list of injection
@@ -759,8 +756,7 @@ simulations\footnote{SOMEURL} to be used for population inference (occurrence
 rate measurements).
 In \fig{completeness}, we also show the detection efficiency---marginalized
 over the same range of periods---as a function of stellar magnitude in the
-\kepler\ bandpass as reported in the EPIC.
-
+\kepler\ bandpass as reported in the EPIC (\dfmtodo{CITATION NEEDED?}).
 
 
 \section{Results}
