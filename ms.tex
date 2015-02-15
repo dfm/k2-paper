@@ -767,8 +767,10 @@ that pass the signal-to-noise and period cuts.
 After hand vetting by the two first authors, this list is reduced to 101
 convincing astrophysical transit candidates.
 Of these, 38 signals---in 33 light curves---have no visible secondary
-eclipse and these planet candidates are listed in \tab{cand}.
-Two were previously published \citep{Crossfield:2015} but, to our knowledge,
+eclipse and are deemed planet candidates.
+These planet candidates are listed in \tab{cand}.
+Two (\dfmtodo{give names here})
+were previously published \citep{Crossfield:2015} but, to our knowledge,
 the remaining list is currently unpublished.
 The third planet published by \citet{Crossfield:2015} is found as the third
 signal for that target by our pipeline but it falls just below our
@@ -776,6 +778,8 @@ signal-to-noise cut so we left it out of the catalog for consistency.
 This suggests that a less conservative cut in signal-to-noise and more
 aggressive machine vetting could yield a much more complete catalog at smaller
 radii and longer periods even with the existing dataset.
+
+\dfmtodo{Didn't Charbonneau show some K2 planet at NYU?  Is that in our list and does it need to be mentioned or discussed?  Also, what about the planet we were shown by Vandenburg, private communication?}
 
 The remaining signals are caused by eclipsing binaries.
 In most cases, the search reports the secondary eclipse as a candidate and in
@@ -794,7 +798,7 @@ To do this fit, we use Markov Chain Monte Carlo \citep[MCMC;][]{emcee} to
 sample from the posterior probability for the stellar and planetary
 parameters taking limb darkening and integration time into account.
 In this fit, we continue to model the trends in the data as a linear
-combination of 150 ELCs but, at this point, we combine this with a realistic
+combination of the 150 ELCs but, at this point, we combine this with a realistic
 light curve model \citet{ma, kipping-ld}.
 Even though we have no constraints on the stellar parameters, we also sample
 over a large range in stellar mass and radius so that future measurements can
