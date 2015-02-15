@@ -612,7 +612,7 @@ choose a threshold of 15.
 We also find that the signals with periods $\lesssim 4$ days are strongly
 contaminated by false alarms.
 This might be because of the fact that our independence assumption
-\dfmtodo{(SOMEEQUATION)} breaks down at these short periods.
+(\eqalt{indtran}) breaks down at these short periods.
 Therefore, we discard all signals with periods shorter than 4 days.
 After these cuts, we're left with 741 candidates that we then examine by hand.
 The full list of peaks and their relevant meta data is available online at
@@ -714,15 +714,16 @@ For each test, we inject the signal from a realistic planetary system into the
 raw aperture photometry of a random target and run the resulting injected light curve
 through the full pipeline (except the manual vetting).
 If the search returns a planet candidate---passing all of the same cuts as we
-apply in the main search (except the manual vetting)---with period and reference transit time within
-\dfmtodo{HOWMANY~days} of the injected signal, we count that injection as recovered.
+apply in the main search (except the manual vetting)---with period and
+reference transit time within 12~hours of the injected signal, we count that
+injection as recovered.
 The detection efficiency of the search is given approximately by the fraction
 of recovered injections as a function of the relevant parameters.
 
 To generate the synthetic signals, we use the following procedure:
 \begin{enumerate}
 {\item Draw the number of transiting planets based on the observed
-multiplicity distribution of KOIs (\dfmtodo{CITE}).}
+multiplicity distribution of KOIs \citep{kois}.}
 {\item Sample---from the distributions listed in
 \tab{dist}---limb darkening parameters and, for each planet, an orbital
 period, phase, radius ratio, impact parameter, eccentricity, and argument of
