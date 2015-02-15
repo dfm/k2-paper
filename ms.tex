@@ -150,7 +150,7 @@ transit signals of interest.
 This method is more computationally expensive than standard search algorithms
 but we demonstrate that it can be efficiently implemented and used to robustly
 discover transit signals.
-We apply this method to the full Campaign 1 dataset and report a list of 38
+We apply this method to the full Campaign~1 dataset and report a list of 38
 planet candidates transiting 33 stars.
 For all planet candidates, we present posterior distributions on the
 properties of each system based strictly on the transit observables.
@@ -296,14 +296,14 @@ signals, spanning a large range of physical parameters, injected into real
 \KT\ light curves.
 Finally, in \sect{results}, we present a catalog of 38 planet candidates
 orbiting 33 stars---and a supplementary list of \dfmtodo{YYYY} eclipsing binary
-candidates---in the publicly available \KT\ Campaign 1 dataset.
+candidates---in the publicly available \KT\ Campaign~1 dataset.
 
 
 \section{Photometry and Eigen Light Curves}
 \sectlabel{phot}
 
 The starting point for analysis is the raw pixel data.
-We download the full set of 21,703 target pixel files for \KT's Campaign 1
+We download the full set of 21,703 target pixel files for \KT's Campaign~1
 from MAST\footnote{\url{https://archive.stsci.edu/k2/}}.
 We extract photometry using fixed circular apertures of varying sizes
 centered on the predicted location of the target star based on the world
@@ -490,7 +490,7 @@ mean $\bar{\depth}$, and variance $\delta\bar{\depth}^2$, all derived and given 
 In the linear search, we save these three numbers on a
 two-dimensional grid of transit times $\transittime_l$ and durations
 $\duration_k$.
-The transit time grid spans the full length of Campaign 1 with half hour spacing
+The transit time grid spans the full length of Campaign~1 with half hour spacing
 and we choose to only test three durations: 1.2, 2.4, and 4.8 hours.
 \Fig{linear} shows the mean transit depth $\bar{\depth}$ as a function of
 transit time \transittime\ for a light curve with an injected transit signal
@@ -556,7 +556,7 @@ redefine the BIC as the TIC
     \ln p_\cdot(\{\flux\}_n\,|\,\period,\,\phase,\,\duration) - \alpha
 \end{eqnarray}
 and we choose $\alpha$ heuristically.
-For the K2 Campaign 1 dataset, we find that $\alpha \sim 1250$ leads to reliable
+For the K2 Campaign~1 dataset, we find that $\alpha \sim 1250$ leads to reliable
 recovery of injected signals while still being fairly insensitive to false
 signals.
 
@@ -696,7 +696,7 @@ In practice, the precision of the centroid measurements isn't sufficient to
 robustly reject many candidates but two candidates---EPIC 201202105 and EPIC
 201632708---have offsets large enough that we remove them from our final
 catalog.
-Figure SOMEFIGURE shows the distribution of centroid offsets across the full
+Figure~\dfmtodo{SOMEFIGURE} shows the distribution of centroid offsets across the full
 catalog.
 
 
@@ -719,7 +719,7 @@ To generate the synthetic signals, we use the following procedure:
 \begin{enumerate}
 
 {\item Draw the number of transiting planets based on the observed
-multiplicity distribution of KOIs (CITE).}
+multiplicity distribution of KOIs (\dfmtodo{CITE}).}
 
 {\item Sample---from the distributions listed in
 \tab{dist}---limb darkening parameters and, for each planet, an orbital
@@ -766,7 +766,7 @@ over the same range of periods---as a function of stellar magnitude in the
 \section{Results}
 \sectlabel{results}
 
-Out of the 21,703 Campaign 1 light curves, our pipeline returns 741 signals
+Out of the 21,703 Campaign~1 light curves, our pipeline returns 741 signals
 that pass the signal-to-noise and period cuts.
 After hand vetting by the two first authors, this list is reduced to 101
 convincing astrophysical transit candidates.
@@ -806,19 +806,19 @@ be applied by re-weighting the published samples.
 In \tab{cand} we list the sample quantiles for the observable quantities and
 the full chains are available electronically at \dfmtodo{some URL}.
 
-SOMEFIGURE shows the observed distribution of planet candidates in our
+Figure~\dfmtodo{SOMEFIGURE} shows the observed distribution of planet candidates in our
 catalog.
 Using this and the detection efficiency function computed in the previous
 section, we compute the occurrence rate as a function of period by ignoring
 the measurement uncertainties and following the method described in the
 Appendix of \citet{dfm}.
-This function is shown in SOMEFIGURE and IS THIS CONSISTENT INTERESTING ETC?
+This function is shown in Figure \dfmtodo{SOMEFIGURE and IS THIS CONSISTENT INTERESTING ETC?}
 
 In \papertwo, we will characterize the stars for each of our candidates in
-detail but for now it's worth noting that about half (IS THIS TRUE) of our
+detail but for now it's worth noting that about half \dfmtodo{(IS THIS TRUE?)} of our
 planet candidates are orbiting M-type stars.
 If this rate remains robust after stellar characterization and if these
-numbers are representative of the \KT\ yields in upcoming Campaigns, this
+numbers are representative of the yields in upcoming \KT\ Campaigns, this
 will substantially increase the number of planets known to transit cool stars!
 
 
@@ -835,7 +835,7 @@ posterior distributions of planet candidate properties are available at
 \dfmtodo{thisurl}.
 
 The flexible systematics model we employ is a 150-parameter linear combination of PCA components
-derived from the full set of 20,000 stellar lightcurves.
+derived from the full set of 21,703 stellar lightcurves.
 That is, it presumes that the systematics afflicting each star are shared in
 some way across other stars.
 It is our belief---although not a strict assumption of our model---that these
@@ -1024,7 +1024,7 @@ $\mathcal{L}_k$ using \eq{depth-likelihood} at each point in the grid.
 \end{center}
 \caption{%
 The top 10 eigen light curves (ELCs) generated by running principal component
-analysis on all the aperture photometry from Campaign 1.
+analysis on all the aperture photometry from Campaign~1.
 \figlabel{pca}}
 \end{figure}
 
