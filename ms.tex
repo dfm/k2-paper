@@ -213,7 +213,8 @@ Therefore, work on \KT\ is sensibly focused on building data-analysis
 techniques that are pointing-insensitive.
 
 Previous projects have developed methods to work with \KT\ data.
-\citet{Vanderburg:2014} extract aperture photometry from the pixel data
+Both \citet{Vanderburg:2014} and \citet{Armstrong:2014}
+extract aperture photometry from the pixel data
 and decorrelate with image centroid position, producing light curves for each
 star that are ``corrected'' for the spacecraft motion.
 These data have produced the first confirmed planet found with
@@ -283,7 +284,7 @@ They will also deliver input data for next-generation population inferences
 \citep[for example,][]{dressing}.
 
 This project follows in the tradition of independently implemented transit
-search algorithms applied publicly available datasets \citep[such
+search algorithms applied to publicly available datasets \citep[such
 as][]{petigura1, petigura2, roberto, dressing}.
 These efforts have been hugely successful especially in the field of exoplanet
 population inference because, thanks to their relative simplicity, the
@@ -385,7 +386,8 @@ varying flat field and PSF.
 Therefore, while it is hard to write down a physical generative model for the
 systematics, building a data-driven model might be possible.
 This intuition is also exploited by other methods that model the systematics
-using only empirical centroids \citep{Vanderburg:2014, Aigrain:2015,
+using only empirical centroids \citep{Vanderburg:2014, Armstrong:2014,
+Aigrain:2015,
 Crossfield:2015}, but our more flexible model should capture a wider range of
 effects, including those related to PSF and temperature.
 For example, \Fig{corr} shows the application of our model---with 150
@@ -615,7 +617,7 @@ contaminated by false alarms.
 This might be because of the fact that our independence assumption
 (\eqalt{indtran}) breaks down at these short periods.
 Therefore, we discard all signals with periods shorter than 4 days.
-After these cuts, we're left with 741 candidates that we then examine by hand.
+After these cuts, 741 candidates remain; we examine these signals by hand.
 The full list of peaks and their relevant meta data is available online at
 \dfmtodo{SOMEURL}.
 
@@ -633,8 +635,8 @@ convincing transits.
 The results of this vetting can be seen online at \dfmtodo{SOMEURL}.
 
 This vetting resulted in a list of 101 candidate transit signals.
-Many of these signals are due to astrophysical ``false positives'' like
-eclipsing binaries or blending.
+Many of these signals are due to astrophysical ``false positives'' such as 
+eclipsing binary systems, either as the target star or as a background ``blend.''
 We address this effect in the following \sectionname, where we separate the list of
 candidates into a list of astrophysical false positives and planet candidates.
 
@@ -644,7 +646,8 @@ candidates into a list of astrophysical false positives and planet candidates.
 A major problem with any transit search is the potential confusion between
 transiting planets and eclipsing binaries.
 Ground-based surveys prior to \kepler\ often had a false-positive rate
-of 30 to 40~percent. \dfmtodo{(because of shit?)}
+of 30 to 40~percent. \dfmtodo{(because of shit?) Because of giant pixels.
+See references in Morton and Johnson intro, probably}
 In the primary \kepler\ Mission, this number was significantly lower:
 the false positive rate was only 5 to 10~percent \citep{Morton:2011}.
 Such improvement was enabled by the relatively small pixels, stable
@@ -665,7 +668,7 @@ Searching for ellipsoidal variations is hindered by the short time baseline
 and the increased photometric uncertainty in \KT\ data.
 Centroid variations are feasible in \KT\ but must be treated differently than
 in the original \kepler\ mission where this effect was generally measured
-using difference imaging (cite).
+using difference imaging \dfmtodo{(cite)}.
 
 To obtain an initial assessment of the astrophysical false positive rate in
 our catalog of planet candidates, we test for significant centroid offsets
@@ -821,11 +824,11 @@ INTERESTING ETC?}
 
 In \papertwo, we will characterize the stars for each of our candidates in
 detail but for now it's worth noting that about half \dfmtodo{(IS THIS TRUE?)} of our
-planet candidates are orbiting M-type stars.
+planet candidates are orbiting stars selected for \KT\ as M-type stars.
 If this rate remains robust after stellar characterization and if these
 numbers are representative of the yields in upcoming \KT\ Campaigns, the
 \KT\ Mission
-will substantially increase the number of planets known to transit cool stars!
+will substantially increase the number of planets known to transit cool stars.
 
 
 \section{Discussion}
