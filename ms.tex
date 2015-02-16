@@ -49,7 +49,7 @@
 \newcommand{\Truth}{\foreign{Truth}}
 
 \newcommand{\figref}[1]{\ref{fig:#1}}
-\newcommand{\Fig}[1]{Figure~\figref{#1}}
+\newcommand{\Fig}[1]{\figurename~\figref{#1}}
 \newcommand{\fig}[1]{\Fig{#1}}
 \newcommand{\figlabel}[1]{\label{fig:#1}}
 \newcommand{\Tab}[1]{Table~\ref{tab:#1}}
@@ -150,8 +150,9 @@ This method is more computationally expensive than standard search algorithms
 but we demonstrate that it can be efficiently implemented and used to
 discover transit signals.
 We apply this method to the full Campaign~1 dataset and report a list of 36
-planet candidates transiting 31 stars, along with a completeness analysis
-based on artificial signal injections.
+planet candidates transiting 31 stars, along with a analysis of the pipeline
+performance and detection efficiency based on artificial signal injections
+and recoveries.
 For all planet candidates, we present posterior distributions on the
 properties of each system based strictly on the transit observables.
 We also present a list of 18 candidate eclipsing binary systems.
@@ -668,7 +669,7 @@ between transiting planets and stellar eclipsing binaries.  Of
 particular concern are grazing stellar eclipses or stellar eclipses
 that contribute only a small fraction of the total light in a target
 star's photometric aperture, thus display greatly diluted eclipse
-depths able to mimic the signals of small planets.  
+depths able to mimic the signals of small planets.
 
 Ground-based transit surveys have experienced false-positive rates
 well over 50\%.  For example, \citet{Latham:2009} reported eight
@@ -683,7 +684,7 @@ Despite this large fraction of astrophysical false positives in
 ground-based surveys, the primary \kepler\ Mission saw a much lower
 false positive rate \citep{Morton:2011, Fressin:2013}, primarily due
 to two major factors.  First, the superior precision of
-the \kepler\ photometry enabled 
+the \kepler\ photometry enabled
 
 Ground-based surveys prior to \kepler\ often had a false-positive rate
 of 30 to 40~percent. \dfmtodo{(because of shit?) Because of giant pixels.
@@ -787,24 +788,25 @@ signals.
 Any estimates of the false alarm rate will, however, be affected by this
 negligence but we leave a treatment of this for future work.
 
-\Fig{completeness} shows the fraction of recovered signals as a function of
-the physical parameters of the injection and the magnitude of the star.
+\figurename s~\figref{completeness} and~\figref{completeness-mag} show the
+fraction of recovered signals as a function of the physical parameters of the
+injection and the magnitude of the star in the \kepler\ bandpass as reported
+in the Ecliptic Plane Input Catalog
+(EPIC\footnote{\url{http://archive.stsci.edu/k2/epic.pdf}}).
 As expected, the shallower transits at longer periods are recovered less
-robustly.
-It is worth noting that this figure is a two-dimensional projection (or
-marginalization) of a higher dimensional measurement.
-For example, this completeness map is conditioned on our assumptions about
-the eccentricity distribution of planets and it is marginalized over the
+robustly and all signals become harder to detect for fainter stars.
+It is worth noting that these \figurename s are projections (or
+marginalizations) of a higher dimensional measurement of the recovery rate as
+a function of all of the input parameters.
+For example, this detection efficiency map is conditioned on our assumptions
+about the eccentricity distribution of planets and it is marginalized over the
 empirical distribution of stellar parameters.
 It is possible to relax this assumption and apply different distributions by
 re-weighting the simulations used to generate this figure.
 Therefore, alongside this \paper, we publish the full list of injection
 simulations\footnote{SOMEURL} to be used for population inference (occurrence
 rate measurements).
-In \fig{completeness}, we also show the detection efficiency---marginalized
-over the same range of periods---as a function of stellar magnitude in the
-\kepler\ bandpass as reported in the Ecliptic Plane Input Catalog
-(EPIC\footnote{\url{http://archive.stsci.edu/k2/epic.pdf}}).
+
 
 \section{Results}
 \sectlabel{results}
@@ -1249,17 +1251,6 @@ limb darkening parameterization is given by \citet{kipping-ld}.
 \caption{%
 Candidates
 \tablabel{cand}}
-\end{table}
-
-\begin{table}[p]
-\begin{center}
-\include{tab-eb}
-\end{center}
-\caption{%
-Probable binaries. \
-$^\mathrm{a}$ The period for EPIC 201161715 was estimated using the secondary
-eclipses since there is only a single primary transit.
-\tablabel{eb}}
 \end{table}
 
 \end{document}
