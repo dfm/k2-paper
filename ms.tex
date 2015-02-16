@@ -857,23 +857,16 @@ over a large range in stellar mass and radius so that future measurements can
 be applied by re-weighting the published samples.
 In \tab{cand} we list the sample quantiles for the observable quantities and
 the full chains are available electronically at \dfmtodo{some URL}.
-
-Figure~\dfmtodo{SOMEFIGURE} shows the observed distribution of planet
-candidates in our catalog.
-Using this and the detection efficiency function computed in the previous
-section, we compute the occurrence rate as a function of period by ignoring
-the measurement uncertainties and following the method described in the
-Appendix of \citet{dfm}.
-This function is shown in Figure \dfmtodo{SOMEFIGURE and IS THIS CONSISTENT
-INTERESTING ETC?}
+\fig{candidates} shows the observed distribution of planet candidates in the
+catalog.
 
 In \papertwo, we will characterize the stars for each of our candidates in
-detail but for now it's worth noting that about half \dfmtodo{(IS THIS TRUE?)} of our
-planet candidates are orbiting stars selected for \KT\ as M-type stars.
+detail but for now it's worth noting that many of the planet candidates are
+orbiting stars selected for \KT\ as M-type stars.
 If this rate remains robust after stellar characterization and if these
-numbers are representative of the yields in upcoming \KT\ Campaigns, the
-\KT\ Mission
-will substantially increase the number of planets known to transit cool stars.
+numbers are representative of the yields in upcoming \KT\ Campaigns, the \KT\
+Mission will substantially increase the number of planets known to transit
+cool stars.
 
 
 \section{Discussion}
@@ -1202,6 +1195,12 @@ positive.
 \includegraphics{figures/completeness.pdf}
 \end{center}
 \caption{%
+The detection efficiency of the search procedure as a function of the
+physical transit parameters computed empirically by
+injecting synthetic transit signals into the raw light curves and measuring
+the fraction that are successfully recovered.
+These tests were performed on the entire set of stars so these numbers are
+marginalized over all the stellar properties, including magnitude.
 \figlabel{completeness}}
 \end{figure}
 
@@ -1210,6 +1209,12 @@ positive.
 \includegraphics{figures/completeness-mag.pdf}
 \end{center}
 \caption{%
+Like \fig{completeness}, the empirically measured detection efficiency of the
+search procedure as a function of stellar magnitude as reported by the EPIC.
+This never reaches 90~percent because these numbers are marginalized over the
+range of physical parameters shown in \fig{completeness}.
+Even for the brightest stars, the long period, small transits cannot be
+detected.
 \figlabel{completeness-mag}}
 \end{figure}
 
