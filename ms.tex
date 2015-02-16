@@ -306,11 +306,11 @@ for fitting this model simultaneously with a transit signal.
 In \sect{search}, we give the detailed procedure that we use for discovering
 and vetting planet candidates.
 To quantify the performance and detection efficiency of our pipeline, we test
-(in \sect{perform}) the recovery and false alarm rate of synthetic transit
+(in \sect{perform}) the recovery of synthetic transit
 signals, spanning a large range of physical parameters, injected into real
 \KT\ light curves.
 Finally, in \sect{results}, we present a catalog of 36 planet candidates
-orbiting 31 stars in the publicly available \KT\ Campaign~1 dataset.
+orbiting 31 stars from the publicly available \KT\ Campaign~1 dataset.
 
 
 \section{Photometry and Eigen Light Curves}
@@ -319,7 +319,7 @@ orbiting 31 stars in the publicly available \KT\ Campaign~1 dataset.
 The starting point for analysis is the raw pixel data.
 We download the full set of 21,703 target pixel files for \KT's Campaign~1
 from MAST\footnote{\url{https://archive.stsci.edu/k2/}}.
-We extract photometry using fixed approximately circular, binary apertures of
+We extract photometry using fixed, approximately circular, binary apertures of
 varying sizes centered on the predicted location of the target star based on
 the world coordinate system.
 For each target, we use a set of apertures ranging in radius from 1 to 5
@@ -432,8 +432,7 @@ duration, and then detection of high significance peaks in that space.
 In practice, this is computationally intractable for any grids of the
 required size and resolution.
 Instead, we can compute the values on this grid approximately, but at very
-high precision, using a two-step procedure that is much more computationally
-efficient.
+high precision, using a two-step procedure that is much more efficient.
 
 Specifically, we must evaluate the likelihood function for the light curve of
 star $n$ given a period \period, reference transit time \phase, and duration
@@ -720,9 +719,9 @@ than center-of-light estimates (Vakili \etal, in preparation).
 201613023.
 Much like the photometry, this signal is dominated by the rigid body motion
 of the spacecraft and we can, in fact, model it identically.
-In our analysis, (\eqalt{linear-model}), we model the light curve as a linear
+In our analysis, we model the light curve as a linear
 combination of ELCs and a simple box transit model at a given period, phase,
-and duration.
+and duration (\eqalt{linear-model}).
 Under this model, the maximum likelihood depth can be computed analytically.
 If we apply \emph{exactly the same model} to the centroid trace, the ``depth''
 that we compute becomes the centroid motion in transit in units of pixels.
@@ -744,9 +743,9 @@ amplitudes.
 
 A quick \emph{a priori} estimate of the background blended eclipsing
 binary rate serves as a good sanity check.  A query to the TRILEGAL
-(TRIdimensional modeL of thE GALaxy, \citet{Girardi:2005}) galaxy
+\citep[TRIdimensional modeL of thE GALaxy,][]{Girardi:2005} galaxy
 line-of-sight simulation software reveals that the typical density of
-field stars along the line of sight to the C1 field is about
+field stars along the line of sight to the Campaign 1 field is about
 $7.8\times 10^{-4}$\,arcsec$^{-2}$.  This gives a probability of about
 0.16 that a background star might be blended within a 8\,arcsec radius
 (two pixels) from a target star.  Allowing that $\sim$10\% of stars
@@ -833,11 +832,9 @@ Of these, 36 signals---in 31 light curves---have no visible secondary
 eclipse and are deemed planet candidates.
 These planet candidates are listed in \tab{cand}.
 The two candidates transiting EPIC 201367065 were previously published
-\citep{Crossfield:2015} but, to our knowledge, the remaining list is currently
-unpublished.
-The third planet published by \citet{Crossfield:2015} is found as the third
-signal for that target by our pipeline but it falls just below our
-signal-to-noise cut so we left it out of the catalog for consistency.
+\citep{Crossfield:2015} and the third planet in that system is found as the
+third signal by our pipeline but it falls just below the signal-to-noise cut
+so it is left out of the catalog for consistency.
 This suggests that a less conservative cut in signal-to-noise and more
 aggressive machine vetting could yield a much more complete catalog at smaller
 radii and longer periods even with the existing dataset.
@@ -1044,6 +1041,8 @@ NNX13AC07G and by other grants and contracts.
 \section{Mathematical model}
 \sectlabel{math}
 
+We model the raw aperture photometry as a linear combination of 150 ELCs and
+a transit model.
 Formally, this can be written for the light curve of the $k$-th star as
 \begin{eqnarray}\eqlabel{linear-model}
 \bvec{f}_k &=& \bvec{A}\,\bvec{w}_k + \mathrm{noise}
@@ -1063,10 +1062,10 @@ is the list aperture fluxes for star $k$ observed at $N$ times
 In \eq{linear-model}, the design matrix is given by
 \begin{eqnarray}
 \bvec{A} &=& \left (\begin{array}{cccccc}
-    x_{1,1} & x_{2,1} & \cdots & x_{J,1} & 1 & m_\bvec{\theta}(t_1) \\
-    x_{1,2} & x_{2,2} & \cdots & x_{J,2} & 1 & m_\bvec{\theta}(t_2) \\
+    x_{1,1} & x_{2,1} & \cdots & x_{150,1} & 1 & m_\bvec{\theta}(t_1) \\
+    x_{1,2} & x_{2,2} & \cdots & x_{150,2} & 1 & m_\bvec{\theta}(t_2) \\
     && \vdots &&&\\
-    x_{1,N} & x_{2,N} & \cdots & x_{J,N} & 1 & m_\bvec{\theta}(t_N)
+    x_{1,N} & x_{2,N} & \cdots & x_{150,N} & 1 & m_\bvec{\theta}(t_N)
 \end{array}\right )
 \end{eqnarray}
 where the $x_{j,n}$ are the basis ELCs---with the index $j$ running over
