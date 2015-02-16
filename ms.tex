@@ -332,7 +332,7 @@ is available online: \datareleaseurl.}
 All previous methods for analyzing \KT\ data involve some sort of
 ``correction'' or ``de-trending'' step based on measurements of the pointing
 of the spacecraft \citep{Vanderburg:2014, Aigrain:2015, Crossfield:2015}.
-In our analysis, we don't do any further preprocessing of the light curves
+In our analysis, we do not do any further preprocessing of the light curves
 because, as we describe in the next \sectionname, we fit raw photometric light
 curves with a model that includes both the trends and the transit signal.
 
@@ -961,6 +961,22 @@ Interestingly, while this model isn't linear, the search and marginalization
 can still be executed efficiently---using optimized linear algebra algorithms
 \citep[][Foreman-Mackey et al.\ in preparation]{fastgp}---inside the search
 loop.
+
+Additionally, while we apply this systematics model simultaneously with a 
+transiting planet model to search for planet candidates, this scheme is 
+not restricted to planet searches.
+Any astrophysical event that could be observed in the \KT\ data could be 
+searched for in the same way. 
+By modeling a set of ELCs with any arbitrary data model, events in the \KT\
+data that appear similar to that data model could be identified. 
+Such a technique may be useful in searching for astrophysical events such as
+ellipsoidal variations induced by orbiting companions,
+stellar activity,
+microlensing events, especially in the upcoming Campaign 9,
+or
+active galactic nuclei variability.
+
+
 
 A substantial caveat to the reliability of all existing transiting exoplanet
 searches is that they all include human intervention.
