@@ -688,10 +688,12 @@ pointing of the \kepler\ telescope has enabled the identification of
 many spatially distinct blended eclipsing binaries by means of
 detailed pixel-level analysis \citep{Bryson:2013} to identify shifts
 in the center of light during transits.  And finally, \kepler\ is
-sensitive to much smaller planets than ground-based surveys, and it
-turns out that small planets are much more common than hot Jupiters.
+sensitive to much smaller planets than ground-based surveys, and small
+planets are much more common than the Jupiter-sized planets able to be
+detected from the ground.
 
-In \KT, the precision of these tests is lower and they must be applied
+In \KT, the precision of the photometric tests used to vet for such
+false positives  is lower and they must be applied
 with care.  There are typically only a handful of transits, meaning
 differences between ``odd'' and ``even'' transits must be large to
 create a significant difference. Searching for ellipsoidal variations
@@ -699,7 +701,7 @@ is hindered by the short time baseline and the increased photometric
 uncertainty in \KT\ data.  Centroid variations are feasible in
 \KT\ but must be treated differently than in the original
 \kepler\ mission where this effect was generally measured using
-difference imaging \citep{Batalha:2010}.
+difference imaging \citep{Batalha:2010, Bryson:2013}.
 
 To do first-pass vetting for blended EBs among our catalog of
 planetary candidates, we test for significant centroid offsets using
@@ -743,18 +745,17 @@ binary rate serves as a good sanity check.  A query to the TRILEGAL
 line-of-sight simulation software reveals that the typical density of
 field stars along the line of sight to the C1 field is about
 $7.8\times 10^{-4}$\,arcsec$^{-2}$.  This gives a probability of about
-0.16 that a background star might be blended within a 8~arcsec radius
-(two pixels) from a target star.  Allowing that something close to
-$\sim$10\% of stars might host close binary companions within the
-period range accessible by this survey, this gives a probability of
-0.016 that a blended binary star might be chance-aligned within two
-pixels of any given target star.  Noting that the average number of
-planets per star with periods less than 30 days is about 0.25
-\citep{Fressin:2013}, we can roughly estimate that we expect $<$10\%
-of our candidates to be caused by nearby contaminating EBs.  This
-estimate suggests that such astrophysical false positives should be
-rare in our sample, consistent with our detection of 2/36 candidates
-with clear centroid offsets.
+0.16 that a background star might be blended within a 8\,arcsec radius
+(two pixels) from a target star.  Allowing that $\sim$10\% of stars
+might host close binary companions within the period range accessible
+by this survey, this gives a probability of 0.016 that a blended
+binary star might be chance-aligned within two pixels of any given
+target star.  Noting that the average number of planets per star with
+periods less than 30 days is about 0.25 \citep{Fressin:2013}, we can
+roughly estimate that we expect $<$10\% of our candidates to be caused
+by nearby contaminating EBs.  This estimate suggests that such
+astrophysical false positives should be rare in our sample, consistent
+with our detection of 2/36 candidates with clear centroid offsets.
 
 
 \section{Performance}
@@ -1009,6 +1010,9 @@ The Archive is operated by the California Institute of Technology, under
 contract with NASA under the Exoplanet Exploration Program.
 This \paper\ includes data collected by the \kepler\ mission. Funding for the
 \kepler\ mission is provided by the NASA Science Mission directorate.
+We are grateful to the entire \kepler\ team, past and present.
+Their tireless efforts were all essential to the tremendous success of the mission
+and the successes of \KT, present and future.
 These data were obtained from the Mikulski Archive for Space Telescopes
 (MAST).
 STScI is operated by the Association of Universities for Research in
