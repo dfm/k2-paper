@@ -98,6 +98,8 @@
 \newcommand{\ecc}{{\ensuremath{e}}}
 \newcommand{\pomega}{{\ensuremath{\omega}}}
 
+\newcommand{\datareleaseurl}{{\url{http://bbq.dfm.io/ketu}}}
+
 \begin{document}
 
 \title{%
@@ -326,7 +328,7 @@ pixels (in steps of 0.5 pixels).
 Following \citet{Vanderburg:2014}, we choose the aperture size with the
 minimum CDPP \citep{cdpp} with a 6 hour window.\footnote{Note that although we
 chose a specific aperture for each star, photometry for every aperture radius
-is available online at \dfmtodo{some URL}.}
+is available online: \datareleaseurl.}
 
 All previous methods for analyzing \KT\ data involve some sort of
 ``correction'' or ``de-trending'' step based on measurements of the pointing
@@ -349,7 +351,7 @@ Similarly, we ran PCA on the full set of our own generated \KT\ Campaign~1
 light curves to determine a basis of representative trends but, unlike \pdc,
 we retain and use a large number of these components ($150$).
 For clarity, we will refer to our basis as a set of ``eigen light curves''
-(ELCs) and the full set is made available online (\dfmtodo{SOMEURL}).
+(ELCs) and the full set is made available online\footnote{\datareleaseurl}.
 The top ten ELCs for Campaign~1 are shown in \Fig{pca}.
 
 
@@ -615,9 +617,6 @@ This is not the same criterion used to select the initial three peaks but we
 find that it produces a more complete and pure sample.
 A cut in this quantity can reject most variable stars and low signal-to-noise
 candidates that can't be reliably recovered from the data.
-Figure~\dfmtodo{SOMEFIGURE} shows the distribution of signal-to-noise for a set of
-injections and compares it to the distribution of false candidates that are
-proposed by the pipeline.
 To minimize contamination from false alarms but maximize our sensitivity, we
 choose a threshold of 15.
 We also find that the signals with periods $\lesssim 4$ days are strongly
@@ -626,8 +625,8 @@ This might be because of the fact that our independence assumption
 (\eqalt{indtran}) breaks down at these short periods.
 Therefore, we discard all signals with periods shorter than 4 days.
 After these cuts, 741 candidates remain; we examine these signals by hand.
-The full list of peaks and their relevant meta data is available online at
-\dfmtodo{SOMEURL}.
+The full list of peaks and their relevant meta data is available online
+at\footnote{\datareleaseurl}.
 
 
 \paragraph{Hand vetting}
@@ -639,7 +638,7 @@ It should be possible to construct a more robust machine vetting algorithm
 that discards these samples without missing real transits but for the purposes
 of this \paper, we simply inspect the light curve for each of the 741
 candidates \emph{by hand} to discard signals that are not convincing transits.
-The results of this vetting can be seen online at \dfmtodo{SOMEURL}.
+The results of this vetting can be seen online\footnote{\datareleaseurl}.
 
 Although de-trended light curves are never used in the automated analysis of
 the data, when conditioned on a specific set of transit parameters, the model
@@ -807,8 +806,8 @@ empirical distribution of stellar parameters.
 It is possible to relax this assumption and apply different distributions by
 re-weighting the simulations used to generate this figure.
 Therefore, alongside this \paper, we publish the full list of injection
-simulations\footnote{SOMEURL} to be used for population inference (occurrence
-rate measurements).
+simulations\footnote{\datareleaseurl} to be used for population inference
+(occurrence rate measurements).
 
 
 \section{Results}
@@ -831,7 +830,8 @@ This suggests that a less conservative cut in signal-to-noise and more
 aggressive machine vetting could yield a much more complete catalog at smaller
 radii and longer periods even with the existing dataset.
 
-The remaining signals are caused by eclipsing binaries (EBs).
+The remaining signals are caused by eclipsing binaries (EBs) with visible
+secondary eclipses.
 In most cases, the search reports the secondary eclipse as a candidate and in
 a few very high signal-to-noise cases, the period reported by the pipeline is
 incorrect and multiple candidates correspond to the same transit.
@@ -854,7 +854,7 @@ Even though we have no constraints on the stellar parameters, we also sample
 over a large range in stellar mass and radius so that future measurements can
 be applied by re-weighting the published samples.
 In \tab{cand} we list the sample quantiles for the observable quantities and
-the full chains are available electronically at \dfmtodo{some URL}.
+the full chains are available electronically\footnote{\datareleaseurl}.
 \fig{candidates} shows the observed distribution of planet candidates in the
 catalog.
 
@@ -876,7 +876,7 @@ marginalized out).
 By this method, we find 36 transiting exoplanets, which we have vetted by both
 automatically and manually and characterized by probabilistic modeling.
 The candidates are listed in \tab{cand} and posterior distributions of planet
-candidate properties are available at \dfmtodo{thisurl}.
+candidate properties are available\footnote{\datareleaseurl}.
 
 The flexible systematics model we employ is a 150-parameter linear combination
 of PCA components derived from the full set of 21,703 stellar lightcurves.
@@ -982,6 +982,15 @@ What's more, given the observing strategy for \tess, where each field will
 only be contiguously observed for one month at a time, methods for finding and
 characterizing planets with a single transit are vital and the new \KT\ light
 curves are a perfect test bed.
+
+As a supplement to this \paper, we make all the results, data products, and
+MCMC chains available at \datareleaseurl.
+The \LaTeX\ source for this \paper, complete with the full revision history,
+is available at \url{http://github.com/dfm/k2-paper} and the pipeline
+implementation is available at \url{http://github.com/dfm/ketu} under the MIT
+open-source software license.
+This code and a lot of computation time are all that is needed to reproduce
+the \figurename s in this \paper.
 
 \acknowledgments
 It is a pleasure to thank
