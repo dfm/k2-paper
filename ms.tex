@@ -40,7 +40,6 @@
 \newcommand{\projectname}{\project{ketu}}
 
 \newcommand{\paper}{\textsl{Article}}
-\newcommand{\papertwo}{\textsl{Paper II}}
 
 \newcommand{\foreign}[1]{\emph{#1}}
 \newcommand{\etal}{\foreign{et\,al.}}
@@ -718,7 +717,8 @@ our catalog of planet candidates, we test for significant centroid offsets
 using the machinery that we have already established for modeling the
 systematic trends in the data.
 This is only the first word and a more complete characterization of our
-catalog's reliability is forthcoming (Montet, Foreman-Mackey, \etal\ in prep).
+catalog's reliability is forthcoming (Montet, Foreman-Mackey, \etal\ in
+preparation).
 
 To measure \emph{centroid offsets}, we start by empirically measuring the
 pixel centroid time series for each candidate by modeling the pixels near the
@@ -858,9 +858,9 @@ the full chains are available electronically\footnote{\datareleaseurl}.
 \fig{candidates} shows the observed distribution of planet candidates in the
 catalog.
 
-In \papertwo, we will characterize the stars for each of our candidates in
-detail but for now it's worth noting that many of the planet candidates are
-orbiting stars selected for \KT\ as M-type stars.
+In a follow-up to this \paper, we will characterize the stars for each of the
+candidates in detail but for now it's worth noting that many of the planet
+candidates are orbiting stars selected for \KT\ as M-type stars.
 If this rate remains robust after stellar characterization and if these
 numbers are representative of the yields in upcoming \KT\ Campaigns, the \KT\
 Mission will substantially increase the number of planets known to transit
@@ -948,25 +948,16 @@ One appealing option would be to model the systematics as a Gaussian Process
 where the input parameters are both time and the same 150 ELCs.
 Interestingly, while this model isn't linear, the search and marginalization
 can still be executed efficiently---using optimized linear algebra algorithms
-\citep{fastgp}---inside the search loop.
+\citep[][Foreman-Mackey et al.\ in preparation]{fastgp}---inside the search
+loop.
 
-\dfmtodo{
-Most importantly, perhaps, the machine and hand vetting leave much to be desired...
-list some deficiencies of the vetting.
-}
-
-\dfmtodo{
-The completeness and false-positive assessment could be vastly improved...
-completeness estimates are not as extensive as desired;
-there is essentially no estimate of the non-astrophysical false positive rate.
-(There really is no proposal on the table anywhere for getting a false-positive
-rate for the non-astrophysical FPs.)
-}
-
-\dfmtodo{
-We have not attempted to do any kind of populations analysis...
-but presumably \KT\ data will rock this.  In what ways?
-}
+A substantial caveat to the reliability of all existing transiting exoplanet
+searches is that they all include human intervention.
+This makes quantifying the false alarm rate of these catalogs complicated.
+There has been some work on automated vetting algorithms using supervised
+classification algorithms \citep{vetting, jenkins} but these methods rely on
+hand classified examples for training and the performance is not yet
+competitive with human classification.
 
 The catalog of planet candidates presented here includes only planets with
 periods longer than 4 days and at least two transits in the \KT\ Campaign~1
@@ -1085,11 +1076,6 @@ The amplitude of this Gaussian is given by
 \end{eqnarray}
 evaluated at the maximum likelihood value ${\bvec{w}_k}^*$.
 
-Remember that the likelihood defined in \eq{depth-likelihood} is a function of
-the parameters \bvec{\theta} (the period, phase, and duration of the planet).
-In principle, this means that a transit search can proceed by building a dense
-3D grid of \bvec{\theta} values and evaluating the likelihood of the data
-$\mathcal{L}_k$ using \eq{depth-likelihood} at each point in the grid.
 
 \clearpage
 \bibliography{k2}
