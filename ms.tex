@@ -738,6 +738,9 @@ In practice, the precision of the centroid measurements isn't sufficient to
 robustly reject many candidates, but two candidates---EPIC 201202105 and EPIC
 201632708---have offsets large enough that we remove them from our final
 catalog.
+\Fig{offsets} shows the in-transit centroid offset measured for EPIC
+201202105 and compares it to the distribution of out-of-transit offset
+amplitudes.
 
 A quick \emph{a priori} estimate of the background blended eclipsing
 binary rate serves as a good sanity check.  A query to the TRILEGAL
@@ -755,7 +758,7 @@ periods less than 30 days is about 0.25 \citep{Fressin:2013}, we can
 roughly estimate that we expect $<$10\% of our candidates to be caused
 by nearby contaminating EBs.  This estimate suggests that such
 astrophysical false positives should be rare in our sample, consistent
-with our detection of 2/36 candidates with clear centroid offsets.
+with our detection of only 2 candidates with clear centroid offsets.
 
 
 \section{Performance}
@@ -1192,6 +1195,19 @@ If the centroid coordinates in transit are inconsistent with the
 out-of-transit motions, the candidate is likely to be an astrophysical false
 positive.
 \figlabel{centroid}}
+\end{figure}
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics{figures/offsets.pdf}
+\end{center}
+\caption{%
+The estimated in-transit centroid offset for EPIC 201202105 (green line)
+compared to the distribution of 1000 centroid offests computed for randomly
+assigned phases (black histogram).
+The in-transit measurement is 3-$\sigma$ larger than the median out-of-transit
+offset so it is rejected from the final catalog.
+\figlabel{offsets}}
 \end{figure}
 
 \begin{figure}[p]
