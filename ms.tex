@@ -661,7 +661,7 @@ candidates into a list of astrophysical false positives and planet candidates.
 \paragraph{Astrophysical false positives}
 
 A major problem with any transit search is the potential confusion
-between transiting planets and stellar eclipsing binaries.  Of
+between transiting planets and stellar eclipsing binaries (EBs).  Of
 particular concern are grazing stellar eclipses or stellar eclipses
 that contribute only a small fraction of the total light in a
 photometric aperture, resulting in greatly diluted eclipse depths able
@@ -679,52 +679,35 @@ effort that goes into a transit survey
 Despite this large fraction of astrophysical false positives in
 ground-based surveys, the primary \kepler\ Mission saw a much lower
 false positive rate of only 5-10\% \citep{Morton:2011, Fressin:2013},
-primarily due to two major factors.  First, the superior precision of
-the \kepler\ photometry enables detection of secondary stellar
-eclipses to a much lower level than ground-based surveys; and second,
-the relatively small pixels and stable pointing of the
-\kepler\ telescope has enabled the identification of many spatially
-distinct blended eclipsing binaries by means of detailed pixel-level
-analysis \citep{Bryson:2013}.  Additional false-positive vetting steps
-included in the \kepler\ pipeline include looking for odd-even transit
-depth variations (indicative of an equal-radius eclipsing binary
-system at twice the purported period) and looking for ellipsoidal
-variations \citep{Batalha:2010}.
+primarily due to three major factors.  First, the superior precision
+of the \kepler\ photometry enables detection of secondary stellar
+eclipses, odd-even transit depth variations, and ellipsoidal
+variations \citep{Batalha:2010} to a much lower level than
+ground-based surveys. Second, the relatively small pixels and stable
+pointing of the \kepler\ telescope has enabled the identification of
+many spatially distinct blended eclipsing binaries by means of
+detailed pixel-level analysis \citep{Bryson:2013} to identify shifts
+in the center of light during transits.  And finally, \kepler\ is
+sensitive to much smaller planets than ground-based surveys, and it
+turns out that small planets are much more common than hot Jupiters.
 
+In \KT, the precision of these tests is lower and they must be applied
+with care.  There are typically only a handful of transits, meaning
+differences between ``odd'' and ``even'' transits must be large to
+create a significant difference. Searching for ellipsoidal variations
+is hindered by the short time baseline and the increased photometric
+uncertainty in \KT\ data.  Centroid variations are feasible in
+\KT\ but must be treated differently than in the original
+\kepler\ mission where this effect was generally measured using
+difference imaging \citep{Batalha:2010}.
 
-
-Ground-based surveys prior to \kepler\ often had a false-positive rate
-of 30 to 40~percent. \dfmtodo{(because of shit?) Because of giant pixels.
-See references in Morton and Johnson intro, probably}
-In the primary \kepler\ Mission, this number was significantly lower:
-the false positive rate was only 5 to 10~percent \citep{Morton:2011}.
-Such improvement was enabled by the relatively small pixels, stable
-pointing, and high precision of the \kepler\ spacecraft.
-In \kepler\ data, false positives can be reliably separated from
-planet candidates by looking for differences in the position of the
-centroid of light during transit events with respect to the
-out-of-transit data \dfmtodo{(e.g. citation)}, variations in the depth of
-alternating transits \dfmtodo{(e.g. citation)}, and evidence for ellipsoidal
-variations between transits \dfmtodo{(e.g. citation)}.
-
-In \KT, the precision of these tests is lower and they must be applied with
-care.
-There are typically only a handful of transits, meaning differences between
-``odd'' and ``even'' transits must be large to create a significant
-difference.
-Searching for ellipsoidal variations is hindered by the short time baseline
-and the increased photometric uncertainty in \KT\ data.
-Centroid variations are feasible in \KT\ but must be treated differently than
-in the original \kepler\ mission where this effect was generally measured
-using difference imaging \citep{Batalha:2010}.
-
-To obtain an initial assessment of the astrophysical false positive rate in
-our catalog of planet candidates, we test for significant centroid offsets
-using the machinery that we have already established for modeling the
-systematic trends in the data.
-This is only the first word and a more complete characterization of our
-catalog's reliability is forthcoming (Montet, Foreman-Mackey, \etal\ in
-preparation).
+To do first-pass vetting for blended EBs among our catalog of
+planetary candidates, we test for significant centroid offsets using
+the machinery that we have already established for modeling the
+systematic trends in the data, inspired by the methods used to vet
+\kepler\ candidates \citep{Bryson:2013}.  This is only an initial vetting step
+and a more complete characterization of our catalog's reliability is
+forthcoming (Montet, Foreman-Mackey, \etal\ in preparation).
 
 To measure \emph{centroid offsets}, we start by empirically measuring the
 pixel centroid time series for each candidate by modeling the pixels near the
@@ -750,9 +733,28 @@ phases.
 If the centroid measured for the candidate transit is substantially larger
 than the random realizations, we label the candidate as a false positive.
 In practice, the precision of the centroid measurements isn't sufficient to
-robustly reject many candidates but two candidates---EPIC 201202105 and EPIC
+robustly reject many candidates, but two candidates---EPIC 201202105 and EPIC
 201632708---have offsets large enough that we remove them from our final
 catalog.
+
+A quick \emph{a priori} estimate of the background blended ecipsing
+binary rate serves as a good sanity check.  A query to the TRILEGAL
+(TRIdimensional modeL of thE GALaxy, \citet{Girardi:2005}) galaxy
+line-of-sight simulation software reveals that the typical density of
+field stars along the line of sight to the C1 field is about
+$7.8\times 10^{-4}$\,arcsec$^{-2}$.  This gives a probability of about
+0.16 that a background star might be blended within a 8\,arcsec radius
+(two pixels) from a target star.  Allowing that something close to
+$\sim$10\% of stars might host close binary companions within the
+period range accessible by this survey, this gives a probability of
+0.016 that a blended binary star might be chance-aligned within two
+pixels of any given target star.  Noting that the average number of
+planets per star with periods less than 30 days is about 0.25
+\citep{Fressin:2013}, we can roughly estimate that we expect $<$10\%
+of our candidates to be caused by nearby contaminating EBs.  This
+estimate suggests that such astrophsycial false positives should be
+rare in our sample, consistent with our detection of 2/36 candidates
+with clear centroid offsets.
 
 
 \section{Performance}
