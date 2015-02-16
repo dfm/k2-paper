@@ -637,10 +637,9 @@ After our initial cuts on the candidate list, the majority of signals are
 still false alarms mostly due to variable stars or single outlying data
 points.
 It should be possible to construct a more robust machine vetting algorithm
-that discards these samples without missing real transits \dfmtodo{(CITE SOME THINGS)}
-but for the purposes of this \paper, we simply inspect the light curve for
-each of the 741 candidates \emph{by hand} to discard signals that are not
-convincing transits.
+that discards these samples without missing real transits but for the purposes
+of this \paper, we simply inspect the light curve for each of the 741
+candidates \emph{by hand} to discard signals that are not convincing transits.
 The results of this vetting can be seen online at \dfmtodo{SOMEURL}.
 
 This vetting resulted in a list of 101 candidate transit signals.
@@ -691,8 +690,8 @@ pixel centroid time series for each candidate by modeling the pixels near the
 peak as a two-dimensional quadratic and finding the maximum at each time.
 This method has been shown to produce higher precision centroid measurements
 than center-of-light estimates (Vakili \etal, in preparation).
-\dfmtodo{Figure SOMEFIGURE shows the measure $x$ and $y$ pixel coordinate traces for
-SOMECANDIDATE.}
+\Fig{centroid} shows the measured $x$ and $y$ pixel coordinate traces for EPIC
+201613023.
 Much like the photometry, this signal is dominated by the rigid body motion
 of the spacecraft and we can, in fact, model it identically.
 Previously (\eqalt{linear-model}), we modeled the light curve as a linear
@@ -1118,20 +1117,28 @@ signal-to-noise threshold.
 \figlabel{periodic}}
 \end{figure}
 
-\begin{figure}[p]
-\begin{center}
-\includegraphics{figures/de-trended.pdf}
-\end{center}
-\caption{%
-\figlabel{de-trended}}
-\end{figure}
+% \begin{figure}[p]
+% \begin{center}
+% \includegraphics{figures/de-trended.pdf}
+% \end{center}
+% \caption{%
+% \figlabel{de-trended}}
+% \end{figure}
 
 \begin{figure}[p]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{figures/centroid.pdf}
-\includegraphics[width=0.5\textwidth]{figures/centroid-2.pdf}
+\includegraphics[width=0.4\textwidth]{figures/centroid.pdf}
+\includegraphics[width=0.4\textwidth]{figures/centroid-2.pdf}
 \end{center}
 \caption{%
+The centroid motion for EPIC 201613023.
+\emph{Left:} The measured $x$ and $y$ pixel coordinates as a function of time.
+\emph{Right:} The pixel coordinates color-coded by time.
+As identified by \citet{Vanderburg}, the centroid motions fall in a slowly
+time variable locus.
+If the centroid coordinates in transit are inconsistent with the
+out-of-transit motions, the candidate is likely to be an astrophysical false
+positive.
 \figlabel{centroid}}
 \end{figure}
 
