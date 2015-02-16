@@ -736,10 +736,10 @@ If the centroid measured for the candidate transit is substantially larger
 than the random realizations, we label the candidate as a false positive.
 In practice, the precision of the centroid measurements isn't sufficient to
 robustly reject many candidates, but two candidates---EPIC 201202105 and EPIC
-201632708---have offsets large enough that we remove them from our final
-catalog.
-\Fig{offsets} shows the in-transit centroid offset measured for EPIC
-201202105 and compares it to the distribution of out-of-transit offset
+201632708---have offsets 3-$\sigma$ above the median out-of-transit offset
+amplitude so they are removed from the final catalog.
+For example, \Fig{offsets} shows the in-transit centroid offset measured for
+EPIC 201202105 and compares it to the distribution of out-of-transit offset
 amplitudes.
 
 A quick \emph{a priori} estimate of the background blended eclipsing
@@ -962,13 +962,13 @@ can still be executed efficiently---using optimized linear algebra algorithms
 \citep[][Foreman-Mackey et al.\ in preparation]{fastgp}---inside the search
 loop.
 
-Additionally, while we apply this systematics model simultaneously with a 
-transiting planet model to search for planet candidates, this scheme is 
+Additionally, while we apply this systematics model simultaneously with a
+transiting planet model to search for planet candidates, this scheme is
 not restricted to planet searches.
-Any astrophysical event that could be observed in the \KT\ data could be 
-searched for in the same way. 
+Any astrophysical event that could be observed in the \KT\ data could be
+searched for in the same way.
 By modeling a set of ELCs with any arbitrary data model, events in the \KT\
-data that appear similar to that data model could be identified. 
+data that appear similar to that data model could be identified.
 Such a technique may be useful in searching for astrophysical events such as
 ellipsoidal variations induced by orbiting companions,
 stellar activity,
