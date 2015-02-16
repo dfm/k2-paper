@@ -642,10 +642,22 @@ of this \paper, we simply inspect the light curve for each of the 741
 candidates \emph{by hand} to discard signals that are not convincing transits.
 The results of this vetting can be seen online at \dfmtodo{SOMEURL}.
 
-This vetting resulted in a list of 101 candidate transit signals.
-Many of these signals are due to astrophysical ``false positives'' such as
-eclipsing binary systems, either as the target star or as a background ``blend.''
-We address this effect in the following \sectionname, where we separate the list of
+Although de-trended light curves are never used in the automated analysis of
+the data, when conditioned on a specific set of transit parameters, the model
+produces an estimate of what the light curve would look like in the absence
+of systematic effects.
+This prediction is one of the plots that we examine when vetting candidates
+by hand.
+For example, \fig{de-trended} shows the maximum likelihood light curve for
+EPIC 201613023 evaluated at the candidate period, phase, duration, and depth.
+Similarly, \fig{folded} shows the same prediction folded on the 8.3~day
+period of this candidate.
+
+After visually inspecting 741 signals, 101 candidate transits pass and are
+selected as astrophysical events.
+Many of these signals are due to ``false positives'' such as eclipsing binary
+systems, either as the target star or as a background ``blend.'' We address
+this effect in the following \sectionname, where we separate the list of
 candidates into a list of astrophysical false positives and planet candidates.
 
 
@@ -736,8 +748,6 @@ than the random realizations, we label the candidate as a false positive.
 In practice, the precision of the centroid measurements isn't sufficient to
 robustly reject many candidates but two candidates---EPIC 201202105 and EPIC
 201632708---have offsets large enough that we remove them from our final
-catalog.
-Figure~\dfmtodo{SOMEFIGURE} shows the distribution of centroid offsets across the full
 catalog.
 
 
@@ -1142,13 +1152,31 @@ signal-to-noise threshold.
 \figlabel{periodic}}
 \end{figure}
 
-% \begin{figure}[p]
-% \begin{center}
-% \includegraphics{figures/de-trended.pdf}
-% \end{center}
-% \caption{%
-% \figlabel{de-trended}}
-% \end{figure}
+\begin{figure}[p]
+\begin{center}
+\includegraphics{figures/de-trended.pdf}
+\end{center}
+\caption{%
+The maximum likelihood ``de-trended'' light curve for EPIC 201613023
+evaluated at the planet candidate's period, phase, duration, and depth.
+The transit times are indicated by the green ticks below the light curve.
+This Figure is only generated for qualitative hand vetting and in the search
+procedure, the model is always marginalized over any choices about the
+systematic trends.
+\figlabel{de-trended}}
+\end{figure}
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics{figures/folded.pdf}
+\end{center}
+\caption{%
+The maximum likelihood prediction for the light curve of EPIC 201613023 (see
+also \fig{de-trended}) folded on the 8.3~day period of this planet candidate.
+The points are color-coded by time and the median \emph{a posteriori} transit
+model is overplotted as a black line.
+\figlabel{folded}}
+\end{figure}
 
 \begin{figure}[p]
 \begin{center}
@@ -1165,14 +1193,6 @@ If the centroid coordinates in transit are inconsistent with the
 out-of-transit motions, the candidate is likely to be an astrophysical false
 positive.
 \figlabel{centroid}}
-\end{figure}
-
-\begin{figure}[p]
-\begin{center}
-\includegraphics{figures/folded.pdf}
-\end{center}
-\caption{%
-\figlabel{folded}}
 \end{figure}
 
 \begin{figure}[p]
