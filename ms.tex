@@ -267,8 +267,9 @@ about over-fitting.
 
 The methods developed within this paper are highly relevant to both \KT\ and
 the upcoming \tess\ mission \citep{Ricker:2014}.
-\tess\ will feature pointing precision of $\sim 3$ arcseconds
-\dfmtodo{(cite)}, similar to the level of pointing drift with \KT.
+\tess\ will feature pointing precision of $\sim
+3$~arcseconds\footnote{\url{http://tess.gsfc.nasa.gov/documents/TESS_FactSheet_Oct2014.pdf}},
+similar to the level of pointing drift with \KT.
 Moreover, the typical star will be only observed for one month at a time, and
 the typical transit detection will be at a similar signal-to-noise ratio as
 with \KT.
@@ -499,12 +500,9 @@ two-dimensional grid of transit times $\transittime_l$ and durations
 $\duration_k$.
 The transit time grid spans the full length of Campaign~1 with half hour spacing
 and we choose to only test three durations: 1.2, 2.4, and 4.8 hours.
-\Fig{linear} shows the mean transit depth $\bar{\depth}$ as a function of
-transit time \transittime\ for a light curve with an injected transit signal
-with transits at the times indicated by the vertical green bars.
-
-% The computational complexity of this step is $\mathcal{O}(M\,K^3)$ where $M$
-% is the number of points in the grid and $K$ is the number of data points.
+\Fig{linear} shows the maximum likelihood transit depth $\bar{\depth}$ as a
+function of transit time \transittime\ for the light curve of EPIC 201613023,
+a transiting planet candidate with a period of 8.3~days.
 
 
 \paragraph{Periodic search}
@@ -515,13 +513,16 @@ grid in period \period, reference time \phase, and duration \duration.
 At each point, we compute the likelihood of a model where the transit depth
 varies between transits and the ``correct'' simpler model where the transit
 depth is constant.
-The variable depth likelihood is simply the product of amplitudes from the
+The variable depth likelihood is given by the product of amplitudes from the
 initial search
 \begin{eqnarray}
 p_\mathrm{var}(\{\flux\}_n\,|\,\period,\,\phase,\,\duration) &=&
-\prod_{m=1}^{M(\period,\,\phase)} L_m \quad,
+\prod_{m=1}^{M(\period,\,\phase)} L_m \quad.
 \end{eqnarray}
-and the constant depth model is
+Since the likelihood function for the depth at each transit time is known and
+Gaussian, the likelihood function for the depth under the periodic model can
+also be computed analytically; it is a product of Gaussian which itself is a
+Gaussian
 \begin{eqnarray}
 p_\mathrm{const}(\{\flux\}_n\,|\,\period,\,\phase,\,\duration) &=&
 \prod_{m=1}^{M(\period,\,\phase)}
@@ -529,12 +530,12 @@ p_\mathrm{const}(\{\flux\}_n\,|\,\period,\,\phase,\,\duration) &=&
         -\frac{[\depth - \bar{\depth}_m]^2}{2\,{\delta\bar{\depth}_m}^2}
     \right)
 \end{eqnarray}
-where the maximum likelihood depth is
+where the maximum likelihood depth, for the periodic model, is
 \begin{eqnarray}\eqlabel{periodic-depth}
 \depth &=& {\sigma_\depth}^2\,\sum_{m=1}^{M(\period,\,\phase)}
     \frac{\bar{\depth}_m}{{\delta\bar{\depth}_m}^2}
 \end{eqnarray}
-and the uncertainty on this depth is given by
+and the uncertainty is given by
 \begin{eqnarray}\eqlabel{periodic-depth-uncert}
 \frac{1}{{\sigma_\depth}^2} &=& \sum_{m=1}^{M(\period,\,\phase)}
     \frac{1}{{\delta\bar{\depth}_m}^2} \quad.
@@ -546,52 +547,60 @@ uncertainty that we have about the systematics into account.
 
 In general, the variable depth model will \emph{always} get a higher
 likelihood because it is more flexible.
-Therefore, to compare these two models, we use the Bayesian Information
+Therefore, a formal model comparison is required to compete these two models
+against each other on equal footing.
+For computational simplicity and speed, we use the Bayesian Information
 Criterion (BIC).
 The traditional definition of the BIC is
 \begin{eqnarray}
--\frac{1}{2}\,\BIC_\cdot &=&
-    \ln p_\cdot(\{\flux\}_n\,|\,\period,\,\phase,\,\duration)
-    - \frac{J}{2} \ln N
+-\frac{1}{2}\,\BIC &=&
+    \ln p(\{\flux\}_n\,|\,\period,\,\phase,\,\duration)
+    - \frac{K}{2} \ln N
 \end{eqnarray}
-where the likelihood function is maximized, $J$ is an estimate of the model
-complexity and $N$ is the effective sample size.
-To emphasize that $J$ and $N$ are tuning parameters of the method, we
-redefine the BIC as the TIC
+where the likelihood function is evaluated at the maximum, $K$ is an estimate
+of the model complexity and $N$ is the effective sample size.
+To emphasize that $K$ and $N$ are tuning parameters of the method, we
+rewrite the BIC as something that we'll call the ``TIC''
 \begin{eqnarray}
-\TIC_\cdot &=&
-    \ln p_\cdot(\{\flux\}_n\,|\,\period,\,\phase,\,\duration) - \alpha
+\TIC &=&
+    \ln p(\{\flux\}_n\,|\,\period,\,\phase,\,\duration) -
+        \frac{J\,\alpha}{2}
 \end{eqnarray}
-and we choose $\alpha$ heuristically.
-For the K2 Campaign~1 dataset, we find that $\alpha \sim 1250$ leads to reliable
-recovery of injected signals while still being fairly insensitive to false
-signals.
+where $J$ is the number of allowed depths---one for the constant depth model
+and the number of transits for the variable depth model---and $\alpha$ is
+chosen heuristically.
+For the K2 Campaign~1 dataset, we find that $\alpha \sim 1240$ leads to
+reliable recovery of injected signals while still being fairly insensitive to
+false signals.
 
-To limit memory consumption, in the periodic search, we actually profile (or
-maximize) over \phase\ and \duration\ subject to the constraint that
+To limit memory consumption, in the periodic search, we profile (or maximize)
+over \phase\ and \duration\ subject to the constraint that
 $\TIC_\mathrm{const} > \TIC_\mathrm{var}$ and requiring that the signal have
 at least two observed transits.
-This results in a one-dimensional ``periodogram'' measuring the quality of
-the fit as a function of period.
-To choose the ``best'' candidate signal, we found that the best quantity to
-select on was the signal-to-noise with which the depth was measured at a
-given period, $\depth/\sigma_\depth$, computed using
-Equations~(\ref{eq:periodic-depth}) and (\ref{eq:periodic-depth-uncert}).
-Figure \dfmtodo{SOMEFIGURE} shows the signal-to-noise of the depth measurement as a
-function of period for \dfmtodo{SOMECANDIDATE}.
+This yields a one-dimensional spectrum of the signal-to-noise of the depth
+measurement as a function of period using Equations~(\ref{eq:periodic-depth})
+and (\ref{eq:periodic-depth-uncert}) to compute $\depth/\sigma_\depth$ at
+each period.
+The result is a generalization of the \project{BLS} frequency spectrum
+\citep{bls} to a light curve model that includes both a transit and the
+trends.
+For example, \fig{periodic} shows the spectrum for a planet candidate
+transiting EPIC 201613023.
 
 After selecting the best candidate based on the signal-to-noise of the depth,
 we mask out the sections of the linear search corresponding to these transits
 and iterate the periodic search.
 This permits us to find second transiting planets in light curves in which
 we have already found a more prominent signal.
-Under our assumption of independent transits, this masking procedure is equivalent to removing
-the sections of data that have a transit caused by the exoplanet that produces the highest peak.
+Under our assumption of independent transits, this masking procedure is
+equivalent to removing the sections of data that have a transit caused by the
+exoplanet that produces the highest peak.
 For the purposes of this \paper, we iterate the periodic search until we find
 three peaks for each light curve.
 This will necessarily miss the smallest and longest period planets in systems
-with more than three transiting planets but given the precision---or lack
-thereof---of the current method, we deemed this number sufficient.
+with more than three transiting planets but given the conservative vetting in
+the next \sectionname, three peaks are sufficient to discover all the high
+signal-to-noise transits.
 
 
 \paragraph{Initial candidate list}
@@ -635,7 +644,7 @@ convincing transits.
 The results of this vetting can be seen online at \dfmtodo{SOMEURL}.
 
 This vetting resulted in a list of 101 candidate transit signals.
-Many of these signals are due to astrophysical ``false positives'' such as 
+Many of these signals are due to astrophysical ``false positives'' such as
 eclipsing binary systems, either as the target star or as a background ``blend.''
 We address this effect in the following \sectionname, where we separate the list of
 candidates into a list of astrophysical false positives and planet candidates.
@@ -715,11 +724,11 @@ To test the performance and detection efficiency of our method, we conducted a
 suite of injection and recovery tests, five per
 star for all 21,703 target stars.
 For each test, we inject the signal from a realistic planetary system into the
-raw aperture photometry of a random target and run the resulting injected light curve
-through the full pipeline (except the manual vetting).
+raw aperture photometry of a random target and run the resulting injected
+light curve through the full pipeline (except the manual vetting).
 If the search returns a planet candidate---passing all of the same cuts as we
 apply in the main search (except the manual vetting)---with period and
-reference transit time within 12~hours of the injected signal, we count that
+reference transit time within 6~hours of the injected signal, we count that
 injection as recovered.
 The detection efficiency of the search is given approximately by the fraction
 of recovered injections as a function of the relevant parameters.
@@ -766,7 +775,7 @@ rate measurements).
 In \fig{completeness}, we also show the detection efficiency---marginalized
 over the same range of periods---as a function of stellar magnitude in the
 \kepler\ bandpass as reported in the Ecliptic Plane Input Catalog
-(EPIC\footnote{http://archive.stsci.edu/k2/epic.pdf}).
+(EPIC\footnote{\url{http://archive.stsci.edu/k2/epic.pdf}}).
 
 \section{Results}
 \sectlabel{results}
@@ -1073,6 +1082,9 @@ The estimated 6-hour precision of the raw photometry is 264 ppm.
 \emph{Bottom:} The points show the residuals of the data away from the ELC
 prediction.
 The 6-hour precision of this light curve is 31 ppm.
+Note that although we show a ``de-trended'' light curve to give a qualitative
+understanding of the model, this is not a product of the analysis.
+In this search for transits, \emph{the data are never de-trended}.
 \figlabel{corr}}
 \end{figure}
 
@@ -1081,10 +1093,11 @@ The 6-hour precision of this light curve is 31 ppm.
 \includegraphics{figures/linear.pdf}
 \end{center}
 \caption{%
-The estimated transit depth as a function of transit time as computed in a
-linear search.
-This light curve has an injected signal with transits at the times indicated
-with green vertical lines.
+The maximum likelihood transit depth as a function of transit time as computed
+in the linear search of the light curve of EPIC 201613023.
+After the periodic search and vetting this target is found to have a planet
+candidate with a period of 8.3~days.
+The first transit occurs at 7.4~days on this plot.
 \figlabel{linear}}
 \end{figure}
 
@@ -1093,9 +1106,15 @@ with green vertical lines.
 \includegraphics{figures/periodic.pdf}
 \end{center}
 \caption{%
-The periodogram for the same signal as in \fig{linear}.
-This plot was generated by the periodic search procedure.
-The true period is indicated by the vertical green line.
+The signal-to-noise spectrum as a function of period for the light curve of
+EPIC 201613023.
+This is the generalization of the \project{BLS} spectrum \citep{bls} to this
+simultaneous model of the transit and the systematic trends.
+To compute this spectrum, the results of the linear search (\fig{linear})
+were used as described in \sect{search}.
+The top peak (at a period of 8.3~days) is indicated with a green dot.
+Iterating the periodic search found no other transit signals above the
+signal-to-noise threshold.
 \figlabel{periodic}}
 \end{figure}
 
