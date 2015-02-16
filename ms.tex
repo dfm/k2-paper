@@ -151,7 +151,7 @@ This method is more computationally expensive than standard search algorithms
 but we demonstrate that it can be efficiently implemented and used to
 discover transit signals.
 We apply this method to the full Campaign~1 dataset and report a list of 36
-planet candidates transiting 31 stars, along with a analysis of the pipeline
+planet candidates transiting 31 stars, along with an analysis of the pipeline
 performance and detection efficiency based on artificial signal injections
 and recoveries.
 For all planet candidates, we present posterior distributions on the
@@ -288,11 +288,11 @@ They will also deliver input data for next-generation population inferences
 This project follows in the tradition of independently implemented transit
 search algorithms applied to publicly available datasets \citep[such
 as][]{petigura1, petigura2, roberto, dressing}.
-These efforts have been hugely successful especially in the field of exoplanet
-population inference because, thanks to their relative simplicity, the
-efficiency and behavior of these pipelines can be quantified empirically.
+These efforts have been hugely successful, especially in the field of
+exoplanet population inference because, thanks to their relative simplicity,
+the efficiency and behavior of these pipelines can be quantified empirically.
 The work described in this \paper\ is built on many of the same principles as
-the previous projects built for studying \kepler\ data but our main
+the previous projects developed for studying \kepler\ data but our main
 intellectual contribution is a computationally tractable framework for
 simultaneously fitting for the trends and the transit signal even when
 searching for planets.
@@ -394,8 +394,8 @@ effects, including those related to PSF and temperature.
 For example, \Fig{corr} shows the application of our model---with 150
 ELCs---to a light curve with no known transit signals and the precision is
 excellent.
-If, however, we were to apply this systematics model alone (without a simultaneous fit
-of the exoplanet transit model) to a light curve with
+If, however, we were to apply this systematics model alone (without a
+simultaneous fit of the exoplanet transit model) to a light curve with
 transits, we would be at risk of over-fitting and decreasing the amplitude of
 the signal.
 
@@ -521,7 +521,7 @@ p_\mathrm{var}(\{\flux\}_n\,|\,\period,\,\phase,\,\duration) &=&
 \end{eqnarray}
 Since the likelihood function for the depth at each transit time is known and
 Gaussian, the likelihood function for the depth under the periodic model can
-also be computed analytically; it is a product of Gaussian which itself is a
+also be computed analytically; it is a product of Gaussians which itself is a
 Gaussian
 \begin{eqnarray}
 p_\mathrm{const}(\{\flux\}_n\,|\,\period,\,\phase,\,\duration) &=&
@@ -540,7 +540,7 @@ and the uncertainty is given by
 \frac{1}{{\sigma_\depth}^2} &=& \sum_{m=1}^{M(\period,\,\phase)}
     \frac{1}{{\delta\bar{\depth}_m}^2} \quad.
 \end{eqnarray}
-Note that this result is \emph{marginalized} over the parameters of the
+Note that this result has been \emph{marginalized} over the parameters of the
 systematics model.
 Therefore, this estimate of the uncertainty on the depth takes any
 uncertainty that we have about the systematics into account.
@@ -902,9 +902,9 @@ angles---not 150 amplitudes.
 However, because (as the pointing drifts) each star sees it's own unique
 local patch of flat-field variations, the mapping from pointing drifts to
 brightness variations can be extremely non-linear.
-Furthermore, because when the pointing is moving fast there is effectively
-a smearing of the point-spread function, there are effects keyed to the
-time derivative of the Euler angles as well.
+Furthermore, because when the pointing is moving fast there is a smearing of
+the point-spread function, there are effects keyed to the time derivative of
+the Euler angles as well.
 The large number (150) of linear coefficients gives the linear model the
 freedom to model complex non-linear behavior; we are trading off parsimony
 in parameters with the enormous computational advantages of maintaining
@@ -925,7 +925,7 @@ at any stage; we simultaneously fit systematics and the signals of interest
 to the raw data.
 For this reason, there is no sense in which this method ever really
 produces corrected light curves.
-For us, a systematics-corrected light curve is not really a thing.
+% For us, a systematics-corrected light curve is not really a thing.
 
 In this work, we are agnostic about fundamental properties of the host stars.
 The only assumptions we make are that the star targeted by the \KT\
@@ -937,8 +937,6 @@ on properties of the host star.
 To use these distributions to characterize the properties of specific systems,
 one could re-weight our samples using a measurement of the inferred stellar
 properties.
-\dfmtodo{For example, let's do the Crossfield planets here. The results are
-consistent. Boom.}
 
 This project does not live in isolation and this is certainly not the last
 time the \KT\ data will be searched!
