@@ -81,6 +81,9 @@
 \newcommand{\dfmtodo}[1]{\todo{DFM}{red}{#1}}
 \newcommand{\hoggtodo}[1]{\todo{HOGG}{blue}{#1}}
 
+\definecolor{mygreen}{rgb}{0, 0.50196, 0}
+\newcommand{\response}[1]{{\color{mygreen} {\bf #1}}}
+
 % Notation for this paper.
 \newcommand{\flux}{{\ensuremath{f}}}
 \newcommand{\ferr}{{\ensuremath{\sigma_\flux}}}
@@ -181,14 +184,14 @@ in stellar light curves at the part-in-$10^5$ level.
 Results from the primary mission include the detection of planet transits with
 depths as small as 12 parts per million \citep{Barclay:2013}.
 
-The noise floor for \kepler\ data is often quoted as 15 parts per million (ppm) per
-six hours of observations \citep{Gilliland:2011}.
+The noise floor for \kepler\ data is often quoted as 15 parts per million
+(ppm) per six hours of observations \citep{Gilliland:2011}.
 Although they generally do not interfere with searches for transiting
 planets, larger systematic effects exist on different timescales.
 One of the most serious of these is spacecraft pointing: If the detector
-flat-field is not known with very high accuracy, then tiny changes to the relative
-illumination of pixels caused by a star's motion in the focal plane will lead
-to changes in the measured or inferred brightness of the star.
+flat-field is not known with very high accuracy, then tiny changes to the
+relative illumination of pixels caused by a star's motion in the focal plane
+will lead to changes in the measured or inferred brightness of the star.
 
 The great stability of the original \kepler\ Mission
 came to an end with the failure of a critical reaction wheel.
@@ -197,7 +200,8 @@ observing about a dozen fields near the ecliptic plane, each for
 $\sim 75$ days at a time.
 Because of the degraded spacecraft orientation systems, the new \KT\ data
 exhibit far greater pointing variations---and substantially more
-pointing-induced variations in photometry---than the original \kepler\ Mission data.
+pointing-induced variations in photometry---than the original \kepler\ Mission
+data.
 This makes good data-analysis techniques even more valuable.
 
 Good photometry relies on either a near-perfect flat-field
@@ -205,7 +209,8 @@ and pointing model or else data-analysis techniques that are
 insensitive to these instrument properties.
 The flat-field for \kepler\ was measured on the ground before the launch of
 the spacecraft, but is not nearly as accurate as required to make
-pointing-insensitive photometric measurements at the relevant level of precision.
+pointing-insensitive photometric measurements at the relevant level of
+precision.
 In principle direct inference of the flat-field might be possible;
 however, because point sources are observed with relatively limited
 spacecraft motion, and only a few percent of the data are actually stored and
@@ -224,9 +229,11 @@ These data have produced the first confirmed planet found with
 Both \citet{Aigrain:2015} and \citet{Crossfield:2015} use a Gaussian Process
 model for the measured flux, with pointing measurements as the inputs, and
 then ``de-trend'' using the mean prediction from that model.
-Other data-driven approaches have been developed and applied to the \kepler\
-data \citep[for example,][]{pdc1, pdc2, arc, dun} and ground-based surveys
-\citep[for example,][]{hat} but they have yet to be generalized to \KT.
+Other data-driven approaches have been developed and applied to the data from
+space missions \citep[for example,][]{Ofir:2010, Stumpe:2012, Smith:2012,
+Petigura:2013, Wang:2015} and ground-based surveys \citep[for
+example,][]{Kovacs:2005, Tamuz:2005, Berta:2012} but they have yet to be
+generalized to \KT.
 
 In all of these light-curve processing methodologies, the authors follow a
 traditional procedure of ``correcting'' or ``de-trending'' the light curve to
@@ -242,15 +249,16 @@ signals, small planets that ought to appear just above any specific
 signal-to-noise or depth threshold could be missed because of the de-trending.
 This becomes especially important as the amplitude of the noise increases.
 
-The alternative to this approach is to \emph{simultaneously fit} both the systematics
-and the transit signals.
-Simultaneous fitting can push the detection limits to lower signal-to-noise while
-robustly accounting for uncertainties about the systematic trends.
+The alternative to this approach is to \emph{simultaneously fit} both the
+systematics and the transit signals.
+Simultaneous fitting can push the detection limits to lower signal-to-noise
+while robustly accounting for uncertainties about the systematic trends.
 In particular, it permits us to \emph{marginalize} over choices in the noise
 model and propagate any uncertainties about the systematic effects
 to our confidence in the detection.
-This marginalization ensures that any conclusions we come to about the exoplanet
-properties are conservative, given the freedom of the systematics model.
+This marginalization ensures that any conclusions we come to about the
+exoplanet properties are conservative, given the freedom of the systematics
+model.
 
 In this \paper\ we present a data-analysis technique for exoplanet search and
 characterization that is insensitive to spacecraft-induced trends in the light
@@ -259,13 +267,13 @@ We assume that the dominant trends in the observed light curves in each star
 are caused by the spacecraft and are, therefore, shared with other stars.
 We reduce the dimensionality by running PCA on stellar light curves to obtain
 the dominant modes.
-The search for planets proceeds by modeling the data as a linear combination of
-150 of these basis vectors and a transit model.
+The search for planets proceeds by modeling the data as a linear combination
+of 150 of these basis vectors and a transit model.
 Our method builds on the ideas behind previous data-driven de-trending
 procedures such as the \kepler\ pipeline pre-search data conditioning
-\citep[\pdc;][]{pdc1, pdc2}, but (because of our simultaneous fitting
-approach) we can use a much more flexible systematics model without worrying
-about over-fitting.
+\citep[\pdc;][]{Stumpe:2012, Smith:2012}, but (because of our simultaneous
+fitting approach) we can use a much more flexible systematics model without
+worrying about over-fitting.
 
 The methods developed within this paper are highly relevant to both \KT\ and
 the upcoming \tess\ mission \citep{Ricker:2014}.
@@ -283,12 +291,12 @@ These planets, especially when they orbit bright or late-type stars, will be
 useful targets for ground-based and space-based follow-up, both for current
 facilities and those planned in the near future such as \jwst.
 They will also deliver input data for next-generation population inferences
-\citep{dfm}, especially for the population of planets around cool stars
-\citep[for example,][]{dressing}.
+\citep{Foreman-Mackey:2014}, especially for the population of planets around
+cool stars \citep[for example,][]{Dressing:2015}.
 
 This project follows in the tradition of independently implemented transit
 search algorithms applied to publicly available datasets \citep[such
-as][]{petigura1, petigura2, roberto, dressing}.
+as][]{Petigura:2013a, Petigura:2013, Sanchis-Ojeda:2014, Dressing:2015}.
 These efforts have been hugely successful, especially in the field of
 exoplanet population inference because, thanks to their relative simplicity,
 the efficiency and behavior of these pipelines can be quantified empirically.
@@ -326,9 +334,9 @@ the world coordinate system.
 For each target, we use a set of apertures ranging in radius from 1 to 5
 pixels (in steps of 0.5 pixels).
 Following \citet{Vanderburg:2014}, we choose the aperture size with the
-minimum CDPP \citep{cdpp} with a 6 hour window.\footnote{Note that although we
-chose a specific aperture for each star, photometry for every aperture radius
-is available online: \datareleaseurl.}
+minimum CDPP \citep{Christiansen:2012} with a 6 hour window.\footnote{Note
+that although we chose a specific aperture for each star, photometry for every
+aperture radius is available online: \datareleaseurl.}
 
 All previous methods for analyzing \KT\ data involve some sort of
 ``correction'' or ``de-trending'' step based on measurements of the pointing
@@ -346,13 +354,26 @@ removes any trends from the light curves that can be fit using a linear
 combination of a small number of ``co-trending basis vectors''.
 This basis of trends was found by running Principal Component Analysis (PCA)
 on a large set of (filtered) light curves and extracting the top few ($\sim 4$)
-components \citep{pdc1, pdc2}.
+components \citep{Stumpe:2012, Smith:2012}.
 Similarly, we ran PCA on the full set of our own generated \KT\ Campaign~1
 light curves to determine a basis of representative trends but, unlike \pdc,
-we retain and use a large number of these components ($150$).
+we retain and use a larger number of these components ($150$).
 For clarity, we will refer to our basis as a set of ``eigen light curves''
 (ELCs) and the full set is made available online\footnote{\datareleaseurl}.
 The top ten ELCs for Campaign~1 are shown in \Fig{pca}.
+
+\response{Blah blah}
+
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics{figures/pca.pdf}
+\end{center}
+\caption{%
+The top 10 eigen light curves (ELCs) generated by running principal component
+analysis on all the aperture photometry from Campaign~1.
+\figlabel{pca}}
+\end{figure}
 
 
 \section{Joint transit \& variability model}
@@ -360,38 +381,36 @@ The top ten ELCs for Campaign~1 are shown in \Fig{pca}.
 
 The key insight in our transit search method that sets it apart from the
 other standard procedures is that no de-trending is necessary.
-Instead, we can fit for the noise (or trends) and exoplanet signals simultaneously.
+Instead, we can fit for the noise (or trends) and exoplanet signals
+simultaneously.
 This is theoretically appealing because it will be more sensitive to low
 signal-to-noise transits.
-The main reason for this is that the signal is never precisely orthogonal to the
-systematics and any de-trending will over-fit.
-This will, in turn, decrease the amplitude of the
-signal and distort its shape.
-In order to reduce this effect, most procedures use a very rigid model for
-the trends.
-For \KT, this rigidity has been implemented by
-effectively asserting that centroid measurements contain
-all of the information needed to describe the trends \citep{Vanderburg:2014,
-Aigrain:2015, Crossfield:2015}.
+The main reason for this is that the signal is never precisely orthogonal to
+the systematics and any de-trending will over-fit.
+This will, in turn, decrease the amplitude of the signal and distort its
+shape.
+In order to reduce this effect, most procedures use a very rigid model for the
+trends.
+For \KT, this rigidity has been implemented by effectively asserting that
+centroid measurements contain all of the information needed to describe the
+trends \citep{Vanderburg:2014, Aigrain:2015, Crossfield:2015}.
 In the \kepler\ pipeline, this is implemented by allowing only a small number
 of PCA components to contribute to the fit in the \pdc\ procedure.
-Instead, we will use a large number of ELCs---a very flexible model---and
-use a simultaneous fitting and marginalization to avoid over-fitting.
+Instead, we will use a large number of ELCs---a very flexible model---and use
+a simultaneous fitting and marginalization to avoid over-fitting.
 
 Physically, the motivation for our model---and the \pdc\ model---is that every
 star on the detector should be affected by the same set of systematic effects.
 These are caused by things like pointing jitter, temperature variations, and
 other sources of PSF modulation.
-Each of these effects will be imprinted in the light
-curves of many stars with varying amplitudes and signs as a result of the
-varying flat field and PSF.
+Each of these effects will be imprinted in the light curves of many stars with
+varying amplitudes and signs as a result of the varying flat field and PSF.
 Therefore, while it is hard to write down a physical generative model for the
 systematics, building a data-driven model might be possible.
 This intuition is also exploited by other methods that model the systematics
 using only empirical centroids \citep{Vanderburg:2014, Armstrong:2014,
-Aigrain:2015,
-Crossfield:2015}, but our more flexible model should capture a wider range of
-effects, including those related to PSF and temperature.
+Aigrain:2015, Crossfield:2015}, but our more flexible model should capture a
+wider range of effects, including those related to PSF and temperature.
 For example, \Fig{corr} shows the application of our model---with 150
 ELCs---to a light curve with no known transit signals and the precision is
 excellent.
@@ -400,9 +419,9 @@ simultaneous fit of the exoplanet transit model) to a light curve with
 transits, we would be at risk of over-fitting and decreasing the amplitude of
 the signal.
 
-In our pipeline we simultaneously fit for the transit
-signal and the trends using a rigid model for the signal and a relatively
-flexible model for the systematic noise.
+In our pipeline we simultaneously fit for the transit signal and the trends
+using a rigid model for the signal and a relatively flexible model for the
+systematic noise.
 Specifically, we model the light curve as being generated by linear
 combination of 150 ELCs and a ``box'' transit model at a specific period,
 phase, and duration.
@@ -410,18 +429,48 @@ The mathematical details are given in \app{math}, but in summary, since the
 model is linear, we can analytically compute the likelihood
 function---conditioned on a specific period, phase, and duration---for the
 depth \emph{marginalizing out the systematics model}.
-The signal-to-noise of this depth measurement can then be used as a quality
-of fit metric or candidate selection scalar.
-This computation is expensive but, as described in the following \sectionname s, it
-is possible to scale the method to a \KT-size dataset.
+The signal-to-noise of this depth measurement can then be used as a quality of
+fit metric or candidate selection scalar.
+This computation is expensive but, as described in the following \sectionname
+s, it is possible to scale the method to a \KT-size dataset.
 
 It is worth noting that this model can be equivalently thought of as a
 (computationally expensive) generalization of the ``Box Least Squares''
-\citep[\project{BLS};][]{bls} method to a more sophisticated description of
-the noise and systematics.
+\citep[\project{BLS};][]{Kovacs:2002} method to a more sophisticated
+description of the noise and systematics.
 Therefore, any existing search pipeline based on \project{BLS} could, in
 theory, use this model as a drop-in replacement, although some modifications
 might be required for computational tractability.
+
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics{figures/corr.pdf}
+\end{center}
+\caption{%
+A demonstration of the ELC fit to the aperture photometry for EPIC 201374602.
+\emph{Top:} The black points show the aperture photometry and the green line
+is the maximum likelihood linear combination of ELCs.
+The estimated 6-hour precision of the raw photometry is 264 ppm.
+\emph{Bottom:} The points show the residuals of the data away from the ELC
+prediction.
+The 6-hour precision of this light curve is 31 ppm.
+Note that although we show a ``de-trended'' light curve to give a qualitative
+understanding of the model, this is not a product of the analysis.
+In this search for transits, \emph{the data are never de-trended}.
+\figlabel{corr}}
+\end{figure}
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics{figures/performance.pdf}
+\end{center}
+\caption{%
+Performance?
+\figlabel{performance}}
+\end{figure}
+
+
 
 
 \section{Search pipeline}
@@ -582,7 +631,7 @@ measurement as a function of period using Equations~(\ref{eq:periodic-depth})
 and (\ref{eq:periodic-depth-uncert}) to compute $\depth/\sigma_\depth$ at
 each period.
 The result is a generalization of the \project{BLS} frequency spectrum
-\citep{bls} to a light curve model that includes both a transit and the
+\citep{Kovacs:2002} to a light curve model that includes both a transit and the
 trends.
 For example, \fig{periodic} shows the spectrum for a planet candidate
 transiting EPIC 201613023.
@@ -623,7 +672,8 @@ contaminated by false alarms.
 This might be because of the fact that our independence assumption
 (\eqalt{indtran}) breaks down at these short periods.
 Therefore, we discard all signals with periods shorter than 4 days,
-acknowledging this will cause us to miss some planets \citep{roberto}.
+acknowledging this will cause us to miss some planets
+\citep{Sanchis-Ojeda:2014}.
 After these cuts, 741 candidates remain; we examine these signals by hand.
 The full list of peaks and their relevant meta data is available online
 at\footnote{\datareleaseurl}.
@@ -781,14 +831,14 @@ of recovered injections as a function of the relevant parameters.
 To generate the synthetic signals, we use the following procedure:
 \begin{enumerate}
 {\item Draw the number of transiting planets based on the observed
-multiplicity distribution of KOIs \citep{kois}.}
+multiplicity distribution of KOIs \citep{Burke:2014}.}
 {\item Sample---from the distributions listed in
 \tab{dist}---limb darkening parameters and, for each planet, an orbital
 period, phase, radius ratio, impact parameter, eccentricity, and argument of
 periapsis.}
 {\item Based on the chosen physical parameters, simulate the light curve,
-taking limb darkening and integration time into account \citep{ma,
-kipping-int}, and multiply it into the raw aperture photometry.}
+taking limb darkening and integration time into account \citep{Mandel:2002,
+Kipping:2010}, and multiply it into the raw aperture photometry.}
 \end{enumerate}
 We then process these light curves using exactly the pipeline that we use for
 the light curves without injections.
@@ -854,12 +904,13 @@ our full sample of EBs and more.
 
 For the planet candidates, we perform a full physical transit fit to the light
 curve.
-To do this fit, we use Markov Chain Monte Carlo \citep[MCMC;][]{emcee} to
+To do this fit, we use Markov Chain Monte Carlo
+\citep[MCMC;][]{Foreman-Mackey:2013} to
 sample from the posterior probability for the stellar and planetary
 parameters taking limb darkening and integration time into account.
 In this fit, we continue to model the trends in the data as a linear
 combination of the 150 ELCs but, at this point, we combine this with a
-realistic light curve model \citep{ma, kipping-ld}.
+realistic light curve model \citep{Mandel:2002, Kipping:2013a}.
 Even though we have no constraints on the stellar parameters, we also sample
 over a large range in stellar mass and radius so that future measurements can
 be applied by re-weighting the published samples.
@@ -956,8 +1007,8 @@ One appealing option would be to model the systematics as a Gaussian Process
 where the input parameters are both time and the same 150 ELCs.
 Interestingly, while this model isn't linear, the search and marginalization
 can still be executed efficiently---using optimized linear algebra algorithms
-\citep[][Foreman-Mackey et al.\ in preparation]{fastgp}---inside the search
-loop.
+\citep[][Foreman-Mackey et al.\ in preparation]{Ambikasaran:2014}---inside the
+search loop.
 
 Additionally, while we apply this systematics model simultaneously with a
 transiting planet model to search for planet candidates, this scheme is
@@ -979,9 +1030,9 @@ A substantial caveat to the reliability of all existing transiting exoplanet
 searches is that they all include human intervention.
 This makes quantifying the false alarm rate of these catalogs complicated.
 There has been some work on automated vetting algorithms using supervised
-classification algorithms \citep{vetting, jenkins} but these methods rely on
-hand classified examples for training and the performance is not yet
-competitive with human classification.
+classification algorithms \citep{McCauliff:2014, Jenkins:2014} but these
+methods rely on hand classified examples for training and the performance is
+not yet competitive with human classification.
 
 The catalog of planet candidates presented here includes only planets with
 periods longer than 4 days and at least two transits in the \KT\ Campaign~1
@@ -1120,34 +1171,6 @@ evaluated at the maximum likelihood value ${\bvec{w}_k}^*$.
 
 \begin{figure}[p]
 \begin{center}
-\includegraphics{figures/pca.pdf}
-\end{center}
-\caption{%
-The top 10 eigen light curves (ELCs) generated by running principal component
-analysis on all the aperture photometry from Campaign~1.
-\figlabel{pca}}
-\end{figure}
-
-\begin{figure}[p]
-\begin{center}
-\includegraphics{figures/corr.pdf}
-\end{center}
-\caption{%
-A demonstration of the ELC fit to the aperture photometry for EPIC 201374602.
-\emph{Top:} The black points show the aperture photometry and the green line
-is the maximum likelihood linear combination of ELCs.
-The estimated 6-hour precision of the raw photometry is 264 ppm.
-\emph{Bottom:} The points show the residuals of the data away from the ELC
-prediction.
-The 6-hour precision of this light curve is 31 ppm.
-Note that although we show a ``de-trended'' light curve to give a qualitative
-understanding of the model, this is not a product of the analysis.
-In this search for transits, \emph{the data are never de-trended}.
-\figlabel{corr}}
-\end{figure}
-
-\begin{figure}[p]
-\begin{center}
 \includegraphics{figures/linear.pdf}
 \end{center}
 \caption{%
@@ -1166,7 +1189,7 @@ The first transit occurs at 7.4~days on this plot.
 \caption{%
 The signal-to-noise spectrum as a function of period for the light curve of
 EPIC 201613023.
-This is the generalization of the \project{BLS} spectrum \citep{bls} to this
+This is the generalization of the \project{BLS} spectrum \citep{Kovacs:2002} to this
 simultaneous model of the transit and the systematic trends.
 To compute this spectrum, the results of the linear search (\fig{linear})
 were used as described in \sect{search}.
@@ -1293,8 +1316,8 @@ argument of periapsis \pomega & --- & $\pomega \sim U(-\pi,\,\pi)$ \\
 \end{center}
 \caption{%
 The distribution of physical parameters for the injected signals.
-The eccentricity distribution is based on \citet{kipping-ecc} and the
-limb darkening parameterization is given by \citet{kipping-ld}.
+The eccentricity distribution is based on \citet{Kipping:2013} and the
+limb darkening parameterization is given by \citet{Kipping:2013a}.
 \tablabel{dist}}
 \end{table}
 
