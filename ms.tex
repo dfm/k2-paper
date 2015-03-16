@@ -353,17 +353,14 @@ To capitalize on this, the \pdc\ component of the \kepler\ pipeline
 removes any trends from the light curves that can be fit using a linear
 combination of a small number of ``co-trending basis vectors''.
 This basis of trends was found by running Principal Component Analysis (PCA)
-on a large set of (filtered) light curves and extracting the top few ($\sim 4$)
-components \citep{Stumpe:2012, Smith:2012}.
+on a large set of (filtered) light curves and extracting the top few ($\sim
+4$) components \citep{Stumpe:2012, Smith:2012}.
 Similarly, we ran PCA on the full set of our own generated \KT\ Campaign~1
 light curves to determine a basis of representative trends but, unlike \pdc,
 we retain and use a larger number of these components ($150$).
 For clarity, we will refer to our basis as a set of ``eigen light curves''
 (ELCs) and the full set is made available online\footnote{\datareleaseurl}.
 The top ten ELCs for Campaign~1 are shown in \Fig{pca}.
-
-\response{Blah blah}
-
 
 \begin{figure}[p]
 \begin{center}
@@ -442,6 +439,17 @@ Therefore, any existing search pipeline based on \project{BLS} could, in
 theory, use this model as a drop-in replacement, although some modifications
 might be required for computational tractability.
 
+\response{%
+The choice to use 150 basis functions is largely arbitrary and we make no
+claims of optimality.
+This value was chosen as a trade-off between the computational cost of the
+search---the cost scales as the third power of the size of the basis---and the
+predictive power of the model.
+In some preliminary experiments, we found that using a larger basis did, as
+expected, lead to a marginally higher sensitivity to small transit signals
+but the gain wasn't sufficient to justify the added cost.
+}
+
 
 \begin{figure}[p]
 \begin{center}
@@ -460,17 +468,6 @@ understanding of the model, this is not a product of the analysis.
 In this search for transits, \emph{the data are never de-trended}.
 \figlabel{corr}}
 \end{figure}
-
-\begin{figure}[p]
-\begin{center}
-\includegraphics{figures/performance.pdf}
-\end{center}
-\caption{%
-Performance?
-\figlabel{performance}}
-\end{figure}
-
-
 
 
 \section{Search pipeline}
@@ -871,6 +868,16 @@ re-weighting the simulations used to generate this figure.
 Therefore, alongside this \paper, we publish the full list of injection
 simulations\footnote{\datareleaseurl} to be used for population inference
 (occurrence rate measurements).
+
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics{figures/performance.pdf}
+\end{center}
+\caption{%
+Performance?
+\figlabel{performance}}
+\end{figure}
 
 
 \section{Results}
