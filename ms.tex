@@ -272,8 +272,8 @@ of 150 of these basis vectors and a transit model.
 Our method builds on the ideas behind previous data-driven de-trending
 procedures such as the \kepler\ pipeline pre-search data conditioning
 \citep[\pdc;][]{Stumpe:2012, Smith:2012}, but (because of our simultaneous
-fitting approach) we can use a much more flexible systematics model without
-worrying about over-fitting.
+fitting approach) we can use a much more flexible systematics model
+\response{while being less prone to over-fitting}.
 
 The methods developed within this paper are highly relevant to both \KT\ and
 the upcoming \tess\ mission \citep{Ricker:2014}.
@@ -376,18 +376,19 @@ analysis on all the aperture photometry from Campaign~1.
 \section{Joint transit \& variability model}
 \sectlabel{model}
 
-The key insight in our transit search method that sets it apart from the
-other standard procedures is that no de-trending is necessary.
+The key insight in our transit search method that sets it apart from most
+standard procedures is that no de-trending is necessary.
 Instead, we can fit for the noise (or trends) and exoplanet signals
 simultaneously.
-This is theoretically appealing because it will be more sensitive to low
-signal-to-noise transits.
-The main reason for this is that the signal is never precisely orthogonal to
-the systematics and any de-trending will over-fit.
+This is theoretically appealing because it should be more sensitive to low
+signal-to-noise transits \response{and similar methods have been shown to be
+effective for finding transits in ground-based surveys \citep{Berta:2012}}.
+The main motivation for this model is that the signal is never precisely
+orthogonal to the systematics and any de-trending will over-fit.
 This will, in turn, decrease the amplitude of the signal and distort its
 shape.
-In order to reduce this effect, most procedures use a very rigid model for the
-trends.
+In order to reduce these effects, most de-trending procedures use a very rigid
+model for the systematics.
 For \KT, this rigidity has been implemented by effectively asserting that
 centroid measurements contain all of the information needed to describe the
 trends \citep{Vanderburg:2014, Aigrain:2015, Crossfield:2015}.
@@ -411,10 +412,21 @@ wider range of effects, including those related to PSF and temperature.
 For example, \Fig{corr} shows the application of our model---with 150
 ELCs---to a light curve with no known transit signals and the precision is
 excellent.
-If, however, we were to apply this systematics model alone (without a
-simultaneous fit of the exoplanet transit model) to a light curve with
-transits, we would be at risk of over-fitting and decreasing the amplitude of
-the signal.
+
+If we were to apply this systematics model alone (without a simultaneous fit
+of the exoplanet transit model) to a light curve with transits, we would be at
+risk of over-fitting and decreasing the amplitude of the signal.
+\response{\Fig{overfitting} demonstrates this effect on a synthetic transit
+injected into the light curve of a typical bright star.
+The middle two panels in this Figure show the light curve de-trended using 10
+and 150 ELCs respectively.
+When only 10 ELCs are used, the measured transit depth is relatively robust
+but this model is clearly not sufficient for removing the majority of the
+systematic trends.
+The model with 150 ELCs does an excellent job of removing the systematics but
+it also distorts the transit shape and decreases the measured transit depth,
+hence reducing the signal strength in the \project{BLS} spectrum
+\citep{Kovacs:2002}.}
 
 In our pipeline we simultaneously fit for the transit signal and the trends
 using a rigid model for the signal and a relatively flexible model for the
@@ -430,6 +442,12 @@ The signal-to-noise of this depth measurement can then be used as a quality of
 fit metric or candidate selection scalar.
 This computation is expensive but, as described in the following \sectionname
 s, it is possible to scale the method to a \KT-size dataset.
+\response{The bottom panel of \Fig{overfitting} shows the application of this
+joint transit--systematics model to the synthetic transit discussed
+previously.
+When the joint model is used, the correct transit depth is measured---the
+transit is not distorted---but the systematics are also well-described by the
+model.}
 
 It is worth noting that this model can be equivalently thought of as a
 (computationally expensive) generalization of the ``Box Least Squares''
@@ -450,7 +468,6 @@ expected, lead to a marginally higher sensitivity to small transit signals
 but the gain wasn't sufficient to justify the added cost.
 }
 
-
 \begin{figure}[p]
 \begin{center}
 \includegraphics{figures/corr.pdf}
@@ -467,6 +484,35 @@ Note that although we show a ``de-trended'' light curve to give a qualitative
 understanding of the model, this is not a product of the analysis.
 In this search for transits, \emph{the data are never de-trended}.
 \figlabel{corr}}
+\end{figure}
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{figures/overfitting.pdf}
+\end{center}
+\caption{%
+\response{%
+A comparison between de-trending using different numbers of ELCs and a
+simultaneous fit of the systematics and transit model.
+\emph{(a)} The raw photometry for EPIC 201374602 with a synthetic transit
+injected at 65 days. In all plots, the photometry is measured in
+parts-per-thousand (ppt).
+\emph{(b)} The black points show the photometry de-trended using a linear
+combination of 10 ELCs and the green line shows the true transit model.
+The maximum likelihood transit depth is computed following \project{BLS}
+\citep{Kovacs:2002}.
+While some of the systematics are removed by this model, there is still a lot
+of residual noise.
+\emph{(c)} The same plot as panel \emph{(b)} but using 150 ELCs to de-trend.
+This model removes the majority of the systematics but also distorts the
+transit and weakens the signal; it reduces the measured transit depth.
+\emph{(d)} The final panel shows the results of simultaneously fitting for
+the transit and the systematics using 150 ELCs.
+The maximum likelihood depth is computed as described in \app{math}.
+Like panel \emph{(c)}, this model removes most of the systematics but does
+not distort the transit or reduce the measured transit depth.
+}
+\figlabel{overfitting}}
 \end{figure}
 
 
@@ -549,6 +595,19 @@ and we choose to only test three durations: 1.2, 2.4, and 4.8 hours.
 \Fig{linear} shows the maximum likelihood transit depth $\bar{\depth}$ as a
 function of transit time \transittime\ for the light curve of EPIC 201613023,
 a transiting planet candidate with a period of 8.3~days.
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics{figures/linear.pdf}
+\end{center}
+\caption{%
+The maximum likelihood transit depth as a function of transit time as computed
+in the linear search of the light curve of EPIC 201613023.
+After the periodic search and vetting this target is found to have a planet
+candidate with a period of 8.3~days.
+The first transit occurs at 7.4~days on this plot.
+\figlabel{linear}}
+\end{figure}
 
 
 \paragraph{Periodic search}
@@ -648,6 +707,24 @@ with more than three transiting planets but given the conservative vetting in
 the next \sectionname, three peaks are sufficient to discover all the high
 signal-to-noise transits.
 
+\begin{figure}[p]
+\begin{center}
+\includegraphics{figures/periodic.pdf}
+\end{center}
+\caption{%
+The signal-to-noise spectrum as a function of period for the light curve of
+EPIC 201613023.
+This is the generalization of the \project{BLS} spectrum \citep{Kovacs:2002} to this
+simultaneous model of the transit and the systematic trends.
+To compute this spectrum, the results of the linear search (\fig{linear})
+were used as described in \sect{search}.
+The top peak (at a period of 8.3~days) is indicated with a green dot.
+Iterating the periodic search found no other transit signals above the
+signal-to-noise threshold.
+\figlabel{periodic}}
+\end{figure}
+
+
 
 \paragraph{Initial candidate list}
 
@@ -705,6 +782,32 @@ systems, either as the target star or as a background ``blend.'' We address
 this effect in the following \sectionname, where we separate the list of
 candidates into a list of astrophysical false positives and planet candidates.
 
+\begin{figure}[p]
+\begin{center}
+\includegraphics{figures/de-trended.pdf}
+\end{center}
+\caption{%
+The maximum likelihood ``de-trended'' light curve for EPIC 201613023
+evaluated at the planet candidate's period, phase, duration, and depth.
+The transit times are indicated by the green ticks below the light curve.
+This Figure is only generated for qualitative hand vetting and in the search
+procedure, the model is always marginalized over any choices about the
+systematic trends.
+\figlabel{de-trended}}
+\end{figure}
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics{figures/folded.pdf}
+\end{center}
+\caption{%
+The maximum likelihood prediction for the light curve of EPIC 201613023 (see
+also \fig{de-trended}) folded on the 8.3~day period of this planet candidate.
+The points are color-coded by time and the median \emph{a posteriori} transit
+model is overplotted as a black line.
+\figlabel{folded}}
+\end{figure}
+
 
 \paragraph{Astrophysical false positives}
 
@@ -757,7 +860,7 @@ the machinery that we have already established for modeling the
 systematic trends in the data, inspired by the methods used to vet
 \kepler\ candidates \citep{Bryson:2013}.  This is only an initial vetting step
 and a more complete characterization of our catalog's reliability is
-forthcoming (Montet, Foreman-Mackey, \etal\ in preparation).
+forthcoming (Montet, \etal\ in preparation).
 
 To measure \emph{centroid offsets}, we start by empirically measuring the
 pixel centroid time series for each candidate by modeling the pixels near the
@@ -807,6 +910,36 @@ roughly estimate that we expect $<$10\% of our candidates to be caused
 by nearby contaminating EBs.  This estimate suggests that such
 astrophysical false positives should be rare in our sample, consistent
 with our detection of only 2 candidates with clear centroid offsets.
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{figures/centroid.pdf}
+\includegraphics[width=0.4\textwidth]{figures/centroid-2.pdf}
+\end{center}
+\caption{%
+The centroid motion for EPIC 201613023.
+\emph{Left:} The measured $x$ and $y$ pixel coordinates as a function of time.
+\emph{Right:} The pixel coordinates color-coded by time.
+As identified by \citet{Vanderburg:2014}, the centroid motions fall in a
+slowly time variable locus.
+If the centroid coordinates in transit are inconsistent with the
+out-of-transit motions, the candidate is likely to be an astrophysical false
+positive.
+\figlabel{centroid}}
+\end{figure}
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics{figures/offsets.pdf}
+\end{center}
+\caption{%
+The estimated in-transit centroid offset for EPIC 201202105 (green line)
+compared to the distribution of 1000 centroid offests computed for randomly
+assigned phases (black histogram).
+The in-transit measurement is 3-$\sigma$ larger than the median out-of-transit
+offset so it is rejected from the final catalog.
+\figlabel{offsets}}
+\end{figure}
 
 
 \section{Performance}
@@ -872,6 +1005,34 @@ simulations\footnote{\datareleaseurl} to be used for population inference
 
 \begin{figure}[p]
 \begin{center}
+\includegraphics{figures/completeness.pdf}
+\end{center}
+\caption{%
+The detection efficiency of the search procedure as a function of the
+physical transit parameters computed empirically by
+injecting synthetic transit signals into the raw light curves and measuring
+the fraction that are successfully recovered.
+These tests were performed on the entire set of stars so these numbers are
+marginalized over all the stellar properties, including magnitude.
+\figlabel{completeness}}
+\end{figure}
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics{figures/completeness-mag.pdf}
+\end{center}
+\caption{%
+Like \fig{completeness}, the empirically measured detection efficiency of the
+search procedure as a function of stellar magnitude as reported by the EPIC.
+This never reaches 90~percent because these numbers are marginalized over the
+range of physical parameters shown in \fig{completeness}.
+Even for the brightest stars, the long period, small transits cannot be
+detected.
+\figlabel{completeness-mag}}
+\end{figure}
+
+\begin{figure}[p]
+\begin{center}
 \includegraphics{figures/performance.pdf}
 \end{center}
 \caption{%
@@ -933,6 +1094,17 @@ If this rate remains robust after stellar characterization and if these
 numbers are representative of the yields in upcoming \KT\ Campaigns, the \KT\
 Mission will substantially increase the number of planets known to transit
 cool stars.
+
+\begin{figure}[p]
+\begin{center}
+\includegraphics{figures/candidates.pdf}
+\end{center}
+\caption{%
+The \emph{a posteriori} distribution of planet candidates in the catalog.
+The error bars indicate the 0.16 and 0.84 posterior sample quantiles for the
+radius ratios.
+\figlabel{candidates}}
+\end{figure}
 
 
 \section{Discussion}
@@ -1176,130 +1348,6 @@ evaluated at the maximum likelihood value ${\bvec{w}_k}^*$.
 \clearpage
 
 
-\begin{figure}[p]
-\begin{center}
-\includegraphics{figures/linear.pdf}
-\end{center}
-\caption{%
-The maximum likelihood transit depth as a function of transit time as computed
-in the linear search of the light curve of EPIC 201613023.
-After the periodic search and vetting this target is found to have a planet
-candidate with a period of 8.3~days.
-The first transit occurs at 7.4~days on this plot.
-\figlabel{linear}}
-\end{figure}
-
-\begin{figure}[p]
-\begin{center}
-\includegraphics{figures/periodic.pdf}
-\end{center}
-\caption{%
-The signal-to-noise spectrum as a function of period for the light curve of
-EPIC 201613023.
-This is the generalization of the \project{BLS} spectrum \citep{Kovacs:2002} to this
-simultaneous model of the transit and the systematic trends.
-To compute this spectrum, the results of the linear search (\fig{linear})
-were used as described in \sect{search}.
-The top peak (at a period of 8.3~days) is indicated with a green dot.
-Iterating the periodic search found no other transit signals above the
-signal-to-noise threshold.
-\figlabel{periodic}}
-\end{figure}
-
-\begin{figure}[p]
-\begin{center}
-\includegraphics{figures/de-trended.pdf}
-\end{center}
-\caption{%
-The maximum likelihood ``de-trended'' light curve for EPIC 201613023
-evaluated at the planet candidate's period, phase, duration, and depth.
-The transit times are indicated by the green ticks below the light curve.
-This Figure is only generated for qualitative hand vetting and in the search
-procedure, the model is always marginalized over any choices about the
-systematic trends.
-\figlabel{de-trended}}
-\end{figure}
-
-\begin{figure}[p]
-\begin{center}
-\includegraphics{figures/folded.pdf}
-\end{center}
-\caption{%
-The maximum likelihood prediction for the light curve of EPIC 201613023 (see
-also \fig{de-trended}) folded on the 8.3~day period of this planet candidate.
-The points are color-coded by time and the median \emph{a posteriori} transit
-model is overplotted as a black line.
-\figlabel{folded}}
-\end{figure}
-
-\begin{figure}[p]
-\begin{center}
-\includegraphics[width=0.4\textwidth]{figures/centroid.pdf}
-\includegraphics[width=0.4\textwidth]{figures/centroid-2.pdf}
-\end{center}
-\caption{%
-The centroid motion for EPIC 201613023.
-\emph{Left:} The measured $x$ and $y$ pixel coordinates as a function of time.
-\emph{Right:} The pixel coordinates color-coded by time.
-As identified by \citet{Vanderburg:2014}, the centroid motions fall in a
-slowly time variable locus.
-If the centroid coordinates in transit are inconsistent with the
-out-of-transit motions, the candidate is likely to be an astrophysical false
-positive.
-\figlabel{centroid}}
-\end{figure}
-
-\begin{figure}[p]
-\begin{center}
-\includegraphics{figures/offsets.pdf}
-\end{center}
-\caption{%
-The estimated in-transit centroid offset for EPIC 201202105 (green line)
-compared to the distribution of 1000 centroid offests computed for randomly
-assigned phases (black histogram).
-The in-transit measurement is 3-$\sigma$ larger than the median out-of-transit
-offset so it is rejected from the final catalog.
-\figlabel{offsets}}
-\end{figure}
-
-\begin{figure}[p]
-\begin{center}
-\includegraphics{figures/completeness.pdf}
-\end{center}
-\caption{%
-The detection efficiency of the search procedure as a function of the
-physical transit parameters computed empirically by
-injecting synthetic transit signals into the raw light curves and measuring
-the fraction that are successfully recovered.
-These tests were performed on the entire set of stars so these numbers are
-marginalized over all the stellar properties, including magnitude.
-\figlabel{completeness}}
-\end{figure}
-
-\begin{figure}[p]
-\begin{center}
-\includegraphics{figures/completeness-mag.pdf}
-\end{center}
-\caption{%
-Like \fig{completeness}, the empirically measured detection efficiency of the
-search procedure as a function of stellar magnitude as reported by the EPIC.
-This never reaches 90~percent because these numbers are marginalized over the
-range of physical parameters shown in \fig{completeness}.
-Even for the brightest stars, the long period, small transits cannot be
-detected.
-\figlabel{completeness-mag}}
-\end{figure}
-
-\begin{figure}[p]
-\begin{center}
-\includegraphics{figures/candidates.pdf}
-\end{center}
-\caption{%
-The \emph{a posteriori} distribution of planet candidates in the catalog.
-The error bars indicate the 0.16 and 0.84 posterior sample quantiles for the
-radius ratios.
-\figlabel{candidates}}
-\end{figure}
 
 \clearpage
 
