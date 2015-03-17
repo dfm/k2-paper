@@ -67,7 +67,6 @@
 \newcommand{\sectlabel}[1]{\label{sect:#1}}
 
 \newcommand{\BIC}{{\ensuremath{\mathrm{BIC}}}}
-\newcommand{\TIC}{{\ensuremath{\mathrm{TIC}}}}
 \newcommand{\T}{\ensuremath{\mathrm{T}}}
 \newcommand{\dd}{\ensuremath{\,\mathrm{d}}}
 \newcommand{\bvec}[1]{{\ensuremath{\boldsymbol{#1}}}}
@@ -665,9 +664,9 @@ The traditional definition of the BIC is
 where the likelihood function is evaluated at the maximum, $K$ is an estimate
 of the model complexity and $N$ is the effective sample size.
 To emphasize that $K$ and $N$ are tuning parameters of the method, we
-rewrite the BIC as something that we'll call the ``TIC''
+rewrite this equation as
 \begin{eqnarray}
-\TIC &=&
+-\frac{1}{2}\,\BIC &=&
     \ln p(\{\flux\}_n\,|\,\period,\,\phase,\,\duration) -
         \frac{J\,\alpha}{2}
 \end{eqnarray}
@@ -680,7 +679,7 @@ false signals.
 
 To limit memory consumption, in the periodic search, we profile (or maximize)
 over \phase\ and \duration\ subject to the constraint that
-$\TIC_\mathrm{const} > \TIC_\mathrm{var}$ and requiring that the signal have
+$\BIC_\mathrm{const} < \BIC_\mathrm{var}$ and requiring that the signal have
 at least two observed transits.
 This yields a one-dimensional spectrum of the signal-to-noise of the depth
 measurement as a function of period using Equations~(\ref{eq:periodic-depth})
@@ -734,7 +733,7 @@ The vast majority of these signals are not induced by a transiting planet:
 there are many false positives.
 Therefore to reduce the search space, we estimate the signal-to-noise of each
 candidate by comparing the peak height to a robust estimate of variance in
-\TIC\ values across period.
+\BIC\ values across period.
 This is not the same criterion used to select the initial three peaks but we
 find that it produces a more complete and pure sample.
 A cut in this quantity can reject most variable stars and low signal-to-noise
@@ -1243,6 +1242,7 @@ Eric Agol (UW),
 Ruth Angus (Oxford),
 Tom Barclay (Ames),
 Zach Berta-Thompson (MIT),
+Daniel Bramich (QEERI, Qatar),
 G\'eza Kov\'acs (Konkoly Observatory),
 Laura Kreidberg (Chicago),
 Erik Petigura (Berkeley),
