@@ -122,3 +122,13 @@ new term. Instead we just stick to discussing the BIC directly.
 > 9) At pag. 11 the authors quote a quite low false positive rate for
 > Kepler. I note that these estimates have been recently revised upward
 > (e. g. Santerne et al. A&A 545, A76, 2012).
+
+There has as of yet been no indication that the false positive rate
+predictions of Morton & Johnson (2011) or Fressin (2013) are incorrect.
+Santerne (2012) focused on a sub-sample of short-period giant candidates, in
+which they found a higher FP rate (as expected). There is nothing about that
+study, however, that suggests anything is incorrect in the FP predictions in
+other parts of planet candidate parameter space. To the contrary, Desert
+(2015) has recently released results of a large observational campaign based
+mostly on Spitzer photometry, confirming observationally these predictions of
+a generally low FP rate.
