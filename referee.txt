@@ -118,7 +118,18 @@ new term. Instead we just stick to discussing the BIC directly.
 > signals with substantially lower S/N (let's say around S/N=6-7). Why
 > the authors impose this threshold? Do they feel they could decrease it
 > being still able to detect reliable transit candidates?
->
+
+We chose this threshold in an attempt to maximize the number of discoveries
+while maintaining a reasonable number of candidates for hand vetting. While we
+don't quantify this effect, we found that the number of false signals far
+outnumbered the true transit signals by the time it reaches 15. It's also
+worth noting that this number can't be directly compared to the values used
+when analyzing Kepler data because of the differing definitions and data
+quality. That being said, we agree that lower signal-to-noise candidates
+should be detectable and we are actively working to develop more robust
+vetting methods. We have added some text to the manuscript discussing this
+choice.
+
 > 9) At pag. 11 the authors quote a quite low false positive rate for
 > Kepler. I note that these estimates have been recently revised upward
 > (e. g. Santerne et al. A&A 545, A76, 2012).

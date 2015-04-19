@@ -749,8 +749,13 @@ candidates that can't be reliably recovered from the data.
 To minimize contamination from false alarms but maximize our sensitivity, we
 choose a threshold of 15.
 \response{In absolute value, this threshold is somewhat higher than the
-standard value used when searching for transits in the \kepler\ light curves
-\citep[for example][]{Petigura:2013} but .}
+standard signal-to-noise threshold used when searching for transits in the
+\kepler\ light curves \citep[for example][]{Petigura:2013} but given the
+larger amplitude of the systematic noise in the \KT\ light curves, it is not
+surprising that a higher threshold is required to produce a manageable list of
+candidates for hand vetting.
+That being said, it is likely that a reduction in this threshold would yield
+more discoveries at the cost of a larger set of hand classifications.}
 
 We also find that the signals with periods $\lesssim 4$ days are strongly
 contaminated by false alarms.
@@ -1155,8 +1160,12 @@ candidate properties are available\footnote{\datareleaseurl}.
 The flexible systematics model we employ is a 150-parameter linear combination
 of PCA components derived from the full set of 21,703 stellar light curves.
 That is, it presumes that the systematics afflicting each star are shared in
-some way across other stars.
-It is our belief---although not a strict assumption of our model---that these
+some way across other stars \response{while the astrophysical signals are
+causally unconnected}.
+\response{This assumption means that, while there is no formal guarantee that
+the basis contains no astrophysical signals, it is unlikely that the top
+components will be contaminated.}
+It is our belief---although not a strict assumption of our model---that the
 systematics are caused primarily by pointing drifts, or movements of the
 pixels in the focal plane relative to the stars.
 In principle, if the systematics \emph{are} dominated by pointing issues, the
