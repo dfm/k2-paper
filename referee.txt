@@ -1,0 +1,124 @@
+> The authors presents in this paper a novel approach to analyze K2
+> mission data along with a valuable list of candidates they found in
+> Campaign 1 data on the basis of their own analysis. I aknowledge the
+> effort that the authors did and in particular their attempt to perform
+> a simultaneous fit of systematics together with a transit model. This
+> is certainly not an easy task especially in the case of K2 data which
+> are characterized by severe systematic effects.
+>
+> However I do think that the procedures and methods proposed by the
+> authors still require some clarifications and a more in depth
+> discussion. I therefore report below the comments I would like to see
+> addressed before re-considering this paper for publication in ApJ.
+>
+> 1) First of all it is common practice once presenting the results of a
+> photometric reduction analysis to show the RMS of the resulting
+> lightcurves as a function of magnitude. Although the authors insist in
+> several places in their article to state that their method is not
+> detrending the data, and it is therefore not producing corrected
+> lightcurves, by performing a simultaneous fit they can always subtract
+> the systematic model (like they did for example in Fig. 2) and
+> calculate the RMS that they obtain. More in general I would like to
+> see the RMS they obtained after subtracting their best fit systematic
+> model. This metric is in any case very useful and allows to compare
+> the results obtained by the authors with the one obtained by other
+> researchers. I therefore do require the authors to produce such a
+> diagram (RMS vs. magnitude) for the target stars, or equivalently to
+> present a table that shows the "average" precision they achieved in
+> different magnitude intervals.
+
+This is definitely a point well taken and we have added the requested figure
+and a discussion to the text. In the text, we argue that the more
+interesting metric is the transit detection efficiency as a function of
+magnitude---since our goal is, of course, to find planet candidates---but it
+is certainly interesting and useful to include this plot.
+We have added a figure and discussion to section 5 (Performance).
+
+> 2) Page 3, bottom. The author say: "...but (because of our
+> simultaneous fitting approach) we can use a more flexible systematic
+> model without worrying about over-fitting." This statement needs to be
+> demonstrated. The problem is that the authors decided to use 150
+> eigenvectors but throughout their work there is no justification on
+> why exactly this number has been chosen. If, for example, some of the
+> simplyfing assumptions of the authors would not be completely
+> satisfied I can easily imagine that this procedure may easily over-fit
+> or simply distort the signal. Why is it not sufficient to use only a
+> few eigenvectors? More in general I require the authors to perform
+> some other tests. It would be interesting to correlate the
+> eigenvectors with some variables for example the centroid shift and
+> the temperature of the detector. Which are the variables that best
+> correlate with the signal that it is observed? Is there any evidence
+> of spatial variations of these variables that may be imprinted in the
+> final lightcurves? How would a local analysis (e.g. selecting only the
+> closest stars to each target to model systematics) improve the result
+> with respect to a global analysis like the one performed by the
+> authors?
+
+It's true that the choice of 150 basis vectors is pretty arbitrary so we have
+added an expanded discussion of the factors affecting this choice. It's also a
+good point that the "box" model that we use for the transits is not a
+formally correct model so there is a risk of distorting the transit. That
+being said, in practice, this model is better representation of a transit than
+nothing at all. This means that over-fitting is much less of a problem, even
+if it is still possible. It's also worth remembering that in the transit fit
+step, we do use a physical model of the transit so at that point in the
+analysis the model is nearly exact.
+
+To respond to this comment, we have weakened the wording in the text and added
+a figure to demonstrate that, even though the model is wrong, the systematics
+model doesn't over-fit and distort the transits. This figure also responds to
+the next point so we'll describe it more below.
+
+> 3) In pag. 6 at the end of the second paragraph the authors state that
+> "applying this systematic model alone to a light curve with transits,
+> we would be at risk of over-fitting and decreasing the amplitude of
+> the signal". Please provide an example light curve with a transit
+> (also artificial) where the systematic model applied alone would
+> distort the signal and show the difference with respect to the
+> simultaneous fit.
+
+We have added a figure and a discussion in section 3. The figure shows the
+effects of applying the model naively to a light curve with an injected
+transit and compares it to the results of the simultaneous fit. This figure
+also shows the result of using a smaller number of eigenvectors (less
+over-fitting but it also doesn't remove enough of the systematics).
+
+> 4) In Sect. 4 some quantities like Z in Eq. 1 and M(P,T0) are
+> introduced without having being defined. Please correct.
+
+Fixed. Thanks for catching this.
+
+> 5) In the periodic search step the authors use the look up table
+> generated by the linear search. How do they actually interpolate over
+> this table?
+
+We use nearest-neighbor interpolation and we have specified this in the text.
+
+> 6) Later on at pag. 9 I arguably support the choice of the authors to
+> introduce a new indicator (named the TIC) in place of the commonly
+> used BIC. Why the authors modify the original definition? In what
+> their definition precisely differs to justify the introduction of this
+> indicator?
+
+We agree that this was an unnecessary complication and we have removed this
+new term. Instead we just stick to discussing the BIC directly.
+
+> 7) It seems, as it is reported for example at pag. 8, that once the
+> authors run the detection algorithm they discard signals with
+> substantially varying transit depth. I am wondering if this would not
+> somehow decrease the detection of multi-planetary systems.
+> Please comment.
+
+
+
+> 8) I note that the detection threshold chosen by the authors is quite
+> high (equal to 15) as reported in pag. 10. Given that the authors are
+> doing the effort to produce a simultaneous fit of systematics and
+> transit model, I was expecting them to be able to detect transit
+> signals with substantially lower S/N (let's say around S/N=6-7). Why
+> the authors impose this threshold? Do they feel they could decrease it
+> being still able to detect reliable transit candidates?
+>
+> 9) At pag. 11 the authors quote a quite low false positive rate for
+> Kepler. I note that these estimates have been recently revised upward
+> (e. g. Santerne et al. A&A 545, A76, 2012).
