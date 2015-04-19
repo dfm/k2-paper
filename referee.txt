@@ -1,3 +1,7 @@
+We thank the referee for the thoughtful comments.
+We have made the requested changes (highlighted in the manuscript) and we have
+included direct responses below.
+
 > The authors presents in this paper a novel approach to analyze K2
 > mission data along with a valuable list of candidates they found in
 > Campaign 1 data on the basis of their own analysis. I aknowledge the
@@ -109,7 +113,17 @@ new term. Instead we just stick to discussing the BIC directly.
 > somehow decrease the detection of multi-planetary systems.
 > Please comment.
 
-
+In that section, our wording somewhat misrepresents the effects of our search
+model and we have changed it to try to minimize misunderstanding. Instead,
+when running the two-dimensional search, we compare the evidence for a model
+where every transit has the same depth and another model where the depth can
+vary. If the variable depth model is much preferred, the method rejects it as
+a false positive. This procedure actually makes the method more sensitive to
+multi-planetary systems in most cases because otherwise the algorithm might
+incorrectly decide that the transits of different planets are caused by a
+single system. The one case where this argument is weaker is when the transits
+of multiple planets occur simultaneously. We note however that our method
+still detects both candidates around EPIC201505350 where this happens.
 
 > 8) I note that the detection threshold chosen by the authors is quite
 > high (equal to 15) as reported in pag. 10. Given that the authors are

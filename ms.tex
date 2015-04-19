@@ -571,8 +571,8 @@ $\duration_k$ and fine in transit time $\transittime_m$.
 Then in the {\bf periodic search} step, we use this two-dimensional grid to
 approximately evaluate the likelihood (\eqalt{indtran}) for a
 three-dimensional grid of periodic signals.
-Then, we run a peak detection algorithm on this grid that discards signals
-with substantially varying transit depths.
+Then, we run a peak detection algorithm on this grid \response{that is robust
+to signals with substantially varying transit depths}.
 These transit candidates are then passed along for machine and human {\bf
 vetting}.
 
@@ -1294,6 +1294,8 @@ Roberto Sanchis Ojeda (Berkeley),
 and
 Andrew Vanderburg (Harvard)
 for helpful contributions to the ideas and code presented here.
+We also thank the anonymous referee for comments that improved the
+manuscript.
 DFM, DWH, and DW were partially supported by the National Science Foundation
 (grant IIS-1124794),
 the National Aeronautics and Space Administration
