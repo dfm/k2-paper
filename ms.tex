@@ -84,8 +84,8 @@
 \newcommand{\response}[1]{{\color{mygreen} {\bf #1}}}
 
 % Notation for this paper.
-\newcommand{\flux}{{\ensuremath{f}}}
-\newcommand{\ferr}{{\ensuremath{\sigma_\flux}}}
+\newcommand{\flux}{{\ensuremath{\bvec{f}}}}
+\newcommand{\ferr}{{\ensuremath{\sigma_f}}}
 \newcommand{\attime}{{\ensuremath{t}}}
 \newcommand{\basis}{{\bvec{A}}}
 \newcommand{\weights}{{\bvec{w}}}
@@ -139,7 +139,7 @@
                           726 Broadway, 7th Floor, New York, NY, 10003, USA}
 \altaffiltext{\princeton}{Department of Astrophysics, Princeton University,
                           Princeton, NJ, 08544, USA}
-\altaffiltext{\mpis}     {Max Planck Institute for Intelligent Systems
+\altaffiltext{\mpis}     {Max Planck Institute for Intelligent Systems,
                           Spemannstrasse 38, 72076 T\"ubingen, Germany}
 
 \begin{abstract}
@@ -348,6 +348,8 @@ One key realization that is also exploited by the official \kepler\ pipeline
 is that the systematic trends caused by pointing shifts and other instrumental
 effects are shared---with different signs and weights---by all the stars on
 the focal plane.
+For a rigorous theoretical analysis of this problem, see Sch\"olkpf
+\etal\ (ICML, in press).
 To capitalize on this, the \pdc\ component of the \kepler\ pipeline
 removes any trends from the light curves that can be fit using a linear
 combination of a small number of ``co-trending basis vectors''.
@@ -409,8 +411,8 @@ using only empirical centroids \citep{Vanderburg:2014, Armstrong:2014,
 Aigrain:2015, Crossfield:2015}, but our more flexible model should capture a
 wider range of effects, including those related to PSF and temperature.
 For example, \Fig{corr} shows the application of our model---with 150
-ELCs---to a light curve with no known transit signals and the precision is
-excellent.
+ELCs---to a light curve with no known transit signals and the photometric
+precision is excellent.
 
 If we were to apply this systematics model alone (without a simultaneous fit
 of the exoplanet transit model) to a light curve with transits, we would be at
@@ -436,7 +438,7 @@ phase, and duration.
 The mathematical details are given in \app{math}, but in summary, since the
 model is linear, we can analytically compute the likelihood
 function---conditioned on a specific period, phase, and duration---for the
-depth \emph{marginalizing out the systematics model}.
+depth \emph{marginalizing out the parameters of the systematics model}.
 The signal-to-noise of this depth measurement can then be used as a quality of
 fit metric or candidate selection scalar.
 This computation is expensive but, as described in the following \sectionname
@@ -472,7 +474,8 @@ but the gain wasn't sufficient to justify the added cost.
 \includegraphics{figures/corr.pdf}
 \end{center}
 \caption{%
-A demonstration of the ELC fit to the aperture photometry for EPIC 201374602.
+A demonstration of the eigen light curve (ELC) fit to the aperture photometry
+for EPIC 201374602.
 \emph{Top:} The black points show the aperture photometry and the green line
 is the maximum likelihood linear combination of ELCs.
 The estimated 6-hour precision of the raw photometry is 264 ppm.
@@ -481,7 +484,8 @@ prediction.
 The 6-hour precision of this light curve is 31 ppm.
 Note that although we show a ``de-trended'' light curve to give a qualitative
 understanding of the model, this is not a product of the analysis.
-In this search for transits, \emph{the data are never de-trended}.
+In this search for transits, \emph{the data are only de-trended for the
+purpose of visualization}.
 \figlabel{corr}}
 \end{figure}
 
@@ -494,12 +498,12 @@ In this search for transits, \emph{the data are never de-trended}.
 A comparison between de-trending using different numbers of ELCs and a
 simultaneous fit of the systematics and transit model.
 \emph{(a)} The raw photometry for EPIC 201374602 with a synthetic transit
-injected at 65 days. In all plots, the photometry is measured in
-parts-per-thousand (ppt).
+injected at 65 days.
+% In all plots, the photometry is measured in parts-per-thousand (ppt).
 \emph{(b)} The black points show the photometry de-trended using a linear
 combination of 10 ELCs and the green line shows the true transit model.
-The maximum likelihood transit depth is computed following \project{BLS}
-\citep{Kovacs:2002}.
+In this panel and the next, the maximum likelihood transit depth is computed
+following \project{BLS} \citep{Kovacs:2002}.
 While some of the systematics are removed by this model, there is still a lot
 of residual noise.
 \emph{(c)} The same plot as panel \emph{(b)} but using 150 ELCs to de-trend.
@@ -507,7 +511,8 @@ This model removes the majority of the systematics but also distorts the
 transit and weakens the signal; it reduces the measured transit depth.
 \emph{(d)} The final panel shows the results of simultaneously fitting for
 the transit and the systematics using 150 ELCs.
-The maximum likelihood depth is computed as described in \app{math}.
+The maximum likelihood depth (marginalized over the ELC weights) is computed
+as described in \app{math}.
 Like panel \emph{(c)}, this model removes most of the systematics but does
 not distort the transit or reduce the measured transit depth.
 }
@@ -526,11 +531,11 @@ required size and resolution.
 Instead, we can compute the values on this grid approximately, but at very
 high precision, using a two-step procedure that is much more efficient.
 
-Specifically, we must evaluate the likelihood function for the light curve of
-star $n$ given a period \period, reference transit time \phase, duration
-\duration, \response{and depth \depth}
+Specifically, we must evaluate the likelihood function for the light curve
+$\flux_n$ of star $n$ given a period \period, reference transit time \phase,
+duration \duration, \response{and depth \depth}
 \begin{eqnarray}\eqlabel{full-likelihood}
-p(\{\flux\}_n\,|\,\period,\,\phase,\,\duration,\,\depth) \quad.
+p(\flux_n\,|\,\period,\,\phase,\,\duration,\,\depth) \quad.
 \end{eqnarray}
 We make the simplifying assumption that each transit enters this quantity
 independently.
@@ -541,9 +546,9 @@ is approximately satisfied for all but the shortest
 periods and leads to a huge computational advantage.
 Under this assumption, this likelihood function can be rewritten as
 \begin{eqnarray}\eqlabel{indtran}
-p(\{\flux\}_n\,|\,\period,\,\phase,\,\duration,\,\depth) &=&
+p(\flux_n\,|\,\period,\,\phase,\,\duration,\,\depth) &=&
 \prod_{m=1}^{M(\period,\,\phase)}
-    p(\{\flux\}_n\,|\,\transittime_m(\period,\,\phase),\,\duration,\,
+    p(\flux_n\,|\,\transittime_m(\period,\,\phase),\,\duration,\,
                     \depth)
 \end{eqnarray}
 where $\transittime_m(\period,\,\phase)$ is the time of the $m$-th
@@ -554,7 +559,7 @@ for the given \period\ and \phase}.
 first compute a set of likelihood functions for single transits on a grid
 in $\transittime_l$ and duration $\duration_k$
 \begin{eqnarray}\eqlabel{singletransit}
-\left \{ p(\{\flux\}_n\,|\,\transittime_l,\,\duration_k,\,\depth)
+\left \{ p(\flux_n\,|\,\transittime_l,\,\duration_k,\,\depth)
 \right\}_{l=1,\,k=1}^{L,\,K} \quad.
 \end{eqnarray}
 Then, we can use these results as a look-up table\response{---with
@@ -584,10 +589,10 @@ two-dimensional grid in transit time and duration.
 For each point in the grid, we use the model described in \sect{model} to
 evaluate \emph{the likelihood function} for the transit depth at that time
 and duration.
-Since the model is linear, the likelihood function for the depth (marginalized
-over the model of the systematics) is a Gaussian with analytic amplitude $L$,
-mean $\bar{\depth}$, and variance $\delta\bar{\depth}^2$, all derived and given in
-\app{math}.
+Since the model is linear and the uncertainties are assumed Gaussian, the
+likelihood function for the depth (marginalized over the model of the
+systematics) is a Gaussian with analytic amplitude $L$, mean $\bar{\depth}$,
+and variance $\delta\bar{\depth}^2$, all derived and given in \app{math}.
 In the linear search, we save these three numbers on a
 two-dimensional grid of transit times $\transittime_l$ and durations
 $\duration_k$.
@@ -619,7 +624,8 @@ linear search step are used to compute the likelihood of the periodic model
 (\eqalt{indtran}) on a three dimensional grid in period \period, reference
 time \phase, and duration \duration.
 At each point in this grid, the likelihood function for each transit depth is
-chosen as the nearest point calculated in the linear search.
+chosen as the nearest point (without interpolation) calculated in the linear
+search.
 If the time spacing of the linear search is sufficiently fine, this will give
 a good approximation of the correct periodic likelihood.}
 For each periodic model, we compute the likelihood of a model where the
@@ -628,7 +634,7 @@ the transit depth is constant.
 The variable depth likelihood is given by the product of amplitudes from the
 initial search
 \begin{eqnarray}
-p_\mathrm{var}(\{\flux\}_n\,|\,\period,\,\phase,\,\duration) &=&
+p_\mathrm{var}(\flux_n\,|\,\period,\,\phase,\,\duration) &=&
 \prod_{m=1}^{M(\period,\,\phase)} L_m \quad.
 \end{eqnarray}
 Since the likelihood function for the depth at each transit time is known and
@@ -636,7 +642,7 @@ Gaussian, the likelihood function for the depth under the periodic model can
 also be computed analytically; it is a product of Gaussians which itself is a
 Gaussian
 \begin{eqnarray}
-p_\mathrm{const}(\{\flux\}_n\,|\,\period,\,\phase,\,\duration) &=&
+p_\mathrm{const}(\flux_n\,|\,\period,\,\phase,\,\duration) &=&
 \prod_{m=1}^{M(\period,\,\phase)}
     \frac{L_m}{\sqrt{2\,\pi\,{\delta\bar{\depth}_m}^2}}\,\exp \left(
         -\frac{[\depth - \bar{\depth}_m]^2}{2\,{\delta\bar{\depth}_m}^2}
@@ -666,7 +672,7 @@ Criterion (BIC).
 The traditional definition of the BIC is
 \begin{eqnarray}
 -\frac{1}{2}\,\BIC &=&
-    \ln p(\{\flux\}_n\,|\,\period,\,\phase,\,\duration)
+    \ln p(\flux_n\,|\,\period,\,\phase,\,\duration)
     - \frac{K}{2} \ln N
 \end{eqnarray}
 where the likelihood function is evaluated at the maximum, $K$ is an estimate
@@ -675,7 +681,7 @@ To emphasize that $K$ and $N$ are tuning parameters of the method, we
 rewrite this equation as
 \begin{eqnarray}
 -\frac{1}{2}\,\BIC &=&
-    \ln p(\{\flux\}_n\,|\,\period,\,\phase,\,\duration) -
+    \ln p(\flux_n\,|\,\period,\,\phase,\,\duration) -
         \frac{J\,\alpha}{2}
 \end{eqnarray}
 where $J$ is the number of allowed depths---one for the constant depth model
@@ -880,9 +886,13 @@ To do first-pass vetting for blended EBs among our catalog of
 planetary candidates, we test for significant centroid offsets using
 the machinery that we have already established for modeling the
 systematic trends in the data, inspired by the methods used to vet
-\kepler\ candidates \citep{Bryson:2013}.  This is only an initial vetting step
-and a more complete characterization of our catalog's reliability is
-forthcoming (Montet, \etal\ in preparation).
+\kepler\ candidates \citep{Bryson:2013}.
+If any of the candidates have substantial centroid offsets in phase with their
+transits, this indicates that the signal is likely caused by a background or
+foreground transit of an eclipsing binary and we, therefore, remove it from
+the final candidate list.
+This is only an initial vetting step and a more complete characterization of
+our catalog's reliability is forthcoming (Montet, \etal\ in preparation).
 
 To measure \emph{centroid offsets}, we start by empirically measuring the
 pixel centroid time series for each candidate by modeling the pixels near the
@@ -976,7 +986,7 @@ light curve through the full pipeline (except the manual vetting).
 If the search returns a planet candidate---passing all of the same cuts as we
 apply in the main search (except the manual vetting)---with period and
 reference transit time within 6~hours of the injected signal, we count that
-injection as recovered.
+injection as necovered.
 The detection efficiency of the search is given approximately by the fraction
 of recovered injections as a function of the relevant parameters.
 
@@ -1007,7 +1017,7 @@ negligence but we leave a treatment of this for future work.
 
 \figurename s~\figref{completeness} and~\figref{completeness-mag} show the
 fraction of recovered signals as a function of the physical parameters of the
-injection and the magnitude of the star in the \kepler\ bandpass as reported
+injection, and the magnitude of the star in the \kepler\ bandpass as reported
 in the Ecliptic Plane Input Catalog
 (EPIC\footnote{\url{http://archive.stsci.edu/k2/epic.pdf}}).
 As expected, the shallower transits at longer periods are recovered less
@@ -1059,7 +1069,8 @@ marginalized over all the stellar properties, including magnitude.
 \end{center}
 \caption{%
 Like \fig{completeness}, the empirically measured detection efficiency of the
-search procedure as a function of stellar magnitude as reported by the EPIC.
+search procedure as a function of stellar magnitude as reported by the
+Ecliptic Plane Input Catalog.
 This never reaches 90~percent because these numbers are marginalized over the
 range of physical parameters shown in \fig{completeness}.
 Even for the brightest stars, the long period, small transits cannot be
@@ -1076,7 +1087,7 @@ detected.
 The 6-hour CDPP \citep{Christiansen:2012} for each light curve in Campaign 1
 after subtracting the best fit linear combination of 150 ELCs.
 For each star, the precision is plotted as a function of the \kepler\
-magnitude reported in the EPIC.
+magnitude reported in the Ecliptic Plane Input Catalog.
 The ``outliers'' in the bottom right corner of the plot are caused by a
 bright star within the photometric aperture and the points in the top left
 corner of the plot are variable stars where the major trends in the light
@@ -1166,7 +1177,7 @@ The flexible systematics model we employ is a 150-parameter linear combination
 of PCA components derived from the full set of 21,703 stellar light curves.
 That is, it presumes that the systematics afflicting each star are shared in
 some way across other stars \response{while the astrophysical signals are
-causally unconnected}.
+causally unconnected (Sch\"olkopf \etal\ ICML in press)}.
 \response{This assumption means that, while there is no formal guarantee that
 the basis contains no astrophysical signals, it is unlikely that the top
 components will be contaminated.}
@@ -1176,7 +1187,7 @@ pixels in the focal plane relative to the stars.
 In principle, if the systematics \emph{are} dominated by pointing issues, the
 systematics model could require only three parameters---three Euler
 angles---not 150 amplitudes.
-However, because (as the pointing drifts) each star sees it's own unique
+However, because (as the pointing drifts) each star sees its own unique
 local patch of flat-field variations, the mapping from pointing drifts to
 brightness variations can be extremely non-linear.
 Furthermore, because when the pointing is moving fast there is a smearing of
@@ -1342,7 +1353,7 @@ where
     f_{k,1} & f_{k,2} & \cdots & f_{k,N}
 \end{array}\right )^\T
 \end{eqnarray}
-is the list aperture fluxes for star $k$ observed at $N$ times
+is the list of aperture fluxes for star $k$ observed at $N$ times
 \begin{eqnarray}
 \bvec{t} &=& \left (\begin{array}{cccc}
     t_{1} & t_{2} & \cdots & t_{N}
